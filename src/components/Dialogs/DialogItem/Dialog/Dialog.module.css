@@ -1,0 +1,20 @@
+.dialog {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+.dialogUser.active,
+.dialogUser:hover {
+  background: var(--grey);
+}
+.dialogUser {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0 10px 20px;
+  color: #fff;
+  text-decoration: none;
+}
+.dialogUser:first-of-type {
+  border-radius: 5px 0 0 0;
+}

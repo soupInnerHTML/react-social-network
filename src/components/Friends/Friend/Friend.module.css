@@ -1,0 +1,11 @@
+.friend {
+  padding: 20px;
+}
+.avatar {
+  height: 80px;
+  width: 80px;
+  background-size: 80px;
+}
+.name {
+  text-align: center;
+}

@@ -1,0 +1,30 @@
+.info {
+  display: grid;
+  gap: 20px;
+  grid-template-areas: "avatar info";
+  grid-template-columns: 150px;
+  background: url(https://s-sd.ru/files/zoom-effect-cap-with-site-using-css3/img/cd-intro-background.jpg);
+  background-position: center center;
+  min-height: 300px;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: end;
+}
+.avatar {
+  height: 150px;
+  width: 150px;
+  background-size: 150px;
+}
+.desc {
+  grid-area: info;
+}
+.desc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.name {
+  font-size: 24px;
+}
+.desc p:not(.name) {
+  margin: 0;
+}

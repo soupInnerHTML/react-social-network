@@ -1,38 +1,53 @@
+/* Global styles */
+:root {
+  --accent: #e9c7ff;
+  --grey: #48484c;
+  --d-grey: #343437;
+  --sidebar-padding: 10px;
+  --default-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
 .App {
-  text-align: center;
+  background: #28282a;
+  color: #fff;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App * {
+  outline: none !important;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
 }
-
-.App-header {
-  background-color: #282c34;
+.Main-container {
+  margin-top: 15px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 5fr;
+  grid-template-areas: "s m m m m m m";
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.App-sidebar {
+  grid-area: s;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-main {
+  grid-area: m;
+}
+.App-block {
+  border-radius: 5px;
+  background: var(--d-grey);
+}
+.separator {
+  border: none;
+  border-top: 1px solid var(--grey);
+}
+.avatar {
+  background: url("https://sun9-12.userapi.com/impf/GyMOuMjqGjLI3XqITRcE1JfREynnlB3qk-rSMA/A5Vk1LCOkZA.jpg?size=660x1305&quality=96&proxy=1&sign=07894b2850cc5b0d0811fa5ae6f13ce5");
+  background-position: center center;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-size: 50px;
+  grid-area: avatar;
 }

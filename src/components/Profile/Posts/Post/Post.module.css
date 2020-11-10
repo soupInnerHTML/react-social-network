@@ -1,0 +1,30 @@
+.post {
+  display: grid;
+  grid-template-columns: 50px;
+  grid-template-rows: 50px;
+  gap: 14px;
+  grid-template-areas:
+    "avatar name"
+    "content content"
+    "meta meta";
+}
+.name {
+  grid-area: name;
+  color: var(--accent);
+  margin: 0;
+}
+.date {
+  font-size: 12px;
+  margin: 0;
+}
+.content {
+  grid-area: content;
+}
+.meta {
+  grid-area: meta;
+}
+.likeIcon {
+  width: 16px;
+  padding: 0 6px 0 0;
+  vertical-align: middle;
+}
