@@ -1,3 +1,6 @@
+import profileReducer from './profileReducer'
+import dialogsReducer from './dialogsReducer'
+
 let store = {
     _state : {
         profilePage : {
@@ -102,7 +105,6 @@ let store = {
         }
     },
     getState() {
-        console.log(this._state)
         return this._state
     },
     _callSubscriber() {
@@ -117,51 +119,13 @@ let store = {
         // kind of listener
         //this._callSubscriber = renderEntireTree from index.js
     },
-    _addPost(input) {
-        if(input.current.value.length) {
-            this._state.profilePage.postsData.push({
-                id : 7,
-                likes : 0,
-                text: input.current.value
-            })
-        }
-    
-        input.current.value = null
-        this._callSubscriber(this._state) //*
-    },
-    _sendMessage(input) {
-        if(input.current.value.length) {
-            this._state.dialogsPage.messagesData.push({
-                id : 7,
-                message: input.current.value
-            })
-        }
-    
-        input.current.value = null
-        this._callSubscriber(this._state) //*
-    },
     dispatch(action) {
-        switch(action.type){
-            case 'addPost':
-                this._addPost(action.input)
-            break;
+        profileReducer(action, this._state)
+        dialogsReducer(action, this._state)
 
-            case 'sendMessage':
-                this._sendMessage(action.input)
-            break;
-        }
+        this._callSubscriber(this._state) //*
     }
 }
-
-export const CREATE_ACTION_ADD_POST = input => ({
-    type: 'addPost', 
-    input: input
-})
-
-export const CREATE_ACTION_SEND_MESSAGE = input => ({
-    type: 'sendMessage', 
-    input: input
-})
 
 window.store = store
 export default store;

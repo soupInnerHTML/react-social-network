@@ -1,7 +1,7 @@
 /* Ultrashort name _ for root styles*/
 import _ from './AddPost.module.css'
 import React from 'react'
-import {CREATE_ACTION_ADD_POST} from '../../../redux/state'
+import {CREATE_ACTION_ADD_POST} from '../../../redux/profileReducer'
 
 const AddPost = props => {
   let addPost = e => {

@@ -3,7 +3,7 @@
 import _ from './Messages.module.css'
 import React from 'react'
 import SendImgPath from './img/send.svg'
-import {CREATE_ACTION_SEND_MESSAGE} from '../../../redux/state'
+import {CREATE_ACTION_SEND_MESSAGE} from '../../../redux/dialogsReducer'
 
 const Messages = props => {
     let messagesObject = props.messagesData.map(messageData => {
