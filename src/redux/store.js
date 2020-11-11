@@ -112,7 +112,7 @@ let store = {
         // so we must add w/out import in this file
         // need to use for *
     },
-    subcribe (observe) {
+    subscribe (observe) {
         this._callSubscriber = observe
         // get function from other file w/out import
         // we use it in index.js
