@@ -1,20 +1,10 @@
 import AddPost from "./AddPost"
 import { connect } from 'react-redux'
 
-// const AddPostContainer = props => {
-//     let dispatch = props.store.dispatch.bind(props.store)
-
-//     return (
-//       <AddPost dispatch={dispatch}></AddPost>
-//     )
-
-
-//   }
-
 
 let mapStateToProps = state => {
   return {
-
+    newPostText: state.profilePage.newPostText
   }
 }
 

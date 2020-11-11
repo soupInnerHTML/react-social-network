@@ -1,20 +1,19 @@
-// import { NavLink } from 'react-router-dom';
 /* Ultrashort name _ for root styles*/
 import _ from './Messages.module.css'
 import React from 'react'
 import SendImgPath from './img/send.svg'
-import {CREATE_ACTION_SEND_MESSAGE} from '../../../redux/dialogsReducer'
+import { CREATE_ACTION_SEND_MESSAGE, CREATE_ACTION_TYPE_NEW_MESSAGE } from '../../../redux/dialogsReducer'
 
 const Messages = props => {
-    let getText = () => {
-        // console.log(input.current.value)
-    },
+    let textChange = () => {
+        props.dispatch(CREATE_ACTION_TYPE_NEW_MESSAGE(input))
+    }
 
-    sendMessage = () => {
+    let sendMessage = () => {
         props.dispatch(CREATE_ACTION_SEND_MESSAGE(input))
-    },
+    }
 
-    input = React.createRef()
+    let input = React.createRef()
 
     return (
         <div className={_.messagesItems}>
@@ -24,9 +23,11 @@ const Messages = props => {
                 </div>
             </div>
 
-            <input ref={input} onKeyPress={getText} className={_.messageText} type="text" placeholder="Write a message..."/>
+            <input ref={input} onChange={textChange} value={props.newMessageText} className={_.messageText}
+                type="text" placeholder="Write a message..." />
+
             <button className={_.send} onClick={sendMessage}>
-                <img src={SendImgPath} alt=""/>
+                <img src={SendImgPath} alt="" />
             </button>
         </div>
     );
