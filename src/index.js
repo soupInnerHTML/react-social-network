@@ -6,13 +6,18 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
+// let dispatch = store.dispatch.bind(store)         
+{/* 
+  use bind to save 'this' 
+  isolate store from <App>
+*/}
+
 let renderEntireTree = localState => {
   ReactDOM.render(
       <React.StrictMode>
         <BrowserRouter>
-          <App state={localState} dispatch={store.dispatch.bind(store)}/>
+          <App store={store}/>
         </BrowserRouter>
-        {/* use bind to save 'this' */}
       </React.StrictMode>,
       document.getElementById('root')
     );

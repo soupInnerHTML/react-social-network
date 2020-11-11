@@ -1,21 +1,18 @@
 import './App.css';
+import {Route} from 'react-router-dom';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
 import Sidebar from './components/Sidebar/Sidebar';
-import Friends from './components/Friends/Friends';
-import {Route} from 'react-router-dom';
+import FriendsContainer from './components/Friends/FriendsContainer';
 
 
 
 const App = props => {
-  let getProfile = () => <Profile dispatch={props.dispatch} 
-      profileState={props.state.profilePage}></Profile>,
-
-      getDialogs = () => <Dialogs dispatch={props.dispatch} 
-      dialogsState={props.state.dialogsPage}></Dialogs>,
-      
-      getFriends = () => <Friends friendsState={props.state.friendsPage}></Friends>
+  console.log(props)
+  let getProfile = () => <Profile store={props.store}></Profile>,
+      getDialogs = () => <Dialogs store={props.store}></Dialogs>,
+      getFriends = () => <FriendsContainer store={props.store}></FriendsContainer>
 
       
   return (
