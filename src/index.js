@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 // let dispatch = store.dispatch.bind(store)         
 {/* 
@@ -14,13 +15,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 let renderEntireTree = localState => {
   ReactDOM.render(
-      <React.StrictMode>
-        <BrowserRouter>
-          <App store={store}/>
-        </BrowserRouter>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider store={store} >
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 }
 
 renderEntireTree(store.getState())

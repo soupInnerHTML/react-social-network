@@ -1,6 +1,4 @@
 /* Ultrashort name _ for root styles*/
-// import { NavLink } from 'react-router-dom';
-import Friend from './Friend/Friend'
 import _ from './Friends.module.css'
 
 const Friends = props => {

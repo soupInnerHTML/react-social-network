@@ -6,17 +6,12 @@ import SendImgPath from './img/send.svg'
 import {CREATE_ACTION_SEND_MESSAGE} from '../../../redux/dialogsReducer'
 
 const Messages = props => {
-    let messagesObject = props.messagesData.map(messageData => {
-        return <div>{messageData.message}</div>
-    }),
-
-    getText = () => {
-        console.log(input.current.value)
+    let getText = () => {
+        // console.log(input.current.value)
     },
 
     sendMessage = () => {
         props.dispatch(CREATE_ACTION_SEND_MESSAGE(input))
-        
     },
 
     input = React.createRef()
@@ -25,7 +20,7 @@ const Messages = props => {
         <div className={_.messagesItems}>
             <div className={_.layer}>
                 <div className={_.messages}>
-                    {messagesObject}
+                    {props.messagesObject}
                 </div>
             </div>
 

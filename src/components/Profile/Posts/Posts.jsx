@@ -4,17 +4,19 @@ import Post from './Post/Post'
 
 const Posts = props => {
 
-    let postsObject = props.postsData.map(postData => {
-        return (
-            <section className={_.posts + ' App-block'}>
-                <Post text={postData.text} likes={postData.likes}></Post>
-            </section>
-        )
-    }).reverse()
+    console.log(props)
+
+    // let postsObject = props.postsData.map(postData => {
+    //     return (
+    //         <section className={_.posts + ' App-block'}>
+    //             <Post text={postData.text} likes={postData.likes}></Post>
+    //         </section>
+    //     )
+    // }).reverse()
 
     return (
         <div className="postLoop">
-            {postsObject}
+            {/* {postsObject} */}
         </div>
     )
 }

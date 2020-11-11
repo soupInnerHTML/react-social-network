@@ -9,7 +9,8 @@ const Dialogs = props => {
     return (
         <main className="App-main">
             <section className={_.dialogs_items + " App-block"}>
-                <DialogItem dialogsData={props.store.getState().dialogsPage.dialogsData}></DialogItem>
+                <DialogItem></DialogItem>
+                {/*  dialogsData={props.store.getState().dialogsPage.dialogsData} */}
                 <MessagesContainer store={props.store}></MessagesContainer>
                 {/* <Messages dispatch={props.dispatch} messagesData={props.dialogsState.messagesData}></Messages> */}
             </section>

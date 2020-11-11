@@ -11,7 +11,7 @@ const AddPost = props => {
   },
 
   textChange = () => {
-    console.log(input.current.value)
+    // console.log(input.current.value)
   },
   
   input = React.createRef()
