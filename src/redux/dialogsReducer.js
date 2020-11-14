@@ -1,6 +1,6 @@
 export const CREATE_ACTION_SEND_MESSAGE = input => ({
     type: 'sendMessage',
-    input: input
+    input
 })
 
 export const CREATE_ACTION_TYPE_NEW_MESSAGE = input => ({
@@ -57,24 +57,26 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
+    let copyState = Object.assign({}, state)
     switch (action.type) {
         case CREATE_ACTION_SEND_MESSAGE(null).type:
             if (action.input.current.value.length) {
-                state.messagesData.push({
+                copyState.messagesData.push({
                     id: 7,
                     message: action.input.current.value
                 })
             }
 
+            copyState.newMessageText = null
             action.input.current.value = null
             break;
 
         case CREATE_ACTION_TYPE_NEW_MESSAGE(null).type:
-            state.newMessageText = action.input.current.value
+            copyState.newMessageText = action.input.current.value
             break;
     }
 
-    return Object.assign({}, state)
+    return copyState
 }
 
 export default dialogsReducer

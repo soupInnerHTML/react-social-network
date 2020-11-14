@@ -1,11 +1,28 @@
 .friend {
-  padding: 20px;
+	padding: 20px;
+	position: relative;
 }
 .avatar {
-  height: 80px;
-  width: 80px;
-  background-size: 80px;
+	height: 80px;
+	width: 80px;
+	background-size: 80px;
 }
 .name {
-  text-align: center;
+	text-align: center;
+}
+.unfollow::before,
+.follow::before {
+	position: absolute;
+	right: 10px;
+	padding: 5px 10px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.unfollow::before {
+	content: "-";
+	background: #dc3545;
+}
+.follow::before {
+	content: "+";
+	background: #007bff;
 }

@@ -55,6 +55,7 @@ const profileReducer = (state = initialState, action) => {
                 })
             }
             action.input.current.value = null
+            state.newPostText = action.input.current.value
             break;
 
         case CREATE_ACTION_TYPE_NEW_POST(null).type:

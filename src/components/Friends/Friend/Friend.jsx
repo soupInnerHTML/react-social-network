@@ -5,7 +5,8 @@ import _ from './Friend.module.css'
 const Friend = props => {
     return (
         <div className={_.friend}>
-            <img src={props.avatar} className={"avatar " + _.avatar} alt=""/>
+            <div className={props.isFollowed ? _.unfollow : _.follow}></div>
+            <img src={props.avatar} className={"avatar " + _.avatar} alt="" />
             <p className={_.name}>{props.name}</p>
         </div>
     );

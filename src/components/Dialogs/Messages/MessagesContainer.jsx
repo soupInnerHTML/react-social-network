@@ -1,5 +1,6 @@
 import Messages from './Messages';
 import { connect } from 'react-redux'
+import { CREATE_ACTION_SEND_MESSAGE, CREATE_ACTION_TYPE_NEW_MESSAGE } from '../../../redux/dialogsReducer'
 
 let mapStateToProps = state => {
     return {
@@ -12,8 +13,11 @@ let mapStateToProps = state => {
 
 let mapDispatchToProps = dispatch => {
     return {
-        dispatch: action => {
-            dispatch(action)
+        typeNewMessage: input => {
+            dispatch(CREATE_ACTION_TYPE_NEW_MESSAGE(input))
+        },
+        sendMessage: input => {
+            dispatch(CREATE_ACTION_SEND_MESSAGE(input))
         }
     }
 }

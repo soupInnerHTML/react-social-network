@@ -2,18 +2,17 @@
 import _ from './Messages.module.css'
 import React from 'react'
 import SendImgPath from './img/send.svg'
-import { CREATE_ACTION_SEND_MESSAGE, CREATE_ACTION_TYPE_NEW_MESSAGE } from '../../../redux/dialogsReducer'
 
 const Messages = props => {
-    let textChange = () => {
-        props.dispatch(CREATE_ACTION_TYPE_NEW_MESSAGE(input))
+    let postTextChange = () => {
+        props.typeNewMessage(messageInput)
     }
 
     let sendMessage = () => {
-        props.dispatch(CREATE_ACTION_SEND_MESSAGE(input))
+        props.sendMessage(messageInput)
     }
 
-    let input = React.createRef()
+    let messageInput = React.createRef()
 
     return (
         <div className={_.messagesItems}>
@@ -23,7 +22,7 @@ const Messages = props => {
                 </div>
             </div>
 
-            <input ref={input} onChange={textChange} value={props.newMessageText} className={_.messageText}
+            <input ref={messageInput} onChange={postTextChange} value={props.newMessageText} className={_.messageText}
                 type="text" placeholder="Write a message..." />
 
             <button className={_.send} onClick={sendMessage}>

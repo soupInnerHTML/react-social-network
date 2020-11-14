@@ -1,28 +1,29 @@
 /* Ultrashort name _ for root styles*/
 import _ from './AddPost.module.css'
 import React from 'react'
-import { CREATE_ACTION_ADD_POST, CREATE_ACTION_TYPE_NEW_POST } from '../../../redux/profileReducer'
 
 
 const AddPost = props => {
-  // debugger
   let addPost = e => {
     e.preventDefault()
 
-    props.dispatch(CREATE_ACTION_ADD_POST(input))
+    props.addPost(postInput)
   }
 
-  let textChange = () => {
-    props.dispatch(CREATE_ACTION_TYPE_NEW_POST(input))
+  let messageTextChange = () => {
+    props.typeNewPost(postInput)
   }
 
-  let input = React.createRef()
+  let postInput = React.createRef()
+
+  let some = e => console.log(e)
 
   return (
     <section className="App-block">
       <form className={_.addPost}>
-        <textarea ref={input} type="text" className={_.text}
-          placeholder="Что у вас нового?" onChange={textChange} value={props.newPostText} />
+        <textarea ref={postInput} type="text" className={_.text}
+          placeholder="Что у вас нового?" onChange={messageTextChange} value={props.newPostText} />
+
 
         <hr className={"separator " + _.topLine} />
 
