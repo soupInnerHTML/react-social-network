@@ -5,11 +5,11 @@ import SendImgPath from './img/send.svg'
 
 const Messages = props => {
     let postTextChange = () => {
-        props.typeNewMessage(messageInput)
+        props.typeNewMessage(messageInput.current.value)
     }
 
     let sendMessage = () => {
-        props.sendMessage(messageInput)
+        props.sendMessage(messageInput.current.value)
     }
 
     let messageInput = React.createRef()

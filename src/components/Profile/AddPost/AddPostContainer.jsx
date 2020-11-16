@@ -1,6 +1,6 @@
 import AddPost from "./AddPost"
 import { connect } from 'react-redux'
-import { CREATE_ACTION_ADD_POST, CREATE_ACTION_TYPE_NEW_POST } from '../../../redux/profileReducer'
+import { addPostAC, typeNewPostAC } from '../../../redux/profileReducer'
 
 
 let mapStateToProps = state => {
@@ -12,10 +12,10 @@ let mapStateToProps = state => {
 let mapDispatchToProps = dispatch => {
   return {
     addPost: input => {
-      dispatch(CREATE_ACTION_ADD_POST(input))
+      dispatch(addPostAC(input))
     },
     typeNewPost: input => {
-      dispatch(CREATE_ACTION_TYPE_NEW_POST(input))
+      dispatch(typeNewPostAC(input))
     }
   }
 }

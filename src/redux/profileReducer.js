@@ -1,10 +1,13 @@
-export const CREATE_ACTION_ADD_POST = input => ({
-    type: 'addPost',
+const ADD_POST = 'addPost'
+const TYPE_TEXT = 'typeText'
+
+export const addPostAC = input => ({
+    type: ADD_POST,
     input
 })
 
-export const CREATE_ACTION_TYPE_NEW_POST = input => ({
-    type: 'typeText',
+export const typeNewPostAC = input => ({
+    type: TYPE_TEXT,
     input
 })
 
@@ -45,25 +48,27 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
+    let copyState = JSON.parse(JSON.stringify(state))
+
     switch (action.type) {
-        case CREATE_ACTION_ADD_POST(null).type:
-            if (action.input.current.value.length) {
-                state.postsData.push({
+        case ADD_POST:
+            if (action.input.length) {
+                copyState.postsData.push({
                     id: 7,
                     likes: 0,
-                    text: action.input.current.value
+                    text: action.input
                 })
             }
-            action.input.current.value = null
-            state.newPostText = action.input.current.value
+            copyState.newPostText = ''
             break;
 
-        case CREATE_ACTION_TYPE_NEW_POST(null).type:
-            state.newPostText = action.input.current.value
+        case TYPE_TEXT:
+            copyState.newPostText = action.input
+            // return copyState
             break;
     }
 
-    return Object.assign({}, state)
+    return copyState
 }
 
 export default profileReducer

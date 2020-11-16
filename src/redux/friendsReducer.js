@@ -1,50 +1,62 @@
+const FOLLOW = 'follow'
+const UNFOLLOW = 'unfollow'
+const SET_USERS = 'setUsers'
+const UP_CURRENT_PAGE = 'setCurrentPage'
+
 export const followAC = id => ({
-    type: 'follow',
-    id
+    type: FOLLOW,
+    id,
 })
 
 export const unfollowAC = id => ({
-    type: 'unfollow',
-    id
+    type: UNFOLLOW,
+    id,
+})
+
+export const setUsersAC = users => ({
+    type: SET_USERS,
+    users,
+})
+
+export const upCurrentPageAC = () => ({
+    type: UP_CURRENT_PAGE,
 })
 
 let initialState = {
-    friendsData: [
-        {
-            id: 1,
-            isFollowed: true,
-            name: 'Andrey',
-            avatar: 'https://sun9-28.userapi.com/impf/3oxrOXkAjBbvQImjNesMCeeoTZcqFteLDusJjA/yIjm5QpHquM.jpg?size=524x606&quality=96&proxy=1&sign=10d5805825dabf5b1b88fb1e008136bd'
-        },
-        {
-            id: 2,
-            isFollowed: true,
-            name: 'Evgeniy',
-            avatar: 'https://sun9-9.userapi.com/impf/Ecs7VcxhHxt0AiU3IJTe58QjXH0Fl7wDBWDoSA/AFnkh9I89gA.jpg?size=509x613&quality=96&proxy=1&sign=f5a058d9a66ca8eb1ca2f65c09e4aa6d'
-        },
-        {
-            id: 3,
-            isFollowed: false,
-            name: 'Senya',
-            avatar: 'https://sun9-45.userapi.com/impf/DCafG8McWw8qMr4ef4e6Fz114fSYoOquW_yfYQ/EYcl8y1IVxI.jpg?size=810x1080&quality=96&sign=959b56862b895207b84fae6b0d065131'
-        }
-    ]
+    friendsData: [],
+    pageSize: 50,
+    currentPage: 1,
 }
 
 const friendsReducer = (state = initialState, action) => {
 
-    let copyState = Object.assign({}, state)
+    let copyState = JSON.parse(JSON.stringify(state))
+
 
     switch (action.type) {
-        case followAC(null).type:
-            return
+        case FOLLOW:
+            copyState.friendsData.forEach(friend => friend.id === action.id ? friend.isFollowed = true : 0)
+            break
 
-        case unfollowAC(null).type:
-            return
+        case UNFOLLOW:
+            let areYouSure = window.confirm('Вы уверены что хотите удалить этого пользователя из друзей?')
+            if (areYouSure) {
+                copyState.friendsData.forEach(friend => friend.id === action.id ? friend.isFollowed = false : 0)
+            }
+            break
+
+        case SET_USERS:
+            copyState.friendsData.push(...action.users)
+            break
+
+        case UP_CURRENT_PAGE:
+            copyState.currentPage++
+            break
 
         default:
-            return state
+            return copyState
     }
+    return copyState
 }
 
 export default friendsReducer

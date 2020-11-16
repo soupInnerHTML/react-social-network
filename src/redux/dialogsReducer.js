@@ -1,10 +1,13 @@
-export const CREATE_ACTION_SEND_MESSAGE = input => ({
-    type: 'sendMessage',
+const SEND_MESSAGE = 'sendMessage'
+const TYPE_TEXT = 'typeText'
+
+export const sendMessageAC = input => ({
+    type: SEND_MESSAGE,
     input
 })
 
-export const CREATE_ACTION_TYPE_NEW_MESSAGE = input => ({
-    type: 'typeText',
+export const typeNewMessageTextAC = input => ({
+    type: TYPE_TEXT,
     input
 })
 
@@ -57,22 +60,21 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    let copyState = Object.assign({}, state)
+    let copyState = JSON.parse(JSON.stringify(state))
     switch (action.type) {
-        case CREATE_ACTION_SEND_MESSAGE(null).type:
-            if (action.input.current.value.length) {
+        case SEND_MESSAGE:
+            if (action.input.length) {
                 copyState.messagesData.push({
                     id: 7,
-                    message: action.input.current.value
+                    message: action.input
                 })
             }
 
-            copyState.newMessageText = null
-            action.input.current.value = null
+            copyState.newMessageText = ''
             break;
 
-        case CREATE_ACTION_TYPE_NEW_MESSAGE(null).type:
-            copyState.newMessageText = action.input.current.value
+        case TYPE_TEXT:
+            copyState.newMessageText = action.input
             break;
     }
 

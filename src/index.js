@@ -7,7 +7,6 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-// let dispatch = store.dispatch.bind(store)  use bind to save 'this'    
 
 
 ReactDOM.render(

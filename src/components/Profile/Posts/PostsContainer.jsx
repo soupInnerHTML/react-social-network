@@ -4,6 +4,10 @@ import Post from './Post/Post'
 /* Ultrashort name _ for root styles*/
 import _ from './Posts.module.css'
 
+// Axios.get('https://social-network.samuraijs.com/api/1.0/users').then(Response => {
+
+// })
+
 let mapStateToProps = state => {
     return {
         postsObject: state.profilePage.postsData.map(postData => {

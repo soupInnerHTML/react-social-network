@@ -7,11 +7,11 @@ const AddPost = props => {
   let addPost = e => {
     e.preventDefault()
 
-    props.addPost(postInput)
+    props.addPost(postInput.current.value)
   }
 
   let messageTextChange = () => {
-    props.typeNewPost(postInput)
+    props.typeNewPost(postInput.current.value)
   }
 
   let postInput = React.createRef()

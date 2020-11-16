@@ -1,11 +1,16 @@
 /* Ultrashort name _ for root styles*/
-// import { NavLink } from 'react-router-dom';
 import _ from './Friend.module.css'
+import React from 'react'
+
 
 const Friend = props => {
+    let changeFollowState = () => {
+        props.isFollowed ? props.unfollow(props.friendId) : props.follow(props.friendId)
+    }
+
     return (
         <div className={_.friend}>
-            <div className={props.isFollowed ? _.unfollow : _.follow}></div>
+            <div className={props.isFollowed ? _.unfollow : _.follow} onClick={changeFollowState}></div>
             <img src={props.avatar} className={"avatar " + _.avatar} alt="" />
             <p className={_.name}>{props.name}</p>
         </div>

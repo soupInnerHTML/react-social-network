@@ -1,12 +1,12 @@
-import Friend from "./Friend/Friend";
 import Friends from "./Friends";
 import { connect } from 'react-redux'
-import { followAC, unfollowAC } from "../../redux/friendsReducer";
+import { followAC, unfollowAC, setUsersAC, upCurrentPageAC } from "../../redux/friendsReducer";
 
 let mapStateToProps = state => {
     return {
-        friendsObject: state.friendsPage.friendsData.map(friendData => <Friend name={friendData.name}
-            avatar={friendData.avatar} isFollowed={friendData.isFollowed}></Friend>),
+        friendsData: state.friendsPage.friendsData,
+        pageSize: state.friendsPage.pageSize,
+        currentPage: state.friendsPage.currentPage
     }
 }
 
@@ -17,6 +17,12 @@ let mapDispatchToProps = dispatch => {
         },
         unfollow: id => {
             dispatch(unfollowAC(id))
+        },
+        setUsers: users => {
+            dispatch(setUsersAC(users))
+        },
+        upCurrentPage: () => {
+            dispatch(upCurrentPageAC())
         }
     }
 }
