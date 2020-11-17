@@ -1,7 +1,7 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Messages.module.css'
 import React from 'react'
-import SendImgPath from './img/send.svg'
+import SendImgPath from '../../../img/send.svg'
 
 const Messages = props => {
     let postTextChange = () => {

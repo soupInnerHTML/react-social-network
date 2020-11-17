@@ -1,12 +1,13 @@
 const SEND_MESSAGE = 'sendMessage'
 const TYPE_TEXT = 'typeNewMessage'
 
-export const sendMessageAC = input => ({
+
+export const sendMessage = input => ({
     type: SEND_MESSAGE,
     input
 })
 
-export const typeNewMessageTextAC = input => ({
+export const typeNewMessage = input => ({
     type: TYPE_TEXT,
     input
 })

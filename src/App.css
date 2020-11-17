@@ -5,12 +5,13 @@
 	--d-grey: #343437;
 	--sidebar-padding: 10px;
 	--default-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-		sans-serif;
+		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
 }
 .App {
 	background: #28282a;
 	color: #fff;
+	z-index: 10000;
 }
 .App * {
 	outline: none !important;

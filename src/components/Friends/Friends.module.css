@@ -1,5 +1,6 @@
 .friends {
 	display: flex;
+	align-content: flex-start;
 	flex-wrap: wrap;
+	min-height: 100vh;
 }
-/*  */

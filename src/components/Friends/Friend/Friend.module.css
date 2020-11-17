@@ -4,6 +4,10 @@
 	width: 80px;
 	overflow-wrap: break-word;
 }
+.friend a {
+	text-decoration: none;
+	color: #fff;
+}
 .avatar {
 	height: 80px;
 	width: 80px;

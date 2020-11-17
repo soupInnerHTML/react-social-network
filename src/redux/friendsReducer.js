@@ -2,30 +2,41 @@ const FOLLOW = 'follow'
 const UNFOLLOW = 'unfollow'
 const SET_USERS = 'setUsers'
 const UP_CURRENT_PAGE = 'setCurrentPage'
+const FETCHING = 'fetchingFriends'
+const FETCHED = 'fetchedFriends'
 
-export const followAC = id => ({
+export const follow = id => ({
     type: FOLLOW,
     id,
 })
 
-export const unfollowAC = id => ({
+export const unfollow = id => ({
     type: UNFOLLOW,
     id,
 })
 
-export const setUsersAC = users => ({
+export const setUsers = users => ({
     type: SET_USERS,
     users,
 })
 
-export const upCurrentPageAC = () => ({
+export const upCurrentPage = () => ({
     type: UP_CURRENT_PAGE,
+})
+
+export const fetching = () => ({
+    type: FETCHING,
+})
+
+export const fetched = () => ({
+    type: FETCHED,
 })
 
 let initialState = {
     friendsData: [],
     pageSize: 1,
     currentPage: 1,
+    isFetching: true
 }
 
 const friendsReducer = (state = initialState, action) => {
@@ -73,6 +84,14 @@ const friendsReducer = (state = initialState, action) => {
 
         case UP_CURRENT_PAGE: {
             return { ...state, currentPage: state.currentPage + 1 }
+        }
+
+        case FETCHING: {
+            return { ...state, isFetching: true }
+        }
+
+        case FETCHED: {
+            return { ...state, isFetching: false }
         }
 
         default:

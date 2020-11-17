@@ -1,14 +1,34 @@
+// actions
 const ADD_POST = 'addPost'
 const TYPE_TEXT = 'typeNewPostText'
+const LIKE_THE_POST = 'likeOnThePost'
+const UNLIKE_THE_POST = 'unlikeThePost'
+const SET_USER = 'setUser'
 
-export const addPostAC = input => ({
+// action creators
+export const addPost = input => ({
     type: ADD_POST,
     input
 })
 
-export const typeNewPostAC = input => ({
+export const typeNewPost = input => ({
     type: TYPE_TEXT,
     input
+})
+
+export const likeThePost = postID => ({
+    type: LIKE_THE_POST,
+    postID
+})
+
+export const unlikeThePost = postID => ({
+    type: UNLIKE_THE_POST,
+    postID
+})
+
+export const unlikeThePost = postID => ({
+    type: SET_USER,
+    userID
 })
 
 let initialState = {
@@ -57,7 +77,7 @@ const profileReducer = (state = initialState, action) => {
                     ...state,
                     postsData: [...state.postsData, {
                         id: Math.round(Math.random() * 1000),
-                        likes: Math.round(Math.random() * 1000),
+                        likes: 0,
                         text: action.input
                     }],
                     newPostText: ''
@@ -65,9 +85,40 @@ const profileReducer = (state = initialState, action) => {
             }
         }
 
-
         case TYPE_TEXT: {
             return { ...state, newPostText: action.input }
+        }
+
+        case LIKE_THE_POST: {
+            return {
+                ...state, postsData: [...state.postsData].map(postData => {
+                    if (postData.id === action.postID) {
+                        return { ...postData, likes: postData.likes + 1 }
+                    }
+                    else {
+                        return postData
+                    }
+                })
+            }
+        }
+
+        case UNLIKE_THE_POST: {
+            return {
+                ...state, postsData: [...state.postsData].map(postData => {
+                    if (postData.id === action.postID) {
+                        return { ...postData, likes: postData.likes - 1 }
+                    }
+                    else {
+                        return postData
+                    }
+                })
+            }
+        }
+
+        case SET_USER: {
+            return {
+
+            }
         }
 
         default:

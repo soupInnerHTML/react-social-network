@@ -1,6 +1,6 @@
 import Messages from './Messages';
 import { connect } from 'react-redux'
-import { sendMessageAC, typeNewMessageTextAC } from '../../../redux/dialogsReducer'
+import { typeNewMessage, sendMessage } from '../../../redux/dialogsReducer'
 
 let mapStateToProps = state => {
     return {
@@ -11,15 +11,9 @@ let mapStateToProps = state => {
     }
 }
 
-let mapDispatchToProps = dispatch => {
-    return {
-        typeNewMessage: input => {
-            dispatch(typeNewMessageTextAC(input))
-        },
-        sendMessage: input => {
-            dispatch(sendMessageAC(input))
-        }
-    }
+let mapDispatchToProps = {
+    typeNewMessage,
+    sendMessage
 }
 
 const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
