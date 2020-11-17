@@ -12,8 +12,8 @@ let mapStateToProps = state => {
     return {
         postsObject: state.profilePage.postsData.map(postData => {
             return (
-                <section className={_.posts + ' App-block'}>
-                    <Post text={postData.text} likes={postData.likes}></Post>
+                <section className={_.posts + ' App-block'} key={postData.id}>
+                    <Post text={postData.text} likes={postData.likes} key={postData.id}></Post>
                 </section>
             )
         }).reverse()

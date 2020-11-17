@@ -5,25 +5,9 @@ import Axios from 'axios';
 import React from 'react'
 
 class Friends extends React.Component {
-    constructor(props) {
-        super(props)
-        this.friendsObject = this.props.friendsData.map(friendData => (
-            <Friend
-                name={friendData.name}
-                avatar={friendData.photos.small}
-                isFollowed={friendData.isFollowed}
-                friendId={friendData.id}
-                follow={props.follow} unfollow={props.unfollow} ></Friend>)
-        )
-    }
-
-    componentDidMount() {
-        window.addEventListener('scroll', this.onScroll)
-        this.getUsers()
-    }
-
-    componentWillUnmount() {
-        // window.confirm('Вы уверены что хотите закрыть страницу?')
+    componentDidMount = () => {
+        !this.props.friendsData.length && window.addEventListener('scroll', this.onScroll)
+        !this.props.friendsData.length && this.getUsers()
     }
 
     onScroll = () => {
@@ -40,7 +24,7 @@ class Friends extends React.Component {
     getUsers = () => {
         Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(Response => {
             this.props.setUsers(Response.data.items)
-            console.log('response was sent')
+            // console.log('response sent')
         })
     }
 
@@ -48,7 +32,17 @@ class Friends extends React.Component {
         return (
             <main className="App-main">
                 <section className={_.friends + " App-block"}>
-                    {this.friendsObject}
+                    {
+                        this.props.friendsData.map(friendData => (
+                            <Friend
+                                name={friendData.name}
+                                avatar={friendData.photos.small}
+                                followed={friendData.followed}
+                                friendId={friendData.id}
+                                key={friendData.id}
+                                follow={this.props.follow} unfollow={this.props.unfollow} ></Friend>)
+                        )
+                    }
                 </section>
             </main>
         )

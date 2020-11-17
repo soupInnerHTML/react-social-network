@@ -1,5 +1,5 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Profile.module.css'
+// import _ from './Profile.module.css'
 import Info from './Info/Info'
 import AddPostContainer from './AddPost/AddPostContainer'
 import PostsContainer from './Posts/PostsContainer'

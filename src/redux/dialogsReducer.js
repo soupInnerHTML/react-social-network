@@ -1,5 +1,5 @@
 const SEND_MESSAGE = 'sendMessage'
-const TYPE_TEXT = 'typeText'
+const TYPE_TEXT = 'typeNewMessage'
 
 export const sendMessageAC = input => ({
     type: SEND_MESSAGE,
@@ -60,25 +60,27 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    let copyState = JSON.parse(JSON.stringify(state))
+    // let copyState = JSON.parse(JSON.stringify(state))
+
     switch (action.type) {
-        case SEND_MESSAGE:
+        case SEND_MESSAGE: {
             if (action.input.length) {
-                copyState.messagesData.push({
-                    id: 7,
-                    message: action.input
-                })
+                return {
+                    ...state,
+                    messagesData: [...state.messagesData, { id: Math.round(Math.random() * 1000), message: action.input }],
+                    newMessageText: ''
+                }
             }
+        }
 
-            copyState.newMessageText = ''
-            break;
+        case TYPE_TEXT: {
+            return { ...state, newMessageText: action.input }
+        }
 
-        case TYPE_TEXT:
-            copyState.newMessageText = action.input
-            break;
+        default:
+            return state
     }
 
-    return copyState
 }
 
 export default dialogsReducer

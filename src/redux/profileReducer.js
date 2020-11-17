@@ -1,5 +1,5 @@
 const ADD_POST = 'addPost'
-const TYPE_TEXT = 'typeText'
+const TYPE_TEXT = 'typeNewPostText'
 
 export const addPostAC = input => ({
     type: ADD_POST,
@@ -48,27 +48,33 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
-    let copyState = JSON.parse(JSON.stringify(state))
+    // let copyState = JSON.parse(JSON.stringify(state))
 
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             if (action.input.length) {
-                copyState.postsData.push({
-                    id: 7,
-                    likes: 0,
-                    text: action.input
-                })
+                return {
+                    ...state,
+                    postsData: [...state.postsData, {
+                        id: Math.round(Math.random() * 1000),
+                        likes: Math.round(Math.random() * 1000),
+                        text: action.input
+                    }],
+                    newPostText: ''
+                }
             }
-            copyState.newPostText = ''
-            break;
+        }
 
-        case TYPE_TEXT:
-            copyState.newPostText = action.input
-            // return copyState
-            break;
+
+        case TYPE_TEXT: {
+            return { ...state, newPostText: action.input }
+        }
+
+        default:
+            return state
+
     }
 
-    return copyState
 }
 
 export default profileReducer

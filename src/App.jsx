@@ -9,11 +9,6 @@ import FriendsContainer from './components/Friends/FriendsContainer';
 
 
 const App = props => {
-  let getProfile = () => <Profile store={props.store}></Profile>,
-    getDialogs = () => <Dialogs store={props.store}></Dialogs>,
-    getFriends = () => <FriendsContainer store={props.store}></FriendsContainer>
-
-
   return (
     <div className="App">
       <Header></Header>
@@ -22,11 +17,11 @@ const App = props => {
         <Sidebar></Sidebar>
         {/* render ждет функцию, component ждет компоненту
               необходим render, чтобы прокинуть props
-           */}
+        */}
 
-        <Route exact path="/profile" render={getProfile}></Route>
-        <Route path="/dialogs" render={getDialogs}></Route>
-        <Route path="/friends" render={getFriends}></Route>
+        <Route exact path="/profile" render={() => <Profile></Profile>}></Route>
+        <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
+        <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
       </div>
     </div>
   );

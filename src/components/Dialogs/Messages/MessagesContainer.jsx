@@ -5,7 +5,7 @@ import { sendMessageAC, typeNewMessageTextAC } from '../../../redux/dialogsReduc
 let mapStateToProps = state => {
     return {
         messagesObject: state.dialogsPage.messagesData.map(messageData => (
-            <div>{messageData.message}</div>
+            <div key={messageData.id}>{messageData.message}</div>
         )),
         newMessageText: state.dialogsPage.newMessageText
     }

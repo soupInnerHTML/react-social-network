@@ -4,12 +4,12 @@ import logoSrc from './logo.svg'
 
 const Header = () => {
     return (
-        
-            <header className={_.header  + ' App-block'}>
-                <div className={_.headerContainer  + " App-container"}>
-                    <img src={logoSrc} />
-                </div>
-            </header>
+
+        <header className={_.header + ' App-block'}>
+            <div className={_.headerContainer + " App-container"}>
+                <img src={logoSrc} alt="" />
+            </div>
+        </header>
     )
 }
 

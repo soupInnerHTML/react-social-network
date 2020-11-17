@@ -24,39 +24,60 @@ export const upCurrentPageAC = () => ({
 
 let initialState = {
     friendsData: [],
-    pageSize: 50,
+    pageSize: 1,
     currentPage: 1,
 }
 
 const friendsReducer = (state = initialState, action) => {
 
-    let copyState = JSON.parse(JSON.stringify(state))
+    // let copyState = JSON.parse(JSON.stringify(state))
 
 
     switch (action.type) {
-        case FOLLOW:
-            copyState.friendsData.forEach(friend => friend.id === action.id ? friend.isFollowed = true : 0)
-            break
-
-        case UNFOLLOW:
-            let areYouSure = window.confirm('Вы уверены что хотите удалить этого пользователя из друзей?')
-            if (areYouSure) {
-                copyState.friendsData.forEach(friend => friend.id === action.id ? friend.isFollowed = false : 0)
+        case FOLLOW: {
+            return {
+                ...state, friendsData: [...state.friendsData].map(friend => {
+                    if (friend.id === action.id) {
+                        return { ...friend, followed: true }
+                    }
+                    else {
+                        return friend
+                    }
+                })
             }
-            break
+        }
 
-        case SET_USERS:
-            copyState.friendsData.push(...action.users)
-            break
+        case UNFOLLOW: {
+            let areYouSure = window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?')
 
-        case UP_CURRENT_PAGE:
-            copyState.currentPage++
-            break
+            if (areYouSure) {
+                return {
+                    ...state, friendsData: [...state.friendsData].map(friend => {
+                        if (friend.id === action.id) {
+                            return { ...friend, followed: false }
+                        }
+                        else {
+                            return friend
+                        }
+                    })
+                }
+            }
+            else {
+                return state
+            }
+        }
+
+        case SET_USERS: {
+            return { ...state, friendsData: [...state.friendsData, ...action.users], }
+        }
+
+        case UP_CURRENT_PAGE: {
+            return { ...state, currentPage: state.currentPage + 1 }
+        }
 
         default:
-            return copyState
+            return state
     }
-    return copyState
 }
 
 export default friendsReducer
