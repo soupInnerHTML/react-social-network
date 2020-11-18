@@ -11,10 +11,7 @@ const Friends = (props) => {
                 {
                     props.friendsData.map(friendData => (
                         <Friend
-                            name={friendData.name}
-                            avatar={friendData.photos.small}
-                            followed={friendData.followed}
-                            friendId={friendData.id}
+                            {...friendData}
                             key={friendData.id}
                             follow={props.follow} unfollow={props.unfollow} ></Friend>)
                     )

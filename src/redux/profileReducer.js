@@ -3,7 +3,9 @@ const ADD_POST = 'addPost'
 const TYPE_TEXT = 'typeNewPostText'
 const LIKE_THE_POST = 'likeOnThePost'
 const UNLIKE_THE_POST = 'unlikeThePost'
-const SET_USER = 'setUser'
+const SET_USER_PROFILE = 'setUserProfile'
+const FETCHING = 'fetchingProfile'
+const FETCHED = 'fetchedProfile'
 
 // action creators
 export const addPost = input => ({
@@ -26,9 +28,17 @@ export const unlikeThePost = postID => ({
     postID
 })
 
-export const unlikeThePost = postID => ({
-    type: SET_USER,
-    userID
+export const setUserProfile = userProfile => ({
+    type: SET_USER_PROFILE,
+    userProfile
+})
+
+export const fetching = () => ({
+    type: FETCHING,
+})
+
+export const fetched = () => ({
+    type: FETCHED,
 })
 
 let initialState = {
@@ -64,7 +74,9 @@ let initialState = {
             text: 'Hello world'
         }
     ],
-    newPostText: ''
+    profileData: [],
+    newPostText: '',
+    isFetching: true
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -115,10 +127,18 @@ const profileReducer = (state = initialState, action) => {
             }
         }
 
-        case SET_USER: {
+        case SET_USER_PROFILE: {
             return {
-
+                ...state, profileData: action.userProfile
             }
+        }
+
+        case FETCHING: {
+            return { ...state, isFetching: true }
+        }
+
+        case FETCHED: {
+            return { ...state, isFetching: false }
         }
 
         default:

@@ -1,20 +1,18 @@
 import { connect } from 'react-redux'
-import { follow, unfollow, setUsers, upCurrentPage, fetched, fetching } from "../../redux/friendsReducer";
+import { follow, unfollow, setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
 import Friends from "./Friends";
 import Axios from 'axios';
 import React from 'react';
 
 class FriendsClass extends React.Component {
     componentDidMount = () => {
-        this.props.fetching()
-        if (!this.props.friendsData.length) {
-            console.log('response sent')
-            window.addEventListener('scroll', this.onScroll)
-            this.getUsers()
-        }
-        else {
-            this.props.fetched()
-        }
+        window.addEventListener('scroll', this.onScroll)
+        this.getUsers()
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll)
+        this.props.nullFriends()
     }
 
     onScroll = () => {
@@ -22,13 +20,14 @@ class FriendsClass extends React.Component {
         const documentHeight = document.body.clientHeight
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (windowHeight + scrollTop >= documentHeight) {
+        if (windowHeight + scrollTop >= documentHeight - 300) {
             this.props.upCurrentPage()
             this.getUsers()
         }
     }
 
     getUsers = () => {
+        this.props.fetching()
         Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(Response => {
             this.props.fetched()
             this.props.setUsers(Response.data.items)
@@ -57,6 +56,7 @@ let mapDispatchToProps = {
     upCurrentPage,
     fetched,
     fetching,
+    nullFriends
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsClass)
@@ -99,3 +99,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(FriendsClass)
 //         }
 //     }
 // }
+
+// getUsersOnScroll = () => {
+    // let seqOfpages = [...Array(this.props.currentPage)].map((_, i) => ++i)
+    // let count = this.props.pageSize
+    // seqOfpages.forEach(page => {
+    //     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`).then(Response => {
+    //         this.props.fetched()
+    //         this.props.setUsers(Response.data.items)
+    //         // console.log('response sent')
+    //     })
+    // })
+    // }

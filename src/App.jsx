@@ -19,7 +19,7 @@ const App = props => {
               необходим render, чтобы прокинуть props
         */}
 
-        <Route path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
+        <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
         <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
         <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
       </div>

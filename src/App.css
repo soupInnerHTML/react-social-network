@@ -8,6 +8,17 @@
 		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
 		"Helvetica Neue", sans-serif;
 }
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-track {
+	border-radius: 6px;
+	background: var(--d-grey);
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--accent);
+	border-radius: 9em;
+}
 .App {
 	background: #28282a;
 	color: #fff;

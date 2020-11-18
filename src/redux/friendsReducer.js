@@ -4,6 +4,7 @@ const SET_USERS = 'setUsers'
 const UP_CURRENT_PAGE = 'setCurrentPage'
 const FETCHING = 'fetchingFriends'
 const FETCHED = 'fetchedFriends'
+const NULL_FRIENDS = 'nullFriends'
 
 export const follow = id => ({
     type: FOLLOW,
@@ -32,9 +33,13 @@ export const fetched = () => ({
     type: FETCHED,
 })
 
+export const nullFriends = () => ({
+    type: NULL_FRIENDS,
+})
+
 let initialState = {
     friendsData: [],
-    pageSize: 1,
+    pageSize: 50,
     currentPage: 1,
     isFetching: true
 }
@@ -92,6 +97,10 @@ const friendsReducer = (state = initialState, action) => {
 
         case FETCHED: {
             return { ...state, isFetching: false }
+        }
+
+        case NULL_FRIENDS: {
+            return { ...state, friendsData: [], currentPage: 1, }
         }
 
         default:
