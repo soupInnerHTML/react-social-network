@@ -6,6 +6,7 @@ const UNLIKE_THE_POST = 'unlikeThePost'
 const SET_USER_PROFILE = 'setUserProfile'
 const FETCHING = 'fetchingProfile'
 const FETCHED = 'fetchedProfile'
+const NULL_PROFILE_DATA = 'nullProfileData'
 
 // action creators
 export const addPost = input => ({
@@ -39,6 +40,10 @@ export const fetching = () => ({
 
 export const fetched = () => ({
     type: FETCHED,
+})
+
+export const nullProfileData = () => ({
+    type: NULL_PROFILE_DATA,
 })
 
 let initialState = {
@@ -139,6 +144,10 @@ const profileReducer = (state = initialState, action) => {
 
         case FETCHED: {
             return { ...state, isFetching: false }
+        }
+
+        case NULL_PROFILE_DATA: {
+            return { ...state, profileData: [] }
         }
 
         default:

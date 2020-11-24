@@ -1,8 +1,9 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Post.module.css'
-import LikeIconSrc from '../../../../img/like.svg'
-import LikedIconSrc from '../../../../img/liked.svg'
 import React from 'react'
+import like from '../../../../img/like.svg'
+import liked from '../../../../img/liked.svg'
+import socket from '../../../../img/socket.jpg'
 
 class Post extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class Post extends React.Component {
     }
 
     clickOnLike = () => {
-        (this.flag = !this.flag) ? this.props.likeThePost(this.props.postID) : this.props.unlikeThePost(this.props.postID)
+        (this.flag = !this.flag) ? this.props.likeThePost(this.props.id) : this.props.unlikeThePost(this.props.id)
         console.log(this.flag)
     }
 
@@ -24,12 +25,12 @@ class Post extends React.Component {
         return (
             <section className="App-block">
                 <div className={_.post}>
-                    <div className='avatar'>
-
+                    <div >
+                        <img className='avatar' src={(this.props.profileData.photos || { small: '' }).small || socket} alt="" />
                     </div>
 
                     <div>
-                        <p className={_.name}>Ruby Soho</p>
+                        <p className={_.name}>{this.props.profileData.fullName}</p>
                         <p className={_.date}>23 мая въ 17:24</p>
                     </div>
 
@@ -41,7 +42,7 @@ class Post extends React.Component {
 
                     <div className={_.meta}>
                         <div className={_.likes} onClick={this.clickOnLike}>
-                            <img className={_.likeIcon} src={this.flag ? LikedIconSrc : LikeIconSrc} alt="" />
+                            <img className={_.likeIcon} src={this.flag ? liked : like} alt="" />
                             <span className={`${_.likeCounter} ${this.flag && _.active}`}>{this.props.likes || ''}</span>
                         </div>
                     </div>

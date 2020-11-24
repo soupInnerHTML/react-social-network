@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import { follow, unfollow, setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
+import { setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
 import Friends from "./Friends";
-import Axios from 'axios';
 import React from 'react';
+import { usersAPI } from '../../api/api';
 
 class FriendsClass extends React.Component {
     componentDidMount = () => {
@@ -20,7 +20,7 @@ class FriendsClass extends React.Component {
         const documentHeight = document.body.clientHeight
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (windowHeight + scrollTop >= documentHeight - 300) {
+        if (windowHeight + scrollTop >= documentHeight) {
             this.props.upCurrentPage()
             this.getUsers()
         }
@@ -28,11 +28,12 @@ class FriendsClass extends React.Component {
 
     getUsers = () => {
         this.props.fetching()
-        Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(Response => {
-            this.props.fetched()
-            this.props.setUsers(Response.data.items)
-            // console.log('response sent')
-        })
+        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
+            .then(items => {
+                this.props.fetched()
+                this.props.setUsers(items)
+                // console.log('response sent')
+            })
     }
 
     render() {
@@ -42,7 +43,6 @@ class FriendsClass extends React.Component {
 
 let mapStateToProps = state => {
     return {
-        friendsData: state.friendsPage.friendsData,
         pageSize: state.friendsPage.pageSize,
         currentPage: state.friendsPage.currentPage,
         isFetching: state.friendsPage.isFetching
@@ -50,8 +50,6 @@ let mapStateToProps = state => {
 }
 
 let mapDispatchToProps = {
-    follow,
-    unfollow,
     setUsers,
     upCurrentPage,
     fetched,

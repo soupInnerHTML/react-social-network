@@ -1,21 +1,14 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Friends.module.css'
-import Friend from "./Friend/Friend";
 import Preloader from '../common/Preloader';
+import FriendContainer from './Friend/FriendContainer';
 
 const Friends = (props) => {
     return (
-        <main className={`App-main`}>
-            <Preloader isFetching={props.isFetching}></Preloader>
+        <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
+            {/* <Preloader isFetching={props.isFetching}></Preloader> */}
             <section className={_.friends + " App-block"}>
-                {
-                    props.friendsData.map(friendData => (
-                        <Friend
-                            {...friendData}
-                            key={friendData.id}
-                            follow={props.follow} unfollow={props.unfollow} ></Friend>)
-                    )
-                }
+                <FriendContainer></FriendContainer>
             </section>
         </main>
     )

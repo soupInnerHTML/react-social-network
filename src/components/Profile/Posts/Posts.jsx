@@ -8,7 +8,7 @@ const Posts = props => {
             {props.postsData.map(postData => {
                 return (
                     <section className={_.posts + ' App-block'} key={postData.id}>
-                        <Post text={postData.text} likes={postData.likes} key={postData.id} postID={postData.id} unlikeThePost={props.unlikeThePost} likeThePost={props.likeThePost}></Post>
+                        <Post {...props} {...postData} ></Post>
                     </section>
                 )
             }).reverse()}

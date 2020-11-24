@@ -5,10 +5,10 @@ import PostsContainer from './Posts/PostsContainer'
 
 const Profile = props => {
   return (
-    <main className="App-main">
+    <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
       <Info {...props}></Info>
       <AddPostContainer ></AddPostContainer>
-      <PostsContainer></PostsContainer>
+      <PostsContainer ></PostsContainer>
     </main>
   )
 }

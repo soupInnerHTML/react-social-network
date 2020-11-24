@@ -1,5 +1,6 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Info.module.css'
+import socket from '../../../img/socket.jpg'
 
 const Info = (props) => {
 
@@ -8,7 +9,7 @@ const Info = (props) => {
   return (
     <section className={_.info}>
       <div className={"avatar " + _.avatar}>
-        <img src={(props.profileData.photos || { large: '' }).large} alt="" />
+        <img src={(props.profileData.photos || { large: '' }).large || socket} alt="" />
       </div>
 
       <div className={_.desc}>

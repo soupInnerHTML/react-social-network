@@ -1,28 +1,34 @@
-import Axios from 'axios'
 import React from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
-import { setUserProfile, fetching, fetched } from '../../redux/profileReducer'
+import { setUserProfile, fetching, fetched, nullProfileData } from '../../redux/profileReducer'
 import Preloader from '../common/Preloader'
 import { withRouter } from 'react-router-dom'
+import { usersAPI } from '../../api/api'
 
 
 
 class profileClass extends React.Component {
     componentDidMount() {
         this.props.fetching()
-        let getProfileIdFromUriParams = this.props.match.params.userId || 12635
-        Axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${getProfileIdFromUriParams}`).then(Response => {
+        let getProfileIdFromUriParams = this.props.match.params.userId || this.props.currentUser
+
+        usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
             this.props.fetched()
-            this.props.setUserProfile(Response.data)
+            this.props.setUserProfile(data)
         })
+    }
+
+    componentWillUnmount() {
+        // this.props.fetched()
+        // this.props.nullProfileData()
     }
 
     render() {
         return (
             <>
-                <Preloader isFetching={this.props.isFetching}></Preloader>
-                <Profile profileData={this.props.profileData}></Profile>
+                {/* <Preloader isFetching={this.props.isFetching}></Preloader> */}
+                <Profile profileData={this.props.profileData} isFetching={this.props.isFetching}></Profile>
             </>
         )
     }
@@ -30,13 +36,15 @@ class profileClass extends React.Component {
 
 let mapStateToProps = state => ({
     profileData: state.profilePage.profileData,
-    isFetching: state.profilePage.isFetching
+    isFetching: state.profilePage.isFetching,
+    currentUser: state.auth.id
 })
 
 let mapDispatchToProps = {
     setUserProfile,
     fetching,
-    fetched
+    fetched,
+    nullProfileData
 }
 
 

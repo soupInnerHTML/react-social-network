@@ -5,6 +5,7 @@ const UP_CURRENT_PAGE = 'setCurrentPage'
 const FETCHING = 'fetchingFriends'
 const FETCHED = 'fetchedFriends'
 const NULL_FRIENDS = 'nullFriends'
+const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = 'followUnfollowRequestInProgress'
 
 export const follow = id => ({
     type: FOLLOW,
@@ -37,11 +38,18 @@ export const nullFriends = () => ({
     type: NULL_FRIENDS,
 })
 
+export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
+    type: FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS,
+    isFollowInProgress,
+    id
+})
+
 let initialState = {
     friendsData: [],
-    pageSize: 50,
+    pageSize: 100,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    usersToChangeFollowState: []
 }
 
 const friendsReducer = (state = initialState, action) => {
@@ -64,23 +72,17 @@ const friendsReducer = (state = initialState, action) => {
         }
 
         case UNFOLLOW: {
-            let areYouSure = window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?')
+            return {
+                ...state, friendsData: [...state.friendsData].map(friend => {
+                    if (friend.id === action.id) {
+                        return { ...friend, followed: false }
+                    }
+                    else {
+                        return friend
+                    }
+                })
+            }
 
-            if (areYouSure) {
-                return {
-                    ...state, friendsData: [...state.friendsData].map(friend => {
-                        if (friend.id === action.id) {
-                            return { ...friend, followed: false }
-                        }
-                        else {
-                            return friend
-                        }
-                    })
-                }
-            }
-            else {
-                return state
-            }
         }
 
         case SET_USERS: {
@@ -101,6 +103,14 @@ const friendsReducer = (state = initialState, action) => {
 
         case NULL_FRIENDS: {
             return { ...state, friendsData: [], currentPage: 1, }
+        }
+
+        case FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS: {
+            return {
+                ...state, usersToChangeFollowState: action.isFollowInProgress ?
+                    [...state.usersToChangeFollowState, action.id] :
+                    state.usersToChangeFollowState.filter(id => id != action.id)
+            }
         }
 
         default:
