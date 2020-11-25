@@ -109,7 +109,7 @@ const friendsReducer = (state = initialState, action) => {
             return {
                 ...state, usersToChangeFollowState: action.isFollowInProgress ?
                     [...state.usersToChangeFollowState, action.id] :
-                    state.usersToChangeFollowState.filter(id => id != action.id)
+                    state.usersToChangeFollowState.filter(id => id !== action.id)
             }
         }
 

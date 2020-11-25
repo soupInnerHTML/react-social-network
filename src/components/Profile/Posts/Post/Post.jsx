@@ -6,17 +6,19 @@ import liked from '../../../../img/liked.svg'
 import socket from '../../../../img/socket.jpg'
 
 class Post extends React.Component {
-    constructor(props) {
-        super(props)
 
-    }
     componentDidMount = () => {
         this.flag = false
     }
 
     clickOnLike = () => {
-        (this.flag = !this.flag) ? this.props.likeThePost(this.props.id) : this.props.unlikeThePost(this.props.id)
-        console.log(this.flag)
+        if ((this.flag = !this.flag)) {
+            this.props.likeThePost(this.props.id)
+        }
+        else {
+            this.props.unlikeThePost(this.props.id)
+        }
+        // console.log(this.flag)
     }
 
     // window.counter = counter

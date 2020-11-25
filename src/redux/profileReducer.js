@@ -100,6 +100,7 @@ const profileReducer = (state = initialState, action) => {
                     newPostText: ''
                 }
             }
+            else return state
         }
 
         case TYPE_TEXT: {

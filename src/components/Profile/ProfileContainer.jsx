@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
 import { setUserProfile, fetching, fetched, nullProfileData } from '../../redux/profileReducer'
-import Preloader from '../common/Preloader'
 import { withRouter } from 'react-router-dom'
 import { usersAPI } from '../../api/api'
 

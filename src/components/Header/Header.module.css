@@ -4,13 +4,16 @@
 .headerContainer {
 	display: flex;
 	align-items: center;
-	/* flex-direction: column; */
 }
 .header img {
 	height: 34px;
 }
-.login {
+.left {
 	margin-left: auto;
+}
+.login,
+.users {
 	text-decoration: none;
 	color: #fff;
+	margin-left: 30px;
 }

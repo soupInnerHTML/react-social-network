@@ -1,16 +1,16 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Friends.module.css'
-import FriendContainer from './Friend/FriendContainer';
+import _ from './Users.module.css'
+import UserContainer from './User/UserContainer';
 
-const Friends = (props) => {
+const Users = (props) => {
     return (
         <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
             {/* <Preloader isFetching={props.isFetching}></Preloader> */}
             <section className={_.friends + " App-block"}>
-                <FriendContainer></FriendContainer>
+                <UserContainer></UserContainer>
             </section>
         </main>
     )
 }
 
-export default Friends
+export default Users

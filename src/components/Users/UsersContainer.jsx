@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
-import Friends from "./Friends";
+import Users from "./Users";
 import React from 'react';
 import { usersAPI } from '../../api/api';
 
-class FriendsClass extends React.Component {
+class UsersClass extends React.Component {
     componentDidMount = () => {
         window.addEventListener('scroll', this.onScroll)
         this.getUsers()
@@ -28,7 +28,7 @@ class FriendsClass extends React.Component {
 
     getUsers = () => {
         this.props.fetching()
-        usersAPI.getFriends(this.props.pageSize, this.props.currentPage)
+        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
             .then(items => {
                 this.props.fetched()
                 this.props.setUsers(items)
@@ -45,7 +45,7 @@ class FriendsClass extends React.Component {
     }
 
     render() {
-        return <Friends friendsData={this.props.friendsData} follow={this.props.follow} unfollow={this.props.unfollow} isFetching={this.props.isFetching}></Friends>
+        return <Users friendsData={this.props.friendsData} follow={this.props.follow} unfollow={this.props.unfollow} isFetching={this.props.isFetching}></Users>
     }
 }
 
@@ -65,7 +65,7 @@ let mapDispatchToProps = {
     nullFriends
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsClass)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersClass)
 
 
 

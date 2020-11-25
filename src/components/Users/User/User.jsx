@@ -1,10 +1,10 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Friend.module.css'
+import _ from './User.module.css'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 
-const Friend = props => {
+const User = props => {
 
     let clickToChangeFollowState = () => (
         props.changeFollowState(props.followed, props.id)
@@ -25,4 +25,4 @@ const Friend = props => {
         </div>
     );
 }
-export default Friend
+export default User

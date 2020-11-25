@@ -7,6 +7,9 @@
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
     "axios": "^0.21.0",
+    "axios-jsonp-pro": "^1.1.8",
+    "jsonp": "^0.2.1",
+    "local-cors-proxy": "^1.1.0",
     "my-sql": "^1.2.15",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -20,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "lcp --proxyUrl https://www.yourdomain.ie"
   },
   "eslintConfig": {
     "extends": [

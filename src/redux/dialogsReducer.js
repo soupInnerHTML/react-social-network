@@ -64,7 +64,7 @@ const dialogsReducer = (state = initialState, action) => {
     // let copyState = JSON.parse(JSON.stringify(state))
 
     switch (action.type) {
-        case SEND_MESSAGE: {
+        case SEND_MESSAGE:
             if (action.input.length) {
                 return {
                     ...state,
@@ -72,11 +72,12 @@ const dialogsReducer = (state = initialState, action) => {
                     newMessageText: ''
                 }
             }
-        }
+            else return state
 
-        case TYPE_TEXT: {
+
+        case TYPE_TEXT:
             return { ...state, newMessageText: action.input }
-        }
+
 
         default:
             return state
