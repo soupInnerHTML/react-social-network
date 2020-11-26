@@ -10,7 +10,7 @@ const Header = (props) => {
             <div className={_.headerContainer + " App-container"}>
                 <img src={logoSrc} alt="" />
                 <div className={_.left}>
-                    <NavLink to="/users" className={_.users}>Users</NavLink>
+                    <NavLink to="/users" className={_.users}>Our Community</NavLink>
                     {props.isAuth ? <a href="/#" className={_.login}>{props.name}</a> : <a href="/#" className={_.login}>Login</a>}
                 </div>
             </div>

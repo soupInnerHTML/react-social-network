@@ -1,0 +1,3 @@
+.newsText:not(:first-of-type) {
+	display: none;
+}

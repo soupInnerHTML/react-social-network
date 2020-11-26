@@ -6,6 +6,7 @@ import FriendsContainer from './components/Friends/FriendsContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import UsersContainer from './components/Users/UsersContainer';
+import FeedContainer from './components/Feed/FeedContainer';
 
 
 
@@ -21,6 +22,7 @@ const App = props => {
         <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
         <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
         <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
+        <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
 
         {/* render ждет функцию, component ждет компоненту
               необходим render, чтобы прокинуть props

@@ -1,11 +1,12 @@
 const SET_USER_DATA = 'setUderData'
 
-export const setUserData = (login, email, id, isAuth) => ({
+export const setUserData = (login, email, id, avatar, isAuth) => ({
     type: SET_USER_DATA,
     userData: {
         login,
         email,
         id,
+        avatar,
         isAuth
     }
 })
@@ -14,6 +15,7 @@ let initialState = {
     login: '',
     email: '',
     id: '',
+    avatar: '',
     isAuth: false
 }
 

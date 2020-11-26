@@ -33,6 +33,9 @@ export const usersAPI = {
     getWhoAmI() {
         return instance.get(`auth/me`).then(Response => Response.data)
     },
+    getAvatarByName(name) {
+        return instance.get(`users?term=${name}`).then(Response => Response.data)
+    },
     follow(id) {
         return instance.post(`follow/${id}`).then(Response => Response.data)
     },
@@ -50,5 +53,8 @@ export const usersAPI = {
     },
     banVkUser(id) {
         return vk.get('account.ban?owner_id=' + id).then(Response => Response)
+    },
+    getVkFeed() {
+        return vk.get('newsfeed.get?filters=post,photo,photo_tag,wall_photo').then(Response => Response.data.response.items)
     }
 }

@@ -10,15 +10,10 @@ class HeaderClass extends React.Component {
         // usersAPI.myVk().then(Response => console.log(Response))
         // usersAPI.getVkFriends().then(Response => console.log(Response))
 
-
-        // setInterval(() => {
-        //     usersAPI.getVkFollowers(1).then(follower => follower.data.response.count)
-        //         .then(id => usersAPI.banVkUser(id).then(info => console.log(info.data, 'id: ' + id)))
-
-        // }, 4000);
-
         usersAPI.getWhoAmI().then(data => {
-            this.props.setUserData(data.data.login, data.data.email, data.data.id, !data.resultCode)
+            this.props
+                .setUserData(data.data.login, data.data.email, data.data.id,
+                    usersAPI.getAvatarByName(data.data.login).then(Response => Response), !data.resultCode)
         })
     }
     render() {
