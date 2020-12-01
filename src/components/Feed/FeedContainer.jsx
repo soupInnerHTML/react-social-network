@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react';
 import Feed from './Feed'
-import { usersAPI } from '../../api/api';
-import { setFeed } from '../../redux/feedReducer'
+import { getVkFeedThunkCreator } from '../../redux/feedReducer'
 
 class FeedClass extends React.Component {
     componentDidMount = () => {
@@ -25,12 +24,7 @@ class FeedClass extends React.Component {
     }
 
     getFeed = () => {
-        // this.props.fetching()
-        usersAPI.getVkFeed()
-            .then(items => {
-                // this.props.fetched()
-                this.props.setFeed(items)
-            })
+        this.props.getVkFeedThunkCreator()
     }
 
     render() {
@@ -45,7 +39,7 @@ let mapStateToProps = state => {
 }
 
 let mapDispatchToProps = {
-    setFeed
+    getVkFeedThunkCreator
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedClass)

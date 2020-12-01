@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-const instance = Axios.create({
+const samurai = Axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
@@ -18,29 +18,25 @@ vk.defaults.params = {
 
 
 export const usersAPI = {
-    getUsers(pageSize, currentPage) {
-        return instance.get(`users?count=${pageSize}&page=${currentPage}`)
-            .then(Response => Response.data.items)
-    },
-    getFriends(pageSize, currentPage) {
-        return instance.get(`users?count=${pageSize}&page=${currentPage}&friend=true`)
+    getUsers(pageSize, currentPage, isGetFriends = false) {
+        return samurai.get(`users?count=${pageSize}&page=${currentPage}&friend=${isGetFriends ? isGetFriends : undefined}`)
             .then(Response => Response.data.items)
     },
     getProfile(getProfileIdFromUriParams) {
-        return instance.get(`profile/${getProfileIdFromUriParams}`)
+        return samurai.get(`profile/${getProfileIdFromUriParams}`)
             .then(Response => Response.data)
     },
     getWhoAmI() {
-        return instance.get(`auth/me`).then(Response => Response.data)
+        return samurai.get(`auth/me`).then(Response => Response.data)
     },
     getAvatarByName(name) {
-        return instance.get(`users?term=${name}`).then(Response => Response.data)
+        return samurai.get(`users?term=${name}`).then(Response => Response.data)
     },
     follow(id) {
-        return instance.post(`follow/${id}`).then(Response => Response.data)
+        return samurai.post(`follow/${id}`).then(Response => Response.data)
     },
     unfollow(id) {
-        return instance.delete(`follow/${id}`).then(Response => Response.data)
+        return samurai.delete(`follow/${id}`).then(Response => Response.data)
     },
     myVk() {
         return vk.get('users.get?user_ids=255462995').then(Response => Response)

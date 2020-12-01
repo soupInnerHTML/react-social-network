@@ -1,53 +1,27 @@
 import User from "./User";
 import React from 'react'
 import { connect } from "react-redux";
-import { follow, unfollow, followUnfollowRequestInProgress } from "../../../redux/friendsReducer";
+import { changeFollowStateThunkCreator } from "../../../redux/usersReducer";
 import { usersAPI } from "../../../api/api";
 
 
 class UserClass extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.follow = id => props.changeFollowStateThunkCreator(id, usersAPI.follow, true)
+        this.unfollow = id => props.changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
+    }
+
     changeFollowState = (followed, id) => {
+        let pass = () => { return };
+
         if (followed) {
-            let areYouSure = window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?')
-            if (areYouSure) {
-                this.props.followUnfollowRequestInProgress(true, id)
-
-                usersAPI.unfollow(id)
-                    .then(data => {
-                        if (data.resultCode) {
-                            alert(data.messages)
-                        }
-                        else {
-                            this.props.unfollow(id)
-                        }
-
-                        this.props.followUnfollowRequestInProgress(false, id)
-                    })
-                    .catch(e => {
-                        this.props.followUnfollowRequestInProgress(false, id)
-                        alert(e)
-                    })
-            }
-
+            window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && pass();
+            this.unfollow(id)
         }
         else {
-            this.props.followUnfollowRequestInProgress(true, id)
-
-            usersAPI.follow(id)
-                .then(data => {
-                    if (data.resultCode) {
-                        alert(data.messages)
-                    }
-                    else {
-                        this.props.follow(id)
-                    }
-
-                    this.props.followUnfollowRequestInProgress(false, id)
-                })
-                .catch(e => {
-                    this.props.followUnfollowRequestInProgress(false, id)
-                    alert(e)
-                })
+            this.follow(id)
         }
     }
 
@@ -63,9 +37,7 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = {
-    follow,
-    unfollow,
-    followUnfollowRequestInProgress,
+    changeFollowStateThunkCreator
 }
 
 const FriendContainer = connect(mapStateToProps, mapDispatchToProps)(UserClass)

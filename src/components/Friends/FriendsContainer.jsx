@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
-import { setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
+import { nullFriends, getUsersThunkCreator } from "../../redux/usersReducer";
 import Friends from "./Friends";
 import React from 'react';
-import { usersAPI } from '../../api/api';
 
 class FriendsClass extends React.Component {
     componentDidMount = () => {
         window.addEventListener('scroll', this.onScroll)
-        this.getUsers()
+        this.getFriends()
     }
 
     componentWillUnmount() {
@@ -22,30 +21,16 @@ class FriendsClass extends React.Component {
 
         if (windowHeight + scrollTop >= documentHeight) {
             this.props.upCurrentPage()
-            this.getUsers()
+            this.getFriends()
         }
     }
 
-    getUsers = () => {
-        this.props.fetching()
-        usersAPI.getFriends(this.props.pageSize, this.props.currentPage)
-            .then(items => {
-                this.props.fetched()
-                this.props.setUsers(items)
-                // console.log('response sent')
-            })
-
-        // this.props.fetching()
-        // usersAPI.getFriends()
-        //     .then(obj => {
-        //         this.props.fetched()
-        //         this.props.setUsers(obj.data.response.items)
-        //         // console.log('response sent')
-        //     })
+    getFriends = () => {
+        this.props.getUsersThunkCreator(this.props.pageSize, this.props.currentPage, true)
     }
 
     render() {
-        return <Friends friendsData={this.props.friendsData} follow={this.props.follow} unfollow={this.props.unfollow} isFetching={this.props.isFetching}></Friends>
+        return <Friends isFetching={this.props.isFetching}></Friends>
     }
 }
 
@@ -57,12 +42,10 @@ let mapStateToProps = state => {
     }
 }
 
+// попадает callback
 let mapDispatchToProps = {
-    setUsers,
-    upCurrentPage,
-    fetched,
-    fetching,
-    nullFriends
+    nullFriends,
+    getUsersThunkCreator
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsClass)

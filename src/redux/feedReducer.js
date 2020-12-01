@@ -1,9 +1,22 @@
+import { usersAPI } from '../api/api';
+
 const SET_FEED = 'setFeed'
 
 export const setFeed = (feed) => ({
     type: SET_FEED,
     feed
 })
+
+export const getVkFeedThunkCreator = () => {
+    return dispatch => {
+        // this.props.fetching()
+        usersAPI.getVkFeed()
+            .then(items => {
+                // this.props.fetched()
+                dispatch(setFeed(items))
+            })
+    }
+}
 
 let initialState = {
     feed: []

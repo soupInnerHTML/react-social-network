@@ -1,21 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
-import { setUserProfile, fetching, fetched, nullProfileData } from '../../redux/profileReducer'
+import { getProfileThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
 import { withRouter } from 'react-router-dom'
-import { usersAPI } from '../../api/api'
 
 
 
 class profileClass extends React.Component {
     componentDidMount() {
-        this.props.fetching()
-        let getProfileIdFromUriParams = this.props.match.params.userId || this.props.currentUser
-
-        usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
-            this.props.fetched()
-            this.props.setUserProfile(data)
-        })
+        this.props.getProfile(this.props.match.params.userId || this.props.currentUser)
     }
 
     componentWillUnmount() {
@@ -40,8 +33,7 @@ let mapStateToProps = state => ({
 })
 
 let mapDispatchToProps = {
-    setUserProfile,
-    fetching,
+    getProfile: getProfileThunkCreator,
     fetched,
     nullProfileData
 }

@@ -9,7 +9,7 @@ const News = (props) => {
 
             let objectFeed = props[item]
 
-            props.text && output.push(<p class={_.newsText}>{props.text}</p>)
+            props.text && output.push(<p className={_.newsText}>{props.text}</p>)
 
             switch (objectFeed.type) {
                 case "photo":
