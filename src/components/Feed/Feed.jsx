@@ -12,7 +12,7 @@ const Feed = (props) => {
                         return <News key={key} {...news.attachments} text={news.text}></News>
                     }
                     if (news.photos) {
-                        // return <News key={key} {...{ ...news.photos, type: 'wall_post' }} text={news.text}></News>
+                        // return <News key={key} {...news.photos, type: 'wall_post' } text={news.text}></News>
                     }
                 })
             }

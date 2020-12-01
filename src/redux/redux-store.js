@@ -1,19 +1,21 @@
 import profileReducer from './profileReducer'
 import dialogsReducer from './dialogsReducer'
-import friendsReducer from './friendsReducer'
+import usersReducer from './usersReducer'
 import authReducer from './authReducer';
-import { createStore, combineReducers } from "redux"
+import { createStore, combineReducers, applyMiddleware } from "redux"
+import thunkMiddleware from 'redux-thunk'
+
 import feedReducer from './feedReducer';
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    friendsPage: friendsReducer,
+    friendsPage: usersReducer,
     feedPage: feedReducer,
     auth: authReducer,
 });
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 window.store = store
 

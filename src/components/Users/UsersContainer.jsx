@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
-import { setUsers, upCurrentPage, fetched, fetching, nullFriends } from "../../redux/friendsReducer";
+import { getUsersThunkCreator, nullFriends, upCurrentPage } from "../../redux/usersReducer";
 import Users from "./Users";
 import React from 'react';
-import { usersAPI } from '../../api/api';
 
 class UsersClass extends React.Component {
     componentDidMount = () => {
@@ -27,25 +26,11 @@ class UsersClass extends React.Component {
     }
 
     getUsers = () => {
-        this.props.fetching()
-        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(items => {
-                this.props.fetched()
-                this.props.setUsers(items)
-                // console.log('response sent')
-            })
-
-        // this.props.fetching()
-        // usersAPI.getFriends()
-        //     .then(obj => {
-        //         this.props.fetched()
-        //         this.props.setUsers(obj.data.response.items)
-        //         // console.log('response sent')
-        //     })
+        this.props.getUsersThunkCreator(this.props.pageSize, this.props.currentPage)
     }
 
     render() {
-        return <Users friendsData={this.props.friendsData} follow={this.props.follow} unfollow={this.props.unfollow} isFetching={this.props.isFetching}></Users>
+        return <Users isFetching={this.props.isFetching}></Users>
     }
 }
 
@@ -58,10 +43,8 @@ let mapStateToProps = state => {
 }
 
 let mapDispatchToProps = {
-    setUsers,
     upCurrentPage,
-    fetched,
-    fetching,
+    getUsersThunkCreator,
     nullFriends
 }
 

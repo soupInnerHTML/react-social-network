@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api'
+
 // actions
 const ADD_POST = 'addPost'
 const TYPE_TEXT = 'typeNewPostText'
@@ -45,6 +47,18 @@ export const fetched = () => ({
 export const nullProfileData = () => ({
     type: NULL_PROFILE_DATA,
 })
+
+export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
+    return dispatch => {
+        dispatch(fetching())
+        // let getProfileIdFromUriParams = this.props.match.params.userId || this.props.currentUser
+
+        usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
+            dispatch(fetched())
+            dispatch(setUserProfile(data))
+        })
+    }
+}
 
 let initialState = {
     postsData: [

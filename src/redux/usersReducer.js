@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api';
+
 const FOLLOW = 'follow'
 const UNFOLLOW = 'unfollow'
 const SET_USERS = 'setUsers'
@@ -43,6 +45,47 @@ export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
     isFollowInProgress,
     id
 })
+
+export const getUsersThunkCreator = (pageSize, currentPage, isGetFriends) => {
+    return (dispatch) => {
+        dispatch(fetching())
+        usersAPI.getUsers(pageSize, currentPage, isGetFriends)
+            .then(items => {
+                dispatch(fetched())
+                dispatch(setUsers(items))
+            })
+
+
+        // VK VK VK VK VK VK
+        // usersAPI.getVkFriends()
+        //     .then(obj => {
+        //         dispatch(fetched())
+        //         dispatch(setUsers(obj.data.response.items))
+        //     })
+    }
+}
+
+export const changeFollowStateThunkCreator = (id, async, isFollow) => {
+    return dispatch => {
+        dispatch(followUnfollowRequestInProgress(true, id))
+
+        async(id)
+            .then(data => {
+                if (data.resultCode) {
+                    alert(data.messages)
+                }
+                else {
+                    isFollow ? dispatch(follow(id)) : dispatch(unfollow(id))
+                }
+
+                dispatch(followUnfollowRequestInProgress(false, id))
+            })
+            .catch(e => {
+                dispatch(followUnfollowRequestInProgress(false, id))
+                alert(e)
+            })
+    }
+}
 
 let initialState = {
     friendsData: [],

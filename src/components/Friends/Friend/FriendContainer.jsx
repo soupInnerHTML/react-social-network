@@ -1,7 +1,7 @@
 import Friend from "./Friend";
 import React from 'react'
 import { connect } from "react-redux";
-import { follow, unfollow, followUnfollowRequestInProgress } from "../../../redux/friendsReducer";
+import { follow, unfollow, followUnfollowRequestInProgress } from "../../../redux/usersReducer";
 import { usersAPI } from "../../../api/api";
 
 
