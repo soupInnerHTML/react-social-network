@@ -1,13 +1,16 @@
 import Messages from './Messages';
 import { connect } from 'react-redux'
 import { typeNewMessage, sendMessage } from '../../../redux/dialogsReducer'
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 let mapStateToProps = state => {
     return {
         messagesObject: state.dialogsPage.messagesData.map(messageData => (
             <div key={messageData.id}>{messageData.message}</div>
         )),
-        newMessageText: state.dialogsPage.newMessageText
+        newMessageText: state.dialogsPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -16,6 +19,4 @@ let mapDispatchToProps = {
     sendMessage
 }
 
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
-
-export default MessagesContainer
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Messages)

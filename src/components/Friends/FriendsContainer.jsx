@@ -1,54 +1,8 @@
-import { connect } from 'react-redux'
-import { nullFriends, getUsersThunkCreator } from "../../redux/usersReducer";
 import Friends from "./Friends";
-import React from 'react';
+import { withUserProcessing } from '../../hoc/withUserProcessing';
 
-class FriendsClass extends React.Component {
-    componentDidMount = () => {
-        window.addEventListener('scroll', this.onScroll)
-        this.getFriends()
-    }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll)
-        this.props.nullFriends()
-    }
-
-    onScroll = () => {
-        const windowHeight = window.innerHeight
-        const documentHeight = document.body.clientHeight
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (windowHeight + scrollTop >= documentHeight) {
-            this.props.upCurrentPage()
-            this.getFriends()
-        }
-    }
-
-    getFriends = () => {
-        this.props.getUsersThunkCreator(this.props.pageSize, this.props.currentPage, true)
-    }
-
-    render() {
-        return <Friends isFetching={this.props.isFetching}></Friends>
-    }
-}
-
-let mapStateToProps = state => {
-    return {
-        pageSize: state.friendsPage.pageSize,
-        currentPage: state.friendsPage.currentPage,
-        isFetching: state.friendsPage.isFetching
-    }
-}
-
-// попадает callback
-let mapDispatchToProps = {
-    nullFriends,
-    getUsersThunkCreator
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsClass)
+export default withUserProcessing(Friends, true) //withFriends
 
 
 

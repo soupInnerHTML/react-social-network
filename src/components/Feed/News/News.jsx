@@ -29,7 +29,7 @@ const News = (props) => {
         return output
     }
     return (
-        <section className="App-block" id={props.id}>
+        <section className="App-block">
             {
                 news()
             }

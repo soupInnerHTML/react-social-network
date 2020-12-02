@@ -39,16 +39,16 @@ export const usersAPI = {
         return samurai.delete(`follow/${id}`).then(Response => Response.data)
     },
     myVk() {
-        return vk.get('users.get?user_ids=255462995').then(Response => Response)
+        return vk.get('users.get?user_ids=255462995')
     },
     getVkFriends() {
-        return vk.get('friends.search?user_id=255462995&fields=photo_100').then(Response => Response)
+        return vk.get('friends.search?user_id=255462995&fields=photo_100')
     },
     getVkFollowers(count) {
-        return vk.get('users.getFollowers?user_id=255462995&count=' + count).then(Response => Response)
+        return vk.get('users.getFollowers?user_id=255462995&count=' + count)
     },
     banVkUser(id) {
-        return vk.get('account.ban?owner_id=' + id).then(Response => Response)
+        return vk.get('account.ban?owner_id=' + id)
     },
     getVkFeed() {
         return vk.get('newsfeed.get?filters=post,photo,photo_tag,wall_photo').then(Response => Response.data.response.items)

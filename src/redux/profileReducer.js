@@ -51,7 +51,6 @@ export const nullProfileData = () => ({
 export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return dispatch => {
         dispatch(fetching())
-        // let getProfileIdFromUriParams = this.props.match.params.userId || this.props.currentUser
 
         usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
             dispatch(fetched())

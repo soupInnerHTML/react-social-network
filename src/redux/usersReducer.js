@@ -65,7 +65,7 @@ export const getUsersThunkCreator = (pageSize, currentPage, isGetFriends) => {
     }
 }
 
-export const changeFollowStateThunkCreator = (id, async, isFollow) => {
+const changeFollowStateThunkCreator = (id, async, isFollow) => {
     return dispatch => {
         dispatch(followUnfollowRequestInProgress(true, id))
 
@@ -86,6 +86,9 @@ export const changeFollowStateThunkCreator = (id, async, isFollow) => {
             })
     }
 }
+
+export const followUser = id => changeFollowStateThunkCreator(id, usersAPI.follow, true)
+export const unfollowUser = id => changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
 
 let initialState = {
     friendsData: [],

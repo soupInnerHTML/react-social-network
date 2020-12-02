@@ -13,8 +13,9 @@ const User = props => {
 
     return (
         <div className={_.friend}>
-            <button className={_.round + ' ' + (props.followed ? _.unfollow : _.follow)}
-                onClick={clickToChangeFollowState} disabled={props.usersToChangeFollowState.includes(props.id)}></button>
+            {props.isAuth &&
+                <button className={_.round + ' ' + (props.followed ? _.unfollow : _.follow)}
+                    onClick={clickToChangeFollowState} disabled={props.usersToChangeFollowState.includes(props.id)}></button>}
 
             <NavLink to={'/profile/' + props.id}>
                 <img src={props.photos.small || '/static/media/socket.bdcbc318.jpg'} className={"avatar " + _.avatar} alt="" />

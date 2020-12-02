@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Profile from './Profile'
 import { getProfileThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
 import { withRouter } from 'react-router-dom'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 
 
@@ -19,8 +21,7 @@ class profileClass extends React.Component {
     render() {
         return (
             <>
-                {/* <Preloader isFetching={this.props.isFetching}></Preloader> */}
-                <Profile profileData={this.props.profileData} isFetching={this.props.isFetching}></Profile>
+                <Profile {...this.props} ></Profile>
             </>
         )
     }
@@ -29,7 +30,8 @@ class profileClass extends React.Component {
 let mapStateToProps = state => ({
     profileData: state.profilePage.profileData,
     isFetching: state.profilePage.isFetching,
-    currentUser: state.auth.id
+    currentUser: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {
@@ -38,8 +40,4 @@ let mapDispatchToProps = {
     nullProfileData
 }
 
-
-const profileClassWithRouter = withRouter(profileClass)
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(profileClassWithRouter)
-
-export default ProfileContainer
+export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(profileClass)

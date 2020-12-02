@@ -1,27 +1,17 @@
 import User from "./User";
 import React from 'react'
 import { connect } from "react-redux";
-import { changeFollowStateThunkCreator } from "../../../redux/usersReducer";
-import { usersAPI } from "../../../api/api";
+import { followUser, unfollowUser } from "../../../redux/usersReducer";
 
 
 class UserClass extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.follow = id => props.changeFollowStateThunkCreator(id, usersAPI.follow, true)
-        this.unfollow = id => props.changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
-    }
 
     changeFollowState = (followed, id) => {
-        let pass = () => { return };
-
         if (followed) {
-            window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && pass();
-            this.unfollow(id)
+            window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && this.props.unfollowUser(id)
         }
         else {
-            this.follow(id)
+            this.props.followUser(id)
         }
     }
 
@@ -31,13 +21,16 @@ class UserClass extends React.Component {
         ))
     }
 }
+
+
 let mapStateToProps = (state) => ({
     friendsData: state.friendsPage.friendsData,
-    usersToChangeFollowState: state.friendsPage.usersToChangeFollowState
+    usersToChangeFollowState: state.friendsPage.usersToChangeFollowState,
+    isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {
-    changeFollowStateThunkCreator
+    followUser, unfollowUser
 }
 
 const FriendContainer = connect(mapStateToProps, mapDispatchToProps)(UserClass)

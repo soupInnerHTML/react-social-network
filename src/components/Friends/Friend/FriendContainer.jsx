@@ -1,53 +1,19 @@
 import Friend from "./Friend";
 import React from 'react'
 import { connect } from "react-redux";
-import { follow, unfollow, followUnfollowRequestInProgress } from "../../../redux/usersReducer";
-import { usersAPI } from "../../../api/api";
+import { followUser, unfollowUser } from "../../../redux/usersReducer";
+import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
 class FriendClass extends React.Component {
+
     changeFollowState = (followed, id) => {
         if (followed) {
-            let areYouSure = window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?')
-            if (areYouSure) {
-                this.props.followUnfollowRequestInProgress(true, id)
-
-                usersAPI.unfollow(id)
-                    .then(data => {
-                        if (data.resultCode) {
-                            alert(data.messages)
-                        }
-                        else {
-                            this.props.unfollow(id)
-                        }
-
-                        this.props.followUnfollowRequestInProgress(false, id)
-                    })
-                    .catch(e => {
-                        this.props.followUnfollowRequestInProgress(false, id)
-                        alert(e)
-                    })
-            }
-
+            window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && this.props.unfollowUser(id)
         }
         else {
-            this.props.followUnfollowRequestInProgress(true, id)
-
-            usersAPI.follow(id)
-                .then(data => {
-                    if (data.resultCode) {
-                        alert(data.messages)
-                    }
-                    else {
-                        this.props.follow(id)
-                    }
-
-                    this.props.followUnfollowRequestInProgress(false, id)
-                })
-                .catch(e => {
-                    this.props.followUnfollowRequestInProgress(false, id)
-                    alert(e)
-                })
+            this.props.followUser(id)
         }
     }
 
@@ -59,14 +25,12 @@ class FriendClass extends React.Component {
 }
 let mapStateToProps = (state) => ({
     friendsData: state.friendsPage.friendsData,
-    usersToChangeFollowState: state.friendsPage.usersToChangeFollowState
+    usersToChangeFollowState: state.friendsPage.usersToChangeFollowState,
+    isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {
-    follow,
-    unfollow,
-    followUnfollowRequestInProgress,
+    followUser, unfollowUser
 }
 
-const FriendContainer = connect(mapStateToProps, mapDispatchToProps)(FriendClass)
-export default FriendContainer
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(FriendClass)
