@@ -7,10 +7,9 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
 
-
 class profileClass extends React.Component {
     componentDidMount() {
-        this.props.getProfile(this.props.match.params.userId || this.props.currentUser)
+        this.props.getProfile(this.props.match.params.userId)
     }
 
     componentWillUnmount() {
@@ -31,7 +30,7 @@ let mapStateToProps = state => ({
     profileData: state.profilePage.profileData,
     isFetching: state.profilePage.isFetching,
     currentUser: state.auth.id,
-    isAuth: state.auth.isAuth
+    // isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {

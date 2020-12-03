@@ -5,14 +5,17 @@ import { connect } from "react-redux";
 export const withUserProcessing = (Component, isWithFriends) => {
     class FriendsClass extends React.Component {
         componentDidMount = () => {
-            if (this.)
-                window.addEventListener('scroll', this.onScroll)
+            window.addEventListener('scroll', this.onScroll)
             this.getFriends()
         }
 
         componentWillUnmount() {
             window.removeEventListener('scroll', this.onScroll)
             this.props.nullFriends()
+        }
+
+        componentDidUpdate() {
+            // this.props.nullFriends()
         }
 
         onScroll = () => {
@@ -31,7 +34,7 @@ export const withUserProcessing = (Component, isWithFriends) => {
         }
 
         render() {
-            return <Component isFetching={this.props.isFetching}></Component>
+            return <Component isFetching={this.props.isFetching} />
         }
     }
 
@@ -39,7 +42,8 @@ export const withUserProcessing = (Component, isWithFriends) => {
         return {
             pageSize: state.friendsPage.pageSize,
             currentPage: state.friendsPage.currentPage,
-            isFetching: state.friendsPage.isFetching
+            isFetching: state.friendsPage.isFetching,
+            userData: state.friendsPage.friendsData
         }
     }
 

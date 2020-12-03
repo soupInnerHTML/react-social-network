@@ -14,7 +14,7 @@ class HeaderClass extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
+    isNotAuth: state.auth.isNotAuth,
     name: state.auth.login
 })
 

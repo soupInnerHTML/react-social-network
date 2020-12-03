@@ -7,6 +7,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import FeedContainer from './components/Feed/FeedContainer';
+import Login from './components/Login/Login';
 
 
 
@@ -23,6 +24,7 @@ const App = props => {
         <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
         <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
         <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
+        <Route path="/login" render={() => <Login></Login>}></Route>
 
         {/* render ждет функцию, component ждет компоненту
               необходим render, чтобы прокинуть props

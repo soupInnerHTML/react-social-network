@@ -52,10 +52,23 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return dispatch => {
         dispatch(fetching())
 
-        usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
-            dispatch(fetched())
-            dispatch(setUserProfile(data))
-        })
+        if (getProfileIdFromUriParams) {
+            usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
+                dispatch(fetched())
+                dispatch(setUserProfile(data))
+            })
+        }
+
+        else {
+            usersAPI.getWhoAmI().then(Me => {
+                usersAPI.getProfile(Me.data.id).then(data => {
+                    dispatch(fetched())
+                    dispatch(setUserProfile(data))
+                })
+            })
+        }
+
+
     }
 }
 

@@ -26,7 +26,7 @@ class UserClass extends React.Component {
 let mapStateToProps = (state) => ({
     friendsData: state.friendsPage.friendsData,
     usersToChangeFollowState: state.friendsPage.usersToChangeFollowState,
-    isAuth: state.auth.isAuth
+    isNotAuth: state.auth.isNotAuth
 })
 
 let mapDispatchToProps = {

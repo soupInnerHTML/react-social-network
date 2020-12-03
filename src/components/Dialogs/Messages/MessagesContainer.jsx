@@ -9,8 +9,7 @@ let mapStateToProps = state => {
         messagesObject: state.dialogsPage.messagesData.map(messageData => (
             <div key={messageData.id}>{messageData.message}</div>
         )),
-        newMessageText: state.dialogsPage.newMessageText,
-        isAuth: state.auth.isAuth
+        newMessageText: state.dialogsPage.newMessageText
     }
 }
 

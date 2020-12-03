@@ -1,5 +1,6 @@
 /* Ultrashort name _ for root styles*/
 import _ from './News.module.css'
+import { v4 as key } from 'uuid';
 
 const News = (props) => {
     let news = () => {
@@ -9,17 +10,17 @@ const News = (props) => {
 
             let objectFeed = props[item]
 
-            props.text && output.push(<p className={_.newsText}>{props.text}</p>)
+            props.text && output.push(<p key={key()} className={_.newsText}>{props.text}</p>)
 
             switch (objectFeed.type) {
                 case "photo":
-                    output.push(<img src={objectFeed.photo.photo_604} alt="" />)
+                    output.push(<img key={key()} src={objectFeed.photo.photo_604} alt="" />)
                     break
                 case "link":
-                    output.push(<a href={objectFeed.link.url}>{objectFeed.link.description}</a>)
+                    output.push(<a key={key()} href={objectFeed.link.url}>{objectFeed.link.description}</a>)
                     break
                 case "audio":
-                    output.push(<audio controls src={objectFeed.audio.url}></audio>)
+                    output.push(<audio key={key()} controls src={objectFeed.audio.url}></audio>)
                     break
                 default:
                     break

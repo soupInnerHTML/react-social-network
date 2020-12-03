@@ -11,10 +11,10 @@ const Header = (props) => {
                 <img src={logoSrc} alt="" />
                 <div className={_.left}>
                     <NavLink to="/users" className={_.users}>Our Community</NavLink>
-                    {props.isAuth ? <a href="/#" className={_.login}>{props.name}</a> : <a href="/#" className={_.login}>Login</a>}
+                    {props.isNotAuth ? <a href="/login" className={_.login}>Login</a> : <a href="/#" className={_.login}>{props.name}</a>}
                 </div>
             </div>
-        </header>
+        </header >
     )
 }
 

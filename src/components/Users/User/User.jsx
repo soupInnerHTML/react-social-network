@@ -13,7 +13,7 @@ const User = props => {
 
     return (
         <div className={_.friend}>
-            {props.isAuth &&
+            {props.isNotAuth === 0 &&
                 <button className={_.round + ' ' + (props.followed ? _.unfollow : _.follow)}
                     onClick={clickToChangeFollowState} disabled={props.usersToChangeFollowState.includes(props.id)}></button>}
 

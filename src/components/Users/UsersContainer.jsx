@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import { withUserProcessing } from '../../hoc/withUserProcessing';
 import Users from "./Users";
 
