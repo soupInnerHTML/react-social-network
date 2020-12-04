@@ -7,7 +7,7 @@ const Sidebar = (props) => {
     return (
         <aside className={_.sidebar + ' App-block App-sidebar'}>
             <nav>
-                <NavLink to={"/profile/"} activeClassName={_.active}>Profile</NavLink>
+                <NavLink exact to="/profile" activeClassName={_.active}>Profile</NavLink>
                 <NavLink to="/feed" activeClassName={_.active}>Feed</NavLink>
                 <NavLink to="/dialogs" activeClassName={_.active}>Messages</NavLink>
                 <NavLink to="/friends" activeClassName={_.active}>Friends</NavLink>

@@ -4,7 +4,6 @@ import usersReducer from './usersReducer'
 import authReducer from './authReducer';
 import { createStore, combineReducers, applyMiddleware } from "redux"
 import thunkMiddleware from 'redux-thunk'
-
 import feedReducer from './feedReducer';
 
 let reducers = combineReducers({
@@ -16,7 +15,6 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware))
-
 window.store = store
 
 export default store

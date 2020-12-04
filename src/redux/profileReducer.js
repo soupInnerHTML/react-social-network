@@ -1,4 +1,5 @@
 import { usersAPI } from '../api/api'
+import { v4 as getV4Id } from 'uuid';
 
 // actions
 const ADD_POST = 'addPost'
@@ -119,7 +120,7 @@ const profileReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     postsData: [...state.postsData, {
-                        id: Math.round(Math.random() * 1000),
+                        id: getV4Id(),
                         likes: 0,
                         text: action.input
                     }],

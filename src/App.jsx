@@ -1,5 +1,5 @@
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Dialogs from './components/Dialogs/Dialogs';
 import Sidebar from './components/Sidebar/Sidebar';
 import FriendsContainer from './components/Friends/FriendsContainer';
@@ -9,7 +9,12 @@ import UsersContainer from './components/Users/UsersContainer';
 import FeedContainer from './components/Feed/FeedContainer';
 import Login from './components/Login/Login';
 
+/* 
+render ждет функцию, component ждет компоненту
+необходим render, чтобы прокинуть props
 
+switch нужен для корректной работы редиретка
+*/
 
 const App = props => {
   return (
@@ -19,16 +24,20 @@ const App = props => {
       <div className="App-container Main-container">
         <Sidebar></Sidebar>
 
+        <Switch>
+          <Redirect exact from='/' to='/profile' />
+        </Switch>
+
+        <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
+        <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
         <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
+
         <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
         <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
         <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
         <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
         <Route path="/login" render={() => <Login></Login>}></Route>
 
-        {/* render ждет функцию, component ждет компоненту
-              необходим render, чтобы прокинуть props
-        */}
       </div>
     </div>
   );

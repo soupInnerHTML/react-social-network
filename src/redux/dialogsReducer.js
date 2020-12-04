@@ -1,3 +1,5 @@
+import { v4 as getV4Id } from 'uuid';
+
 const SEND_MESSAGE = 'sendMessage'
 const TYPE_TEXT = 'typeNewMessage'
 
@@ -68,7 +70,11 @@ const dialogsReducer = (state = initialState, action) => {
             if (action.input.length) {
                 return {
                     ...state,
-                    messagesData: [...state.messagesData, { id: Math.round(Math.random() * 1000), message: action.input }],
+                    messagesData: [...state.messagesData,
+                    {
+                        id: getV4Id(),
+                        message: action.input
+                    }],
                     newMessageText: ''
                 }
             }
