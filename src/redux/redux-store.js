@@ -9,8 +9,8 @@ import feedReducer from './feedReducer';
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    friendsPage: usersReducer,
     feedPage: feedReducer,
+    users: usersReducer,
     auth: authReducer,
 });
 

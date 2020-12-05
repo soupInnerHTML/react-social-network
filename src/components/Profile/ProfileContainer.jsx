@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
 import { getProfileThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
-import { withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
@@ -21,6 +21,7 @@ class profileClass extends React.Component {
         return (
             <>
                 <Profile {...this.props} ></Profile>
+                {this.props.isProfileUndefined && <Redirect to='/profile' />}
             </>
         )
     }
@@ -30,13 +31,14 @@ let mapStateToProps = state => ({
     profileData: state.profilePage.profileData,
     isFetching: state.profilePage.isFetching,
     currentUser: state.auth.id,
+    isProfileUndefined: state.profilePage.isProfileUndefined
     // isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {
     getProfile: getProfileThunkCreator,
     fetched,
-    nullProfileData
+    nullProfileData,
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(profileClass)

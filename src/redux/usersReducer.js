@@ -4,9 +4,10 @@ const FOLLOW = 'follow'
 const UNFOLLOW = 'unfollow'
 const SET_USERS = 'setUsers'
 const UP_CURRENT_PAGE = 'setCurrentPage'
-const FETCHING = 'fetchingFriends'
-const FETCHED = 'fetchedFriends'
-const NULL_FRIENDS = 'nullFriends'
+const FETCHING = 'fetchingUsers'
+const FETCHED = 'fetchedUsers'
+const NULL_USERS = 'nullUsers'
+const SET_USERS_QUANTITY = 'setUsersQuantity'
 const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = 'followUnfollowRequestInProgress'
 
 export const follow = id => ({
@@ -36,8 +37,13 @@ export const fetched = () => ({
     type: FETCHED,
 })
 
-export const nullFriends = () => ({
-    type: NULL_FRIENDS,
+export const nullUsers = () => ({
+    type: NULL_USERS,
+})
+
+export const setUsersQuantity = usersQuantity => ({
+    type: SET_USERS_QUANTITY,
+    usersQuantity
 })
 
 export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
@@ -46,13 +52,14 @@ export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
     id
 })
 
-export const getUsersThunkCreator = (pageSize, currentPage, isGetFriends) => {
+export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) => {
     return (dispatch) => {
         dispatch(fetching())
         usersAPI.getUsers(pageSize, currentPage, isGetFriends)
-            .then(items => {
+            .then(data => {
                 dispatch(fetched())
-                dispatch(setUsers(items))
+                dispatch(setUsers(data.items))
+                dispatch(setUsersQuantity(data.totalCount))
             })
 
 
@@ -65,6 +72,10 @@ export const getUsersThunkCreator = (pageSize, currentPage, isGetFriends) => {
     }
 }
 
+export const followUser = id => changeFollowStateThunkCreator(id, usersAPI.follow, true)
+export const unfollowUser = id => changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
+
+// вспомогательные функции
 const changeFollowStateThunkCreator = (id, async, isFollow) => {
     return dispatch => {
         dispatch(followUnfollowRequestInProgress(true, id))
@@ -87,52 +98,46 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
     }
 }
 
-export const followUser = id => changeFollowStateThunkCreator(id, usersAPI.follow, true)
-export const unfollowUser = id => changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
+const getChangedFollowState = (state, action, flag) => {
+    return {
+        ...state, usersData: [...state.usersData].map(user => {
+            if (user.id === action.id) {
+                return { ...user, followed: flag }
+            }
+            else {
+                return user
+            }
+        })
+    }
+}
+// end
+
 
 let initialState = {
-    friendsData: [],
+    usersData: [],
     pageSize: 100,
     currentPage: 1,
     isFetching: true,
+    usersQuantity: 0,
     usersToChangeFollowState: []
 }
 
-const friendsReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
 
     // let copyState = JSON.parse(JSON.stringify(state))
 
 
     switch (action.type) {
         case FOLLOW: {
-            return {
-                ...state, friendsData: [...state.friendsData].map(friend => {
-                    if (friend.id === action.id) {
-                        return { ...friend, followed: true }
-                    }
-                    else {
-                        return friend
-                    }
-                })
-            }
+            return getChangedFollowState(state, action, true)
         }
 
         case UNFOLLOW: {
-            return {
-                ...state, friendsData: [...state.friendsData].map(friend => {
-                    if (friend.id === action.id) {
-                        return { ...friend, followed: false }
-                    }
-                    else {
-                        return friend
-                    }
-                })
-            }
-
+            return getChangedFollowState(state, action, false)
         }
 
         case SET_USERS: {
-            return { ...state, friendsData: [...state.friendsData, ...action.users], }
+            return { ...state, usersData: [...state.usersData, ...action.users], }
         }
 
         case UP_CURRENT_PAGE: {
@@ -147,8 +152,12 @@ const friendsReducer = (state = initialState, action) => {
             return { ...state, isFetching: false }
         }
 
-        case NULL_FRIENDS: {
-            return { ...state, friendsData: [], currentPage: 1, }
+        case NULL_USERS: {
+            return { ...state, usersData: [], currentPage: 1 }
+        }
+
+        case SET_USERS_QUANTITY: {
+            return { ...state, usersQuantity: action.usersQuantity }
         }
 
         case FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS: {
@@ -164,4 +173,4 @@ const friendsReducer = (state = initialState, action) => {
     }
 }
 
-export default friendsReducer
+export default usersReducer

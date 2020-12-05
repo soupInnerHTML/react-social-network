@@ -1,17 +1,18 @@
-import { upCurrentPage, nullFriends, getUsersThunkCreator } from "../redux/usersReducer";
+import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity } from "../redux/usersReducer";
 import React from 'react';
 import { connect } from "react-redux";
 
-export const withUserProcessing = (Component, isWithFriends) => {
+export const withUserProcessing = isWithFriends => Component => {
     class FriendsClass extends React.Component {
-        componentDidMount = () => {
+        componentDidMount() {
             window.addEventListener('scroll', this.onScroll)
-            this.getFriends()
+            this.getUsersData()
+            // this.props.setUsersQuantity(10)
         }
 
         componentWillUnmount() {
             window.removeEventListener('scroll', this.onScroll)
-            this.props.nullFriends()
+            this.props.nullUsers()
         }
 
         componentDidUpdate() {
@@ -23,14 +24,15 @@ export const withUserProcessing = (Component, isWithFriends) => {
             const documentHeight = document.body.clientHeight
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            if (windowHeight + scrollTop >= documentHeight) {
+            if (windowHeight + scrollTop >= documentHeight && this.props.usersData.length > 99) {
                 this.props.upCurrentPage()
-                this.getFriends()
+                this.getUsersData()
             }
         }
 
-        getFriends = () => {
-            this.props.getUsersThunkCreator(this.props.pageSize, this.props.currentPage, isWithFriends)
+        getUsersData = () => {
+            // console.log(this.props.currentPage)
+            this.props.getUsersDataThunkCreator(this.props.pageSize, this.props.currentPage, isWithFriends)
         }
 
         render() {
@@ -40,18 +42,19 @@ export const withUserProcessing = (Component, isWithFriends) => {
 
     let mapStateToProps = state => {
         return {
-            pageSize: state.friendsPage.pageSize,
-            currentPage: state.friendsPage.currentPage,
-            isFetching: state.friendsPage.isFetching,
-            userData: state.friendsPage.friendsData
+            pageSize: state.users.pageSize,
+            currentPage: state.users.currentPage,
+            isFetching: state.users.isFetching,
+            usersData: state.users.usersData
         }
     }
 
     // попадает callback
     let mapDispatchToProps = {
         upCurrentPage,
-        nullFriends,
-        getUsersThunkCreator
+        nullUsers,
+        getUsersDataThunkCreator,
+        setUsersQuantity
     }
 
     return connect(mapStateToProps, mapDispatchToProps)(FriendsClass)

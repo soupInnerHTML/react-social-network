@@ -10,6 +10,7 @@ const SET_USER_PROFILE = 'setUserProfile'
 const FETCHING = 'fetchingProfile'
 const FETCHED = 'fetchedProfile'
 const NULL_PROFILE_DATA = 'nullProfileData'
+const ON_PROFILE_UNDEFINED = 'onProfileundefined'
 
 // action creators
 export const addPost = input => ({
@@ -48,6 +49,9 @@ export const fetched = () => ({
 export const nullProfileData = () => ({
     type: NULL_PROFILE_DATA,
 })
+export const onProfileUndefined = () => ({
+    type: ON_PROFILE_UNDEFINED,
+})
 
 export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return dispatch => {
@@ -58,6 +62,15 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
                 dispatch(fetched())
                 dispatch(setUserProfile(data))
             })
+                .catch(e => {
+                    if (e.response.status === 400) {
+                        alert('Пользователь не найден')
+                        dispatch(onProfileUndefined())
+                    }
+                    else {
+                        alert(e)
+                    }
+                })
         }
 
         else {
@@ -108,7 +121,8 @@ let initialState = {
     ],
     profileData: [],
     newPostText: '',
-    isFetching: true
+    isFetching: true,
+    isProfileUndefined: undefined
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -176,6 +190,10 @@ const profileReducer = (state = initialState, action) => {
 
         case NULL_PROFILE_DATA: {
             return { ...state, profileData: [] }
+        }
+
+        case ON_PROFILE_UNDEFINED: {
+            return { ...state, isProfileUndefined: true }
         }
 
         default:

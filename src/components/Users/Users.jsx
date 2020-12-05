@@ -1,16 +1,14 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Users.module.css'
 import UserContainer from './User/UserContainer';
+import { withUsersQuantity } from '../../hoc/withUsersQuantity';
 
 const Users = (props) => {
     return (
-        <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
-            {/* <Preloader isFetching={props.isFetching}></Preloader> */}
-            <section className={_.friends + " App-block"}>
-                <UserContainer></UserContainer>
-            </section>
-        </main>
+        <section className={_.friends + " App-block"}>
+            <UserContainer></UserContainer>
+        </section>
     )
 }
 
-export default Users
+export default withUsersQuantity(Users)

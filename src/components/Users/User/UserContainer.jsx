@@ -16,16 +16,16 @@ class UserClass extends React.Component {
     }
 
     render() {
-        return this.props.friendsData.map(friendData => (
-            <User {...this.props} {...friendData} key={friendData.id} changeFollowState={this.changeFollowState}></User>
+        return this.props.usersData.map(userData => (
+            <User {...this.props} {...userData} key={userData.id} changeFollowState={this.changeFollowState}></User>
         ))
     }
 }
 
 
 let mapStateToProps = (state) => ({
-    friendsData: state.friendsPage.friendsData,
-    usersToChangeFollowState: state.friendsPage.usersToChangeFollowState,
+    usersData: state.users.usersData,
+    usersToChangeFollowState: state.users.usersToChangeFollowState,
     isNotAuth: state.auth.isNotAuth
 })
 

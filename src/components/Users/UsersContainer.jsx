@@ -1,7 +1,19 @@
+import { compose } from 'redux';
 import { withUserProcessing } from '../../hoc/withUserProcessing';
 import Users from "./Users";
+import _ from './Users.module.css'
 
-export default withUserProcessing(Users)
+const UserContainer = (props) => {
+    return (
+        <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
+            <section className={_.friends + " App-block"}>
+                <Users></Users>
+            </section>
+        </main>
+    )
+}
+
+export default compose(withUserProcessing())(UserContainer)
 
 
 

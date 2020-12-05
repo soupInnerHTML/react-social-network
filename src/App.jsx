@@ -13,7 +13,7 @@ import Login from './components/Login/Login';
 render ждет функцию, component ждет компоненту
 необходим render, чтобы прокинуть props
 
-switch нужен для корректной работы редиретка
+switch нужен для корректной работы редиректа
 */
 
 const App = props => {

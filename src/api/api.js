@@ -20,7 +20,7 @@ vk.defaults.params = {
 export const usersAPI = {
     getUsers(pageSize, currentPage, isGetFriends = false) {
         return samurai.get(`users?count=${pageSize}&page=${currentPage}&friend=${isGetFriends ? isGetFriends : undefined}`)
-            .then(Response => Response.data.items)
+            .then(Response => Response.data)
     },
     getProfile(getProfileIdFromUriParams) {
         return samurai.get(`profile/${getProfileIdFromUriParams}`)
