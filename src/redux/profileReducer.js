@@ -86,6 +86,12 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     }
 }
 
+export const getStatusThunkCreator = (id) => {
+    return dispatch => {
+        usersAPI.getStatus(id).then(response => response)
+    }
+}
+
 let initialState = {
     postsData: [
         {

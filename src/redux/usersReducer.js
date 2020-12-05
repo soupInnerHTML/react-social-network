@@ -9,6 +9,8 @@ const FETCHED = 'fetchedUsers'
 const NULL_USERS = 'nullUsers'
 const SET_USERS_QUANTITY = 'setUsersQuantity'
 const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = 'followUnfollowRequestInProgress'
+const SET_MAX_CURRENT_PAGE = 'setMaxCurrentPage'
+const SET_IS_FRIENDS = 'setIsFriends'
 
 export const follow = id => ({
     type: FOLLOW,
@@ -46,6 +48,15 @@ export const setUsersQuantity = usersQuantity => ({
     usersQuantity
 })
 
+export const setMaxCurrentPage = () => ({
+    type: SET_MAX_CURRENT_PAGE,
+})
+
+export const setIsFriends = (isFriends) => ({
+    type: SET_IS_FRIENDS,
+    isFriends
+})
+
 export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
     type: FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS,
     isFollowInProgress,
@@ -60,6 +71,13 @@ export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) =>
                 dispatch(fetched())
                 dispatch(setUsers(data.items))
                 dispatch(setUsersQuantity(data.totalCount))
+                dispatch(setMaxCurrentPage())
+
+                if (data.totalCount < pageSize && !data.items.length) {
+                    usersAPI.getUsers(pageSize, 1, isGetFriends).then(data => {
+                        dispatch(setUsers(data.items))
+                    })
+                }
             })
 
 
@@ -119,6 +137,8 @@ let initialState = {
     currentPage: 1,
     isFetching: true,
     usersQuantity: 0,
+    maxCurrentPage: 0,
+    isFriends: undefined,
     usersToChangeFollowState: []
 }
 
@@ -128,37 +148,36 @@ const usersReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
-        case FOLLOW: {
+        case FOLLOW:
             return getChangedFollowState(state, action, true)
-        }
 
-        case UNFOLLOW: {
+        case UNFOLLOW:
             return getChangedFollowState(state, action, false)
-        }
 
-        case SET_USERS: {
+        case SET_USERS:
             return { ...state, usersData: [...state.usersData, ...action.users], }
-        }
 
-        case UP_CURRENT_PAGE: {
+        case UP_CURRENT_PAGE:
             return { ...state, currentPage: state.currentPage + 1 }
-        }
 
-        case FETCHING: {
+        case FETCHING:
             return { ...state, isFetching: true }
-        }
 
-        case FETCHED: {
+        case FETCHED:
             return { ...state, isFetching: false }
-        }
 
-        case NULL_USERS: {
+        case NULL_USERS:
             return { ...state, usersData: [], currentPage: 1 }
-        }
 
-        case SET_USERS_QUANTITY: {
+        case SET_USERS_QUANTITY:
             return { ...state, usersQuantity: action.usersQuantity }
-        }
+
+        case SET_MAX_CURRENT_PAGE:
+            return { ...state, maxCurrentPage: Math.ceil(state.usersQuantity / state.pageSize) }
+
+        case SET_IS_FRIENDS:
+            return { ...state, isFriends: action.isFriends }
+
 
         case FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS: {
             return {

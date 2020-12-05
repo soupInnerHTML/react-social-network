@@ -26,6 +26,10 @@ export const usersAPI = {
         return samurai.get(`profile/${getProfileIdFromUriParams}`)
             .then(Response => Response.data)
     },
+    getStatus(id) {
+        return samurai.get(`profile/status/${id}`)
+            .then(Response => Response.data)
+    },
     getWhoAmI() {
         return samurai.get(`auth/me`).then(Response => Response.data)
     },

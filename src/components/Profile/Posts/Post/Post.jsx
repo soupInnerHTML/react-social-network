@@ -18,7 +18,6 @@ class Post extends React.Component {
         else {
             this.props.unlikeThePost(this.props.id)
         }
-        // console.log(this.flag)
     }
 
     // window.counter = counter

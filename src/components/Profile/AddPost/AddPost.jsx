@@ -16,8 +16,6 @@ const AddPost = props => {
 
   let postInput = React.createRef()
 
-  // let some = e => console.log(e)
-
   return (
     <section className="App-block">
       <form className={_.addPost}>

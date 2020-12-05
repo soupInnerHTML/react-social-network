@@ -1,6 +1,7 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Info.module.css'
 import socket from '../../../img/socket.jpg'
+import Status from './Status/Status'
 
 const Info = (props) => {
 
@@ -15,9 +16,11 @@ const Info = (props) => {
       <div className={_.desc}>
         <p className={_.name}>{props.profileData.fullName}</p>
         {/* Ruby ⛓ Soho */}
-        <p>{props.profileData.aboutMe}</p>
+        <p>🧐 {props.profileData.aboutMe}</p>
         {/* Date of Birth: 4 november '02 */}
         <p>{props.profileData.lookingForAJobDescription}</p>
+
+        <Status idFromUri={props.match.params.userId}></Status>
         {/* Education: PTPIT '22 */}
         <a target="_blank" href="https://soupinnerHTML.github.io" rel="noreferrer">Web Site</a>
       </div>

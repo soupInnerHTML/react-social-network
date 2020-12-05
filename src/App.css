@@ -70,3 +70,16 @@
 .fetching {
 	opacity: 0.1;
 }
+.qtyTab {
+	height: 55px;
+	width: 100%;
+	border-bottom: 1px solid #404044;
+	display: flex;
+}
+.qtyTab__text {
+	padding: 0 0 0 20px;
+}
+.qtyTab__qty {
+	padding: 0 0 0 5px;
+	color: #cfcfcf;
+}

@@ -4,8 +4,13 @@ import { connect } from "react-redux"
 
 export const withAuthRedirect = (Component) => {
     class RedirectComponent extends React.Component {
+        initialMatch = {
+            params: {
+                userId: undefined
+            }
+        }
         render() {
-            if (this.props.isNotAuth) {
+            if (this.props.isNotAuth && !(this.props.match || this.initialMatch).params.userId) {
                 return <Redirect to='/login'></Redirect>
             }
 
