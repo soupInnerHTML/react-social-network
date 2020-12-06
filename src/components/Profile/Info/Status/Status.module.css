@@ -2,9 +2,15 @@
 	cursor: pointer;
 	background: rgba(255, 255, 255, 0.1);
 }
+.status {
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+}
 .input {
 	display: block;
 }
 .hash {
 	color: var(--accent);
+	font-family: cursive;
 }

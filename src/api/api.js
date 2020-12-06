@@ -23,12 +23,8 @@ export const usersAPI = {
             .then(Response => Response.data)
     },
     getProfile(getProfileIdFromUriParams) {
-        return samurai.get(`profile/${getProfileIdFromUriParams}`)
-            .then(Response => Response.data)
-    },
-    getStatus(id) {
-        return samurai.get(`profile/status/${id}`)
-            .then(Response => Response.data)
+        console.warn('Кажется, ты вызвал getProfile через usersAPI. Рекомендую делать это через profileAPI')
+        // return profileAPI.getProfile(getProfileIdFromUriParams)
     },
     getWhoAmI() {
         return samurai.get(`auth/me`).then(Response => Response.data)
@@ -42,6 +38,24 @@ export const usersAPI = {
     unfollow(id) {
         return samurai.delete(`follow/${id}`).then(Response => Response.data)
     },
+}
+
+export const profileAPI = {
+    getProfile(getProfileIdFromUriParams) {
+        return samurai.get(`profile/${getProfileIdFromUriParams}`)
+            .then(Response => Response.data)
+    },
+    getStatus(id) {
+        return samurai.get(`profile/status/${id}`)
+            .then(Response => Response.data)
+    },
+    updateStatus(status) {
+        return samurai.put(`profile/status`, { status })
+            .then(Response => Response.data)
+    }
+}
+
+export const VKAPI = {
     myVk() {
         return vk.get('users.get?user_ids=255462995')
     },

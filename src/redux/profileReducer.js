@@ -1,4 +1,4 @@
-import { usersAPI } from '../api/api'
+import { usersAPI, profileAPI } from '../api/api'
 import { v4 as getV4Id } from 'uuid';
 
 // actions
@@ -11,6 +11,7 @@ const FETCHING = 'fetchingProfile'
 const FETCHED = 'fetchedProfile'
 const NULL_PROFILE_DATA = 'nullProfileData'
 const ON_PROFILE_UNDEFINED = 'onProfileundefined'
+const SET_STATUS = 'setStatus'
 
 // action creators
 export const addPost = input => ({
@@ -53,12 +54,17 @@ export const onProfileUndefined = () => ({
     type: ON_PROFILE_UNDEFINED,
 })
 
+export const setStatus = (status) => ({
+    type: SET_STATUS,
+    status
+})
+
 export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return dispatch => {
         dispatch(fetching())
 
         if (getProfileIdFromUriParams) {
-            usersAPI.getProfile(getProfileIdFromUriParams).then(data => {
+            profileAPI.getProfile(getProfileIdFromUriParams).then(data => {
                 dispatch(fetched())
                 dispatch(setUserProfile(data))
             })
@@ -75,7 +81,7 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
 
         else {
             usersAPI.getWhoAmI().then(Me => {
-                usersAPI.getProfile(Me.data.id).then(data => {
+                profileAPI.getProfile(Me.data.id).then(data => {
                     dispatch(fetched())
                     dispatch(setUserProfile(data))
                 })
@@ -88,7 +94,14 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
 
 export const getStatusThunkCreator = (id) => {
     return dispatch => {
-        usersAPI.getStatus(id).then(response => response)
+        profileAPI.getStatus(id).then(response => dispatch(setStatus(response)))
+    }
+}
+
+export const updateStatusThunkCreator = (status) => {
+    return dispatch => {
+        dispatch(setStatus(status))
+        profileAPI.updateStatus(status).catch(e => alert(e))
     }
 }
 
@@ -196,6 +209,10 @@ const profileReducer = (state = initialState, action) => {
 
         case NULL_PROFILE_DATA: {
             return { ...state, profileData: [] }
+        }
+
+        case SET_STATUS: {
+            return { ...state, status: action.status }
         }
 
         case ON_PROFILE_UNDEFINED: {

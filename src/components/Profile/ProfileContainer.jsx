@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
-import { getProfileThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
+import { getProfileThunkCreator, getStatusThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
 import { Redirect, withRouter } from 'react-router-dom'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
@@ -10,11 +10,23 @@ import { compose } from 'redux'
 class profileClass extends React.Component {
     componentDidMount() {
         this.props.getProfile(this.props.match.params.userId)
+        this.getStatus()
     }
 
     componentWillUnmount() {
-        // this.props.fetched()
-        // this.props.nullProfileData()
+
+    }
+
+    componentDidUpdate(prevState, prevProps) {
+        if (prevState.status !== this.props.status || prevState.isNotAuth !== this.props.isNotAuth) {
+            this.getStatus()
+        }
+    }
+
+    getStatus() {
+        if (this.props.isNotAuth === 0) {
+            this.props.getStatusThunkCreator(this.props.match.params.userId || this.props.id)
+        }
     }
 
     render() {
@@ -28,17 +40,19 @@ class profileClass extends React.Component {
 }
 
 let mapStateToProps = state => ({
+    id: state.auth.id,
     profileData: state.profilePage.profileData,
     isFetching: state.profilePage.isFetching,
     currentUser: state.auth.id,
+    status: state.profilePage.status,
     isProfileUndefined: state.profilePage.isProfileUndefined
-    // isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps = {
     getProfile: getProfileThunkCreator,
     fetched,
     nullProfileData,
+    getStatusThunkCreator
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(profileClass)
