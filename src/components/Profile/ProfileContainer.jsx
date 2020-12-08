@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Profile from './Profile'
+import { connect } from 'react-redux'
 import { getProfileThunkCreator, getStatusThunkCreator, fetched, nullProfileData } from '../../redux/profileReducer'
 import { Redirect, withRouter } from 'react-router-dom'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
@@ -29,10 +29,15 @@ class profileClass extends React.Component {
         }
     }
 
+    infoProps = {
+        profileData: this.props.profileData,
+        // match: this.props.match
+    }
+
     render() {
         return (
             <>
-                <Profile {...this.props} ></Profile>
+                <Profile {...this.props} infoProps={this.infoProps}></Profile>
                 {this.props.isProfileUndefined && <Redirect to='/profile' />}
             </>
         )
@@ -43,7 +48,6 @@ let mapStateToProps = state => ({
     id: state.auth.id,
     profileData: state.profilePage.profileData,
     isFetching: state.profilePage.isFetching,
-    currentUser: state.auth.id,
     status: state.profilePage.status,
     isProfileUndefined: state.profilePage.isProfileUndefined
 })

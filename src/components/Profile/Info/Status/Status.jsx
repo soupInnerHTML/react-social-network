@@ -5,7 +5,7 @@ import React from "react"
 
 const Status = (props) => {
     return (
-        <p className={_.status} onClick={props.onStatusClick}>
+        <p className={props.isMyProfile ? _.status : 'outerStatus'} onClick={props.onStatusClick}>
             <span className={_.hash}># </span>
             {props.status}
         </p>

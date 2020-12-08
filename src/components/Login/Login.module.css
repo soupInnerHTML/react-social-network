@@ -1,0 +1,44 @@
+.login input:not([type="checkbox"]) {
+	display: block;
+	background: transparent;
+	border: 1px solid var(--grey);
+	height: 35px;
+	width: 100%;
+	border-radius: 3px;
+	padding: 0 12px 0;
+	margin-bottom: 15px;
+	font-size: 14px;
+	font-family: Roboto;
+}
+.login [type="checkbox"] {
+	background: transparent;
+	border: 1px solid var(--grey);
+	border-radius: 3px;
+}
+.login input[type="submit"] {
+	background: var(--grey);
+	color: #fff;
+	padding: 0 16px;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+}
+.login label[for="isRemeberMe"] {
+	color: var(--accent);
+}
+.loginWrap {
+	width: 25%;
+	padding: 25px;
+	height: -webkit-fit-content;
+	height: -moz-fit-content;
+	height: fit-content;
+}
+.content {
+	width: 75%;
+	height: -webkit-fit-content;
+	height: -moz-fit-content;
+	height: fit-content;
+}
+.main {
+	display: flex;
+}

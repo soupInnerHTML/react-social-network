@@ -3,6 +3,7 @@ import _ from './Friends.module.css'
 import Friends from "./Friends";
 import { withUserProcessing } from '../../hoc/withUserProcessing';
 import { compose } from "redux";
+import React from 'react';
 
 const FriendsContainer = props => {
     return (

@@ -4,7 +4,9 @@ import { addPost, typeNewPost } from '../../../redux/profileReducer'
 
 
 let mapStateToProps = state => ({
-  newPostText: state.profilePage.newPostText
+  newPostText: state.profilePage.newPostText,
+  profileId: state.profilePage.profileData.userId,
+  currentUserId: state.auth.id
 })
 
 let mapDispatchToProps = {

@@ -4,6 +4,7 @@ import { getStatusThunkCreator, updateStatusThunkCreator } from '../../../../red
 import { compose } from 'redux'
 import StatusInput from './StatusInput'
 import Status from './Status'
+import { Redirect } from 'react-router-dom'
 
 class StatusClass extends React.Component {
     state = {
@@ -37,7 +38,7 @@ class StatusClass extends React.Component {
     }
 
     onInputBlur = (el) => {
-        if (!this.props.idFromUri || this.props.id === +this.props.idFromUri) {
+        if (!this.props.idFromUri) {
             this.toggleEditMode(false)
 
             if (this.state.statusBuffer !== this.state.status) {
@@ -52,22 +53,27 @@ class StatusClass extends React.Component {
             statusBuffer: this.state.status
         })
 
-        if (!this.props.idFromUri || this.props.id === +this.props.idFromUri) {
+        if (!this.props.idFromUri) {
             this.toggleEditMode(true)
         }
     }
 
     getStatusJSX() {
-        if (this.state.editMode && (!this.props.idFromUri || this.props.id === +this.props.idFromUri)) {
+        if (this.props.id === +this.props.idFromUri) {
+            return <Redirect to='/profile'></Redirect>
+        }
+
+        if (this.state.editMode && !this.props.idFromUri) {
             return (
                 <StatusInput addTextToState={this.addTextToState} onInputBlur={this.onInputBlur} status={this.state.status}></StatusInput>
             )
         }
         else {
             return (
-                <Status onStatusClick={this.onStatusClick} status={this.state.status}></Status>
+                <Status onStatusClick={this.onStatusClick} status={this.state.status} isMyProfile={!this.props.idFromUri}></Status>
             )
         }
+
     }
 
     render() {

@@ -65,8 +65,10 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
 
         if (getProfileIdFromUriParams) {
             profileAPI.getProfile(getProfileIdFromUriParams).then(data => {
-                dispatch(fetched())
-                dispatch(setUserProfile(data))
+                usersAPI.getUserByTerm(data.fullName).then(user => {
+                    dispatch(fetched())
+                    dispatch(setUserProfile({ ...data, followed: user.items[0].followed }))
+                })
             })
                 .catch(e => {
                     if (e.response.status === 400) {
@@ -110,30 +112,36 @@ let initialState = {
         {
             id: 1,
             likes: 12,
+            liked: false,
             text: 'Professionally transform ethical initiatives before synergistic synergy. Seamlessly build ethical paradigms through enterprise technologies. Completely coordinate economically sound synergy after open-source content. Enthusiastically underwhelm compelling services through low-risk high-yield e-commerce. Holisticly restore interactive processes rather than low-risk high-yield results.'
         },
         {
             id: 2,
             likes: 1,
+            liked: false,
             text: 'Professionally impact diverse growth strategies vis-a-vis low-risk high-yield convergence. Efficiently engineer proactive communities through maintainable infomediaries. Compellingly myocardinate business relationships and real-time ROI. Phosfluorescently engage backend content with premier expertise. Interactively evisculate ethical technologies without front-end ROI.            '
         },
         {
             id: 3,
             likes: 3,
+            liked: false,
             text: 'Appropriately provide access to scalable "outside the box" thinking without resource maximizing users. Dynamically reinvent interactive innovation before progressive expertise. Energistically re-engineer competitive partnerships with prospective supply chains. Enthusiastically evisculate alternative functionalities without cost effective resources. Distinctively initiate quality networks via market-driven methodologies.            '
         },
         {
             id: 4,
+            liked: false,
             likes: 228,
             text: 'Holisticly mesh excellent convergence after customized systems. Competently target multifunctional catalysts for change via multifunctional ROI. Seamlessly matrix unique.'
         },
         {
             id: 5,
+            liked: false,
             likes: 1337,
             text: 'Globally network optimal human capital with goal-oriented methods of empowerment. Professionally strategize economically sound leadership skills before leading-edge materials. Credibly enable turnkey meta-services after principle-centered communities. Objectively iterate vertical ideas via client-centered data. Quickly formulate world-class paradigms through resource maximizing supply chains.            '
         },
         {
             id: 6,
+            liked: false,
             likes: 1488,
             text: 'Hello world'
         }
@@ -155,6 +163,7 @@ const profileReducer = (state = initialState, action) => {
                     postsData: [...state.postsData, {
                         id: getV4Id(),
                         likes: 0,
+                        liked: false,
                         text: action.input
                     }],
                     newPostText: ''
@@ -171,7 +180,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state, postsData: [...state.postsData].map(postData => {
                     if (postData.id === action.postID) {
-                        return { ...postData, likes: postData.likes + 1 }
+                        return { ...postData, likes: postData.likes + 1, liked: true }
                     }
                     else {
                         return postData
@@ -184,7 +193,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state, postsData: [...state.postsData].map(postData => {
                     if (postData.id === action.postID) {
-                        return { ...postData, likes: postData.likes - 1 }
+                        return { ...postData, likes: postData.likes - 1, liked: false }
                     }
                     else {
                         return postData

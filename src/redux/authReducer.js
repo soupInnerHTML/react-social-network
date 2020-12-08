@@ -17,7 +17,9 @@ export const authThunkCreator = () => (
     dispatch => {
         usersAPI.getWhoAmI().then(data => {
             let { login, email, id } = data.data
-            dispatch(setUserData(login, email, id, usersAPI.getAvatarByName(data.data.login).then(r => r), data.resultCode))
+            usersAPI.getAvatarByName(login).then(avatar => {
+                dispatch(setUserData(login, email, id, avatar.items[0].photos.small, data.resultCode))
+            })
         })
     }
 )

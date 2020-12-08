@@ -24,9 +24,7 @@
 	grid-area: meta;
 }
 .likeIcon {
-	width: 16px;
 	padding: 0 6px 0 0;
-	vertical-align: middle;
 }
 .likes:hover {
 	cursor: pointer;
@@ -34,6 +32,9 @@
 	width: -moz-fit-content;
 	width: fit-content;
 }
-.likeCounter.active {
+.likes.active {
 	color: #e64646;
+}
+.likesQty {
+	margin: 0 0 0 6px;
 }

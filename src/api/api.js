@@ -24,13 +24,15 @@ export const usersAPI = {
     },
     getProfile(getProfileIdFromUriParams) {
         console.warn('Кажется, ты вызвал getProfile через usersAPI. Рекомендую делать это через profileAPI')
-        // return profileAPI.getProfile(getProfileIdFromUriParams)
     },
     getWhoAmI() {
         return samurai.get(`auth/me`).then(Response => Response.data)
     },
     getAvatarByName(name) {
         return samurai.get(`users?term=${name}`).then(Response => Response.data)
+    },
+    getUserByTerm(name) {
+        return this.getAvatarByName(name)
     },
     follow(id) {
         return samurai.post(`follow/${id}`).then(Response => Response.data)

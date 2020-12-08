@@ -3,6 +3,7 @@
 	--accent: #e9c7ff;
 	--grey: #48484c;
 	--d-grey: #343437;
+	--blue: #5c9ce6;
 	--sidebar-padding: 10px;
 	--default-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -70,6 +71,23 @@
 .fetching {
 	opacity: 0.1;
 }
+.fetched::before {
+	opacity: 0;
+}
+.fetching::before {
+	opacity: 1;
+	transition: opacity 2s;
+	-webkit-animation: fade 6s, changeContent 0.8s linear infinite;
+	animation: fade 6s, changeContent 0.8s linear infinite;
+}
+.fetching::before,
+.fetched::before {
+	position: absolute;
+	content: "⠋";
+	bottom: 120px;
+	left: 20px;
+	font-size: 50px;
+}
 .qtyTab {
 	height: 55px;
 	width: 100%;
@@ -82,4 +100,78 @@
 .qtyTab__qty {
 	padding: 0 0 0 5px;
 	color: #cfcfcf;
+}
+@-webkit-keyframes changeContent {
+	10% {
+		content: "⠙";
+	}
+	20% {
+		content: "⠹";
+	}
+	30% {
+		content: "⠸";
+	}
+	40% {
+		content: "⠼";
+	}
+	50% {
+		content: "⠴";
+	}
+	60% {
+		content: "⠦";
+	}
+	70% {
+		content: "⠧";
+	}
+	80% {
+		content: "⠇";
+	}
+	90% {
+		content: "⠏";
+	}
+}
+@keyframes changeContent {
+	10% {
+		content: "⠙";
+	}
+	20% {
+		content: "⠹";
+	}
+	30% {
+		content: "⠸";
+	}
+	40% {
+		content: "⠼";
+	}
+	50% {
+		content: "⠴";
+	}
+	60% {
+		content: "⠦";
+	}
+	70% {
+		content: "⠧";
+	}
+	80% {
+		content: "⠇";
+	}
+	90% {
+		content: "⠏";
+	}
+}
+@-webkit-keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
