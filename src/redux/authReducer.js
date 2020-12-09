@@ -1,4 +1,4 @@
-import { usersAPI } from '../api/api';
+import { profileAPI, usersAPI } from '../api/api';
 
 const SET_USER_DATA = 'setUderData'
 
@@ -17,8 +17,8 @@ export const authThunkCreator = () => (
     dispatch => {
         usersAPI.getWhoAmI().then(data => {
             let { login, email, id } = data.data
-            usersAPI.getAvatarByName(login).then(avatar => {
-                dispatch(setUserData(login, email, id, avatar.items[0].photos.small, data.resultCode))
+            profileAPI.getAvatarById(id).then(avatar => {
+                dispatch(setUserData(login, email, id, avatar, data.resultCode))
             })
         })
     }

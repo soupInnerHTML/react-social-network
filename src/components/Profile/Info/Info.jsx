@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faFacebook, faInstagram, faTwitter, faVk, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 // import { follow } from '../../../redux/usersReducer'
-import Follow from './Follow'
+import Follow from './Follow/Follow'
 
 const Info = (props) => {
 

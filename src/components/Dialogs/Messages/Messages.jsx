@@ -2,17 +2,37 @@
 import _ from './Messages.module.css'
 import React from 'react'
 import SendImgPath from '../../../img/send.svg'
+import { Field, reduxForm } from 'redux-form'
+
+const MessageSendForm = (props) => {
+    const { handleSubmit, reset } = props
+
+    let submitAndClear = e => {
+        e.preventDefault()
+        handleSubmit()
+        reset()
+    }
+
+    return (
+        <form onSubmit={submitAndClear}>
+            <Field className={_.messageText} name="message" placeholder="Write a message..." component="input"></Field>
+
+            <button className={_.send} type="submit">
+                <img src={SendImgPath} alt="" />
+            </button>
+        </form>
+    )
+}
+
+const MessageSendReduxForm = reduxForm({
+    form: 'messages'
+})(MessageSendForm)
+
 
 const Messages = props => {
-    let postTextChange = () => {
-        props.typeNewMessage(messageInput.current.value)
+    let sendMessage = values => {
+        props.sendMessage(values.message)
     }
-
-    let sendMessage = () => {
-        props.sendMessage(messageInput.current.value)
-    }
-
-    let messageInput = React.createRef()
 
     return (
         <div className={_.messagesItems}>
@@ -22,12 +42,7 @@ const Messages = props => {
                 </div>
             </div>
 
-            <input ref={messageInput} onChange={postTextChange} value={props.newMessageText} className={_.messageText}
-                type="text" placeholder="Write a message..." />
-
-            <button className={_.send} onClick={sendMessage}>
-                <img src={SendImgPath} alt="" />
-            </button>
+            <MessageSendReduxForm onSubmit={sendMessage}></MessageSendReduxForm>
         </div>
     );
 }

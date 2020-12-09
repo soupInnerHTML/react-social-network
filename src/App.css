@@ -3,7 +3,8 @@
 	--accent: #e9c7ff;
 	--grey: #48484c;
 	--d-grey: #343437;
-	--blue: #5c9ce6;
+	--follow: #5c9ce6;
+	--unfollow: #e64c2d;
 	--sidebar-padding: 10px;
 	--default-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -40,6 +41,7 @@
 	grid-template-columns: 1fr 5fr;
 	grid-template-areas: "s m m m m m m";
 	min-height: 100vh;
+	position: relative;
 }
 .App-sidebar {
 	grid-area: s;
@@ -85,7 +87,7 @@
 	position: absolute;
 	content: "⠋";
 	bottom: 120px;
-	left: 20px;
+	left: 0;
 	font-size: 50px;
 }
 .qtyTab {

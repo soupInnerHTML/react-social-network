@@ -1,4 +1,5 @@
 import { usersAPI } from '../api/api';
+import { setFollowState as setFollowStateForProfile } from './profileReducer';
 
 const FOLLOW = 'follow'
 const UNFOLLOW = 'unfollow'
@@ -104,7 +105,14 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
                     alert(data.messages)
                 }
                 else {
-                    isFollow ? dispatch(follow(id)) : dispatch(unfollow(id))
+                    if (isFollow) {
+                        dispatch(follow(id))
+                        dispatch(setFollowStateForProfile(true))
+                    }
+                    else {
+                        dispatch(unfollow(id))
+                        dispatch(setFollowStateForProfile(false))
+                    }
                 }
 
                 dispatch(followUnfollowRequestInProgress(false, id))
@@ -179,13 +187,12 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, isFriends: action.isFriends }
 
 
-        case FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS: {
+        case FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS:
             return {
                 ...state, usersToChangeFollowState: action.isFollowInProgress ?
                     [...state.usersToChangeFollowState, action.id] :
                     state.usersToChangeFollowState.filter(id => id !== action.id)
             }
-        }
 
         default:
             return state

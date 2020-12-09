@@ -5,11 +5,14 @@ import socket from '../../../../img/socket.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as like } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as liked } from '@fortawesome/free-regular-svg-icons'
+import Moment from 'react-moment';
+import 'moment/locale/ru';
 
 class Post extends React.Component {
 
     componentDidMount = () => {
-
+        // Moment.locale(ru);
+        // console.log(Moment().format('LLLL')); // 'Freitag, 24. Juni 2016 01:42'
     }
 
     clickOnLike = () => {
@@ -25,6 +28,7 @@ class Post extends React.Component {
 
     render() {
         let { photos, fullName } = this.props.profileData
+
         return (
             <section className="App-block">
                 <div className={_.post}>
@@ -34,7 +38,9 @@ class Post extends React.Component {
 
                     <div>
                         <p className={_.name}>{fullName}</p>
-                        <p className={_.date}>23 мая въ 17:24</p>
+                        <Moment fromNow>{this.props.postDate}</Moment>
+                        {/* 23 мая въ 17:24 */}
+
                     </div>
 
                     <div className={_.content}>

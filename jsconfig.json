@@ -4,11 +4,9 @@
       "module": "esnext",
       "jsx": "react",
       "checkJs": true,
-      // "lib": ["esnext", "dom"],
-      "esModuleInterop": true, // force import
+      "esModuleInterop": true,
       "moduleResolution": "node",
-
-      "allowSyntheticDefaultImports": true, // force import
+      "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"]
 }

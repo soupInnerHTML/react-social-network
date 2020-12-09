@@ -43,13 +43,3 @@
 	grid-area: follow;
 	text-align: right;
 }
-.folllowBtn {
-	padding: 7px 16px 8px;
-	cursor: pointer;
-	text-align: center;
-	background: 0 0;
-	background-color: var(--blue);
-	border: 0;
-	border-radius: 4px;
-	color: #fff;
-}

@@ -1,0 +1,20 @@
+.follow {
+	padding: 7px 16px 8px;
+	cursor: pointer;
+	text-align: center;
+	background: 0 0;
+	background-color: var(--follow);
+	border: 0;
+	border-radius: 4px;
+	color: #fff;
+}
+.unfollow {
+	padding: 7px 16px 8px;
+	cursor: pointer;
+	text-align: center;
+	background: 0 0;
+	background-color: var(--unfollow);
+	border: 0;
+	border-radius: 4px;
+	color: #fff;
+}

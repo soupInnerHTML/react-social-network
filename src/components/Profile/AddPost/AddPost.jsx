@@ -1,32 +1,41 @@
 /* Ultrashort name _ for root styles*/
 import _ from './AddPost.module.css'
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+
+const AddPostForm = (props) => {
+  const { handleSubmit, reset } = props
+
+  let submitAndClear = e => {
+    e.preventDefault()
+    handleSubmit()
+    reset()
+  }
+
+  return (
+    <form className={_.addPost} onSubmit={submitAndClear}>
+      <Field component="textarea" name="addPost" className={_.text} placeholder="Что у вас нового?"></Field>
+
+      <hr className={"separator " + _.topLine} />
+
+      <button type="submit" className={_.submit}>Опубликовать</button>
+    </form>
+  )
+}
+
+const AddPostReduxForm = reduxForm({
+  form: 'addPost'
+})(AddPostForm)
 
 
 const AddPost = props => {
-  let addPost = e => {
-    e.preventDefault()
-
-    props.addPost(postInput.current.value)
+  let addPost = values => {
+    props.addPost(values.addPost)
   }
-
-  let messageTextChange = () => {
-    props.typeNewPost(postInput.current.value)
-  }
-
-  let postInput = React.createRef()
 
   return (
     <section className="App-block">
-      <form className={_.addPost}>
-        <textarea ref={postInput} type="text" className={_.text}
-          placeholder="Что у вас нового?" onChange={messageTextChange} value={props.newPostText} />
-
-
-        <hr className={"separator " + _.topLine} />
-
-        <button onClick={addPost} className={_.submit}>Опубликовать</button>
-      </form>
+      <AddPostReduxForm onSubmit={addPost}></AddPostReduxForm>
     </section>
   )
 

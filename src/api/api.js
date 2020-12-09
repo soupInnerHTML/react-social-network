@@ -28,11 +28,8 @@ export const usersAPI = {
     getWhoAmI() {
         return samurai.get(`auth/me`).then(Response => Response.data)
     },
-    getAvatarByName(name) {
-        return samurai.get(`users?term=${name}`).then(Response => Response.data)
-    },
     getUserByTerm(name) {
-        return this.getAvatarByName(name)
+        return samurai.get(`users?term=` + name).then(Response => Response.data)
     },
     follow(id) {
         return samurai.post(`follow/${id}`).then(Response => Response.data)
@@ -47,6 +44,9 @@ export const profileAPI = {
         return samurai.get(`profile/${getProfileIdFromUriParams}`)
             .then(Response => Response.data)
     },
+    getAvatarById(id) {
+        return samurai.get(`profile/${id}`).then(Response => Response.data.photos.small)
+    },
     getStatus(id) {
         return samurai.get(`profile/status/${id}`)
             .then(Response => Response.data)
@@ -54,6 +54,10 @@ export const profileAPI = {
     updateStatus(status) {
         return samurai.put(`profile/status`, { status })
             .then(Response => Response.data)
+    },
+    setUserAvatar(small, large) {
+        return samurai.put(`profile/photo`, { small, large })
+            .then(Response => Response)
     }
 }
 

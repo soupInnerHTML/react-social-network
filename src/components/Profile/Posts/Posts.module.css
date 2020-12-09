@@ -1,4 +1,6 @@
 .posts {
 	margin-top: 15px;
 	padding: 15px 20px;
+	-webkit-animation: fade 1s;
+	animation: fade 1s;
 }

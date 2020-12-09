@@ -1,7 +1,6 @@
 import { v4 as getV4Id } from 'uuid';
 
 const SEND_MESSAGE = 'sendMessage'
-const TYPE_TEXT = 'typeNewMessage'
 
 
 export const sendMessage = input => ({
@@ -9,36 +8,37 @@ export const sendMessage = input => ({
     input
 })
 
-export const typeNewMessage = input => ({
-    type: TYPE_TEXT,
-    input
-})
-
 let initialState = {
     messagesData: [
         {
             id: 1,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 0
         },
         {
             id: 2,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 2
         },
         {
             id: 3,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 0
         },
         {
             id: 4,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 2
         },
         {
             id: 5,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 0
         },
         {
             id: 6,
-            message: 'Hello world'
+            message: 'Hello world',
+            from: 2
         }
     ],
 
@@ -58,8 +58,7 @@ let initialState = {
             name: 'Senya',
             avatar: 'https://sun9-45.userapi.com/impf/DCafG8McWw8qMr4ef4e6Fz114fSYoOquW_yfYQ/EYcl8y1IVxI.jpg?size=810x1080&quality=96&sign=959b56862b895207b84fae6b0d065131'
         }
-    ],
-    newMessageText: ''
+    ]
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -67,22 +66,20 @@ const dialogsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SEND_MESSAGE:
-            if (action.input.length) {
+            let { input } = action
+
+            if (input) {
                 return {
                     ...state,
                     messagesData: [...state.messagesData,
                     {
                         id: getV4Id(),
-                        message: action.input
-                    }],
-                    newMessageText: ''
+                        message: input,
+                        from: 0
+                    }]
                 }
             }
             else return state
-
-
-        case TYPE_TEXT:
-            return { ...state, newMessageText: action.input }
 
 
         default:

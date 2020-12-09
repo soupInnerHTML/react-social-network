@@ -1,12 +1,20 @@
 /* Ultrashort name _ for root styles*/
 import _ from './Status.module.css'
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
 
 const StatusInput = (props) => {
+    let { handleSubmit } = props
+    let onInputBlur = () => {
+        handleSubmit()
+    }
     return (
-        <input className={_.input} onChange={props.addTextToState}
-            onBlur={props.onInputBlur} autoFocus={true} type="text" value={props.status} />
+        <form onSubmit={handleSubmit}>
+            <Field component={"input"} className={_.input} type="text" name="status" onBlur={onInputBlur} autoFocus={true}></Field>
+        </form>
     )
 }
 
-export default StatusInput
+export default reduxForm({
+    form: 'status'
+})(StatusInput)

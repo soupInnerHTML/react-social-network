@@ -13,9 +13,7 @@ class StatusClass extends React.Component {
         statusBuffer: ''
     }
 
-    componentDidMount() {
-
-    }
+    isMyProfile = !this.props.idFromUri
 
     componentDidUpdate(prevState, prevProps) {
         if (prevProps.status !== this.props.status && !this.state.editMode) {
@@ -31,30 +29,24 @@ class StatusClass extends React.Component {
         })
     }
 
-    addTextToState = (el) => {
-        this.setState({
-            status: el.currentTarget.value
-        })
-    }
-
-    onInputBlur = (el) => {
-        if (!this.props.idFromUri) {
-            this.toggleEditMode(false)
-
-            if (this.state.statusBuffer !== this.state.status) {
-                this.props.updateStatusThunkCreator(this.state.status)
-            }
-        }
-    }
-
     onStatusClick = () => {
 
         this.setState({
             statusBuffer: this.state.status
         })
 
-        if (!this.props.idFromUri) {
+        if (this.isMyProfile) {
             this.toggleEditMode(true)
+        }
+    }
+
+    setStatus = (values) => {
+        if (this.isMyProfile) {
+            this.toggleEditMode(false)
+
+            if (this.state.statusBuffer !== values.status) {
+                this.props.updateStatusThunkCreator(values.status)
+            }
         }
     }
 
@@ -63,14 +55,14 @@ class StatusClass extends React.Component {
             return <Redirect to='/profile'></Redirect>
         }
 
-        if (this.state.editMode && !this.props.idFromUri) {
+        if (this.state.editMode && this.isMyProfile) {
             return (
-                <StatusInput addTextToState={this.addTextToState} onInputBlur={this.onInputBlur} status={this.state.status}></StatusInput>
+                <StatusInput initialValues={{ 'status': this.state.status }} onSubmit={this.setStatus}></StatusInput>
             )
         }
         else {
             return (
-                <Status onStatusClick={this.onStatusClick} status={this.state.status} isMyProfile={!this.props.idFromUri}></Status>
+                <Status onStatusClick={this.onStatusClick} status={this.state.status} isMyProfile={this.isMyProfile}></Status>
             )
         }
 
