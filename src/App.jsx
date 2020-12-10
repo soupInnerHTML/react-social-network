@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Dialogs from './components/Dialogs/Dialogs';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -17,30 +18,30 @@ switch нужен для корректной работы редиректа
 */
 
 const App = props => {
-  return (
-    <div className="App">
-      <HeaderContainer></HeaderContainer>
+    return (
+        <div className="App">
+            <HeaderContainer></HeaderContainer>
 
-      <div className="App-container Main-container">
-        <Sidebar></Sidebar>
+            <div className="App-container Main-container">
+                <Sidebar></Sidebar>
 
-        <Switch>
-          <Redirect exact from='/' to='/profile' />
-        </Switch>
+                <Switch>
+                    <Redirect exact from='/' to='/profile' />
+                </Switch>
 
-        <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
-        <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
-        <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
 
-        <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
-        <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
-        <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
-        <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
-        <Route path="/login" render={() => <Login></Login>}></Route>
+                <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
+                <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
+                <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
+                <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
+                <Route path="/login" render={() => <Login></Login>}></Route>
 
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }
 
 export default App;

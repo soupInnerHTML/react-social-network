@@ -1,11 +1,19 @@
 import React from 'react'
 import _ from './FormsControl.module.css'
 
-export const LoginInput = (props) => {
+const Wrapper = (props) => {
     return (
         <div className={_.login}>
-            <input type="text" {...props} />
-            {props.meta.touched && props.meta.error && 'Error'}
+            {props.children}
+            {props.touched && props.error}
         </div>
+    )
+}
+
+export const ValInput = ({meta, input, ...props}) => {
+    return (
+        <Wrapper {...meta}>
+            <input {...input} {...props}/>
+        </Wrapper>
     )
 }
