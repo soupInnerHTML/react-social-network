@@ -7,10 +7,9 @@ import { withFollowUser } from "../../../../hoc/withFollowUser"
 class Follow extends React.Component {
     state = {
         followBtnfetching: false
-    }
-
+    };
+    
     componentDidUpdate(prevProps, prevState) {
-
         if (prevProps.followed !== this.props.followed) {
             this.setState({
                 followBtnfetching: false
@@ -18,11 +17,24 @@ class Follow extends React.Component {
         }
     }
 
+    fetchingTimeout = () => {
+        let buffer = this.props.followed
+        setTimeout(() => {
+            if (buffer === this.props.followed){
+                alert('Fetching timeout')
+                this.setState({
+                    followBtnfetching: false
+                })
+            }
+        }, 10000)
+    }
+
     clickToChangeFollowState = () => {
         this.props.changeFollowState(this.props.followed, this.props.match.params.userId)
         this.setState({
-            followBtnfetching: true
+            followBtnfetching: true,
         })
+        this.fetchingTimeout()
     }
 
     followBtnJsx = () => {

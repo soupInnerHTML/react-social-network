@@ -10,7 +10,8 @@ export const withAuthRedirect = (Component) => {
             }
         }
         render() {
-            if (this.props.isNotAuth && !(this.props.match || this.initialMatch).params.userId) {
+            if (this.props.isNotAuth === false && !(this.props.match || this.initialMatch).params.userId) {
+                console.log(this.props.isNotAuth)
                 return <Redirect to='/login'></Redirect>
             }
 

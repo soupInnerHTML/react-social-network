@@ -16,22 +16,22 @@ const SET_FOLLOW_STATE = 'setFollowState'
 // action creators
 export const addPost = input => ({
     type: ADD_POST,
-    input
+    input,
 })
 
 export const likeThePost = postID => ({
     type: LIKE_THE_POST,
-    postID
+    postID,
 })
 
 export const unlikeThePost = postID => ({
     type: UNLIKE_THE_POST,
-    postID
+    postID,
 })
 
 export const setUserProfile = userProfile => ({
     type: SET_USER_PROFILE,
-    userProfile
+    userProfile,
 })
 
 export const fetching = () => ({
@@ -51,12 +51,12 @@ export const onProfileUndefined = () => ({
 
 export const setStatus = (status) => ({
     type: SET_STATUS,
-    status
+    status,
 })
 
 export const setFollowState = (followed) => ({
     type: SET_FOLLOW_STATE,
-    followed
+    followed,
 })
 
 export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
@@ -117,47 +117,47 @@ let initialState = {
             likes: 12,
             liked: false,
             postDate: [2000, 9, 31],
-            text: 'Professionally transform ethical initiatives before synergistic synergy. Seamlessly build ethical paradigms through enterprise technologies. Completely coordinate economically sound synergy after open-source content. Enthusiastically underwhelm compelling services through low-risk high-yield e-commerce. Holisticly restore interactive processes rather than low-risk high-yield results.'
+            text: 'Professionally transform ethical initiatives before synergistic synergy. Seamlessly build ethical paradigms through enterprise technologies. Completely coordinate economically sound synergy after open-source content. Enthusiastically underwhelm compelling services through low-risk high-yield e-commerce. Holisticly restore interactive processes rather than low-risk high-yield results.',
         },
         {
             id: 2,
             likes: 1,
             liked: false,
             postDate: [2000, 9, 31],
-            text: 'Professionally impact diverse growth strategies vis-a-vis low-risk high-yield convergence. Efficiently engineer proactive communities through maintainable infomediaries. Compellingly myocardinate business relationships and real-time ROI. Phosfluorescently engage backend content with premier expertise. Interactively evisculate ethical technologies without front-end ROI.            '
+            text: 'Professionally impact diverse growth strategies vis-a-vis low-risk high-yield convergence. Efficiently engineer proactive communities through maintainable infomediaries. Compellingly myocardinate business relationships and real-time ROI. Phosfluorescently engage backend content with premier expertise. Interactively evisculate ethical technologies without front-end ROI.            ',
         },
         {
             id: 3,
             likes: 3,
             liked: false,
             postDate: [2000, 9, 31],
-            text: 'Appropriately provide access to scalable "outside the box" thinking without resource maximizing users. Dynamically reinvent interactive innovation before progressive expertise. Energistically re-engineer competitive partnerships with prospective supply chains. Enthusiastically evisculate alternative functionalities without cost effective resources. Distinctively initiate quality networks via market-driven methodologies.            '
+            text: 'Appropriately provide access to scalable "outside the box" thinking without resource maximizing users. Dynamically reinvent interactive innovation before progressive expertise. Energistically re-engineer competitive partnerships with prospective supply chains. Enthusiastically evisculate alternative functionalities without cost effective resources. Distinctively initiate quality networks via market-driven methodologies.            ',
         },
         {
             id: 4,
             liked: false,
             likes: 228,
             postDate: [2009, 9, 31],
-            text: 'Holisticly mesh excellent convergence after customized systems. Competently target multifunctional catalysts for change via multifunctional ROI. Seamlessly matrix unique.'
+            text: 'Holisticly mesh excellent convergence after customized systems. Competently target multifunctional catalysts for change via multifunctional ROI. Seamlessly matrix unique.',
         },
         {
             id: 5,
             liked: false,
             likes: 1337,
             postDate: [2011, 9, 31],
-            text: 'Globally network optimal human capital with goal-oriented methods of empowerment. Professionally strategize economically sound leadership skills before leading-edge materials. Credibly enable turnkey meta-services after principle-centered communities. Objectively iterate vertical ideas via client-centered data. Quickly formulate world-class paradigms through resource maximizing supply chains.            '
+            text: 'Globally network optimal human capital with goal-oriented methods of empowerment. Professionally strategize economically sound leadership skills before leading-edge materials. Credibly enable turnkey meta-services after principle-centered communities. Objectively iterate vertical ideas via client-centered data. Quickly formulate world-class paradigms through resource maximizing supply chains.            ',
         },
         {
             id: 6,
             liked: false,
             likes: 1488,
             postDate: [2011, 9, 31],
-            text: 'Hello world'
+            text: 'Hello world',
         }
     ],
     profileData: [],
     isFetching: true,
-    isProfileUndefined: undefined
+    isProfileUndefined: undefined,
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -165,7 +165,7 @@ const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
-            let { input } = action
+            let { input, } = action
             if (input) {
                 return {
                     ...state,
@@ -174,8 +174,8 @@ const profileReducer = (state = initialState, action) => {
                         likes: 0,
                         postDate: new Date(),
                         liked: false,
-                        text: input
-                    }]
+                        text: input,
+                    }],
                 }
             }
             else return state
@@ -185,12 +185,12 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state, postsData: [...state.postsData].map(postData => {
                     if (postData.id === action.postID) {
-                        return { ...postData, likes: postData.likes + 1, liked: true }
+                        return { ...postData, likes: postData.likes + 1, liked: true, }
                     }
                     else {
                         return postData
                     }
-                })
+                }),
             }
 
 
@@ -198,45 +198,45 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state, postsData: [...state.postsData].map(postData => {
                     if (postData.id === action.postID) {
-                        return { ...postData, likes: postData.likes - 1, liked: false }
+                        return { ...postData, likes: postData.likes - 1, liked: false, }
                     }
                     else {
                         return postData
                     }
-                })
+                }),
             }
 
 
         case SET_USER_PROFILE:
             return {
-                ...state, profileData: action.userProfile
+                ...state, profileData: action.userProfile,
             }
 
 
         case FETCHING:
-            return { ...state, isFetching: true }
+            return { ...state, isFetching: true, }
 
 
         case FETCHED:
-            return { ...state, isFetching: false }
+            return { ...state, isFetching: false, }
 
 
         case NULL_PROFILE_DATA:
-            return { ...state, profileData: [] }
+            return { ...state, profileData: [], }
 
 
         case SET_STATUS:
-            return { ...state, status: action.status }
+            return { ...state, status: action.status, }
 
 
         case SET_FOLLOW_STATE:
             return {
-                ...state, profileData: { ...state.profileData, followed: action.followed }
+                ...state, profileData: { ...state.profileData, followed: action.followed, },
             }
 
 
         case ON_PROFILE_UNDEFINED:
-            return { ...state, isProfileUndefined: true }
+            return { ...state, isProfileUndefined: true, }
 
 
         default:

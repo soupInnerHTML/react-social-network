@@ -24,6 +24,7 @@ module.exports = {
         'camelcase': 'error',
         'no-use-before-define': 'error',
         'quotes': ['error', 'single'],
+        // 'padded-blocks': ['error', 'always', { 'allowSingleLineBlocks': true, }],
         'comma-dangle': ['error', {
             'objects': 'always',
         }],

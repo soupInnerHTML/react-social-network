@@ -35,10 +35,10 @@
 .unfollow {
 	/* background: #d03449; */
 	/* background: #eb3941; */
-	background: #e64c2d;
+	background: var(--red);
 }
 .follow {
-	background: #5c9ce6;
+	background: var(--blue);
 }
 .unfollow::before {
 	content: "-";

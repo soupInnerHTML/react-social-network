@@ -9,19 +9,20 @@ const Header = (props) => {
     let getAvatarAndName = () => {
         return (
             <div className={_.avaAndName}>
-                <a href="/#" className={_.login}>{props.name}</a>
-                <img className={"avatar " + _.avatar} src={props.headerAvatar || socket} alt="" />
+                <a href="#" className={_.login}>{props.name}</a>
+                <img className={'avatar ' + _.avatar} src={props.headerAvatar || socket} alt="" />
+                <button onClick={props.logoutThunkCreator}>Выйти</button>
             </div>
         )
     }
     return (
 
         <header className={_.header + ' App-block'}>
-            <div className={_.headerContainer + " App-container"}>
+            <div className={_.headerContainer + ' App-container'}>
                 <img src={logoSrc} alt="" />
                 <div className={_.left}>
                     <NavLink to="/users" className={_.users}>Our Community</NavLink>
-                    {props.isNotAuth ? <a href="/login" className={_.login}>Login</a> : getAvatarAndName()}
+                    {props.isNotAuth ? <NavLink to="/login" className={_.login}>Login</NavLink> : getAvatarAndName()}
                 </div>
             </div>
         </header >

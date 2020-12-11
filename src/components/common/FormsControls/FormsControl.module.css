@@ -1,0 +1,18 @@
+.login {
+	position: relative;
+}
+.error {
+	position: absolute;
+	left: -190px;
+	top: 0;
+	background: #ca635f;
+	padding: 20px;
+	border-radius: 3px;
+}
+.error::after {
+	border: 5px solid transparent;
+	border-left: 5px solid #ca635f;
+	position: absolute;
+	right: -10px;
+	content: "";
+}

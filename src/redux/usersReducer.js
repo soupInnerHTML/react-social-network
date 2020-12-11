@@ -67,6 +67,7 @@ export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
 export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) => {
     return (dispatch) => {
         dispatch(fetching())
+        // TODO сделать проверку на result code
         usersAPI.getUsers(pageSize, currentPage, isGetFriends)
             .then(data => {
                 dispatch(fetched())
