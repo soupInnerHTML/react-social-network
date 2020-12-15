@@ -2,10 +2,11 @@ import profileReducer from './profileReducer'
 import dialogsReducer from './dialogsReducer'
 import usersReducer from './usersReducer'
 import authReducer from './authReducer';
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import thunkMiddleware from 'redux-thunk'
+import appReducer from './appReducer';
 import feedReducer from './feedReducer';
 import { reducer as formReducer } from 'redux-form';
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 
 let reducers = combineReducers({
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     feedPage: feedReducer,
     users: usersReducer,
     auth: authReducer,
-    form: formReducer
+    app: appReducer,
+    form: formReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware))

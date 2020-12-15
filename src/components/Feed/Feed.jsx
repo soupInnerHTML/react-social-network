@@ -2,11 +2,12 @@
 // import _ from './Feed.module.css'
 import News from './News/News'
 import { v4 as key } from 'uuid';
+import React from 'react';
 
 const Feed = (props) => {
     // console.log(props.feedPage.feed)
     return (
-        <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
+        <main className={`App-main ${props.isFetching && 'fetching'} fetched`}>
             {
 
                 props.feedPage.feed.filter(news => news.attachments).map((news) => {

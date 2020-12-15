@@ -1,6 +1,8 @@
 import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity, setIsFriends } from "../redux/usersReducer";
 import React from 'react';
 import { connect } from "react-redux";
+import { getPageSize, getUsersData } from '../redux/usersSelectors'
+
 
 export const withUserProcessing = isWithFriends => Component => {
     class FriendsClass extends React.Component {
@@ -14,11 +16,11 @@ export const withUserProcessing = isWithFriends => Component => {
         componentWillUnmount() {
             window.removeEventListener('scroll', this.onScroll)
             this.props.nullUsers()
-            // console.log(this.props.usersData, this.props.currentPage)
+            // TODO Заменить nullUsers на проверу изменений users (Optimize)
         }
 
         componentDidUpdate() {
-            // console.log(1)
+
         }
 
         onScroll = () => {
@@ -44,11 +46,11 @@ export const withUserProcessing = isWithFriends => Component => {
 
     let mapStateToProps = state => {
         return {
-            pageSize: state.users.pageSize,
+            pageSize: getPageSize(state),
             maxCurrentPage: state.users.maxCurrentPage,
             currentPage: state.users.currentPage,
             isFetching: state.users.isFetching,
-            usersData: state.users.usersData
+            usersData: getUsersData(state)
         }
     }
 

@@ -6,7 +6,6 @@
 	background-color: var(--blue);
 	border: 0;
 	border-radius: 4px;
-	color: #fff;
 }
 .unfollow {
 	padding: 7px 16px 8px;
@@ -16,5 +15,4 @@
 	background-color: var(--red);
 	border: 0;
 	border-radius: 4px;
-	color: #fff;
 }

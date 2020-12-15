@@ -8,25 +8,9 @@
 .header img {
 	height: 34px;
 }
-.avatar {
-	width: 28px;
-	height: 28px !important;
-}
-.avaAndName {
-	margin-left: 30px;
-	display: flex;
-	align-items: center;
-}
 .left {
 	margin-left: auto;
 	display: flex;
 	align-items: center;
-}
-.login {
-	margin-right: 10px;
-}
-.login,
-.users {
-	text-decoration: none;
-	color: #fff;
+	position: relative;
 }

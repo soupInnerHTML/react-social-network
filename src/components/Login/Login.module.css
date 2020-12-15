@@ -1,3 +1,12 @@
+.login {
+	position: relative;
+}
+.error {
+	background: #ca635f;
+	padding: 20px 25px;
+	border-radius: 3px;
+	margin: -25px -25px 20px -25px;
+}
 .login input:not([type="checkbox"]) {
 	display: block;
 	background: transparent;
@@ -10,7 +19,6 @@
 	margin-bottom: 15px;
 	font-size: 14px;
 	font-family: Roboto;
-	color: #fff;
 }
 .login [type="checkbox"] {
 	background: transparent;
@@ -19,7 +27,6 @@
 }
 .login input[type="submit"] {
 	background: var(--grey);
-	color: #fff;
 	padding: 0 16px;
 	width: -webkit-fit-content;
 	width: -moz-fit-content;

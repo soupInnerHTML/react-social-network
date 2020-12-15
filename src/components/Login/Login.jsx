@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import _ from './Login.module.css'
+import __ from './../common/FormsControls/FormsControl.module.css'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { emailAndPhoneNumberCheck as loginValidator, maxLengthCreator, minLengthCreator, required } from '../../utils/validators/validators';
@@ -19,6 +20,10 @@ const LoginForm = (props) => {
     return (
         <section className={'App-block ' + _.loginWrap}>
             <form onSubmit={handleSubmit} className={_.login}>
+                {props.error &&
+                <div className={_.error} style={{animation: 'fade 1s',}}>
+                    {props.error}
+                </div>}
                 <Field component={ValInput} type="text" name="email" placeholder="Телефонъ или емейлъ:" validate={[...defaultValidators, loginValidator]}></Field>
                 <Field component={ValInput} type="password" name="password" placeholder="Шифръ:" validate={[...defaultValidators]}></Field>
                 <input type="submit" value="Войти" />

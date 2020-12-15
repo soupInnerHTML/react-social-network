@@ -1,3 +1,4 @@
+import { stopSubmit } from 'redux-form';
 import { profileAPI, authAPI } from '../api/api';
 
 
@@ -25,7 +26,7 @@ const getWhoAmI = (dispatch, data) => {
 
 export const authThunkCreator = () => (
     dispatch => {
-        authAPI.getWhoAmI().then(data => {
+        return authAPI.getWhoAmI().then(data => {
             if (data.resultCode === 0) {
                 getWhoAmI(dispatch, data)
             }
@@ -41,6 +42,10 @@ export const loginThunkCreator = (loginProps) => (
         authAPI.login(loginProps).then(data => {
             if (data.resultCode === 0) {
                 getWhoAmI(dispatch, data)
+            }
+            else {
+                let action = stopSubmit('login', { _error: data.messages[0], })
+                dispatch(action)
             }
         })
     }

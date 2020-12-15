@@ -3,6 +3,7 @@ import _ from "./Follow.module.css";
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 import { withFollowUser } from "../../../../hoc/withFollowUser"
+import {withAuthRender} from "../../../../hoc/withAuthRender";
 
 class Follow extends React.Component {
     state = {
@@ -61,4 +62,4 @@ class Follow extends React.Component {
     }
 }
 
-export default compose(withFollowUser, withRouter)(Follow)
+export default compose(withFollowUser, withRouter, withAuthRender)(Follow)

@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import {initApp} from './redux/appReducer';
 import Dialogs from './components/Dialogs/Dialogs';
 import Sidebar from './components/Sidebar/Sidebar';
 import FriendsContainer from './components/Friends/FriendsContainer';
@@ -9,6 +10,8 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import FeedContainer from './components/Feed/FeedContainer';
 import LoginContainer from './components/Login/LoginContainer';
+import { connect } from 'react-redux';
+import Preloader from './components/common/Preloader/Preloader';
 
 /* 
 render ждет функцию, component ждет компоненту
@@ -17,31 +20,51 @@ render ждет функцию, component ждет компоненту
 switch нужен для корректной работы редиректа
 */
 
-const App = props => {
-    return (
-        <div className="App">
-            <HeaderContainer></HeaderContainer>
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-            <div className="App-container Main-container">
-                <Sidebar></Sidebar>
+    componentDidMount() {
+        this.props.initApp()
+    }
 
-                <Switch>
-                    <Redirect exact from='/' to='/profile' />
-                </Switch>
+    render() {
+        const {props,} = this;
 
-                <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
-                <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
-                <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
+        return (
+            props.isInited ? <div className="App">
+                <HeaderContainer></HeaderContainer>
 
-                <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
-                <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
-                <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
-                <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
-                <Route path="/login" render={() => <LoginContainer></LoginContainer>}></Route>
+                <div className="App-container Main-container">
+                    <Sidebar></Sidebar>
 
-            </div>
-        </div>
-    );
+                    <Switch>
+                        <Redirect exact from='/' to='/profile' />
+                    </Switch>
+
+                    <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                    <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                    <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
+
+                    <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
+                    <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
+                    <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
+                    <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
+                    <Route path="/login" render={() => <LoginContainer></LoginContainer>}></Route>
+
+                </div>
+            </div> : <Preloader></Preloader>
+        );
+    }
 }
 
-export default App;
+const mapDispatchToProps = {
+    initApp,
+}
+
+const mapStateToProps = state => ({
+    isInited: state.app.isInited,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

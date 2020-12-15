@@ -11,9 +11,7 @@
 	border: 0;
 	margin: 20px 20px 0 20px;
 	min-height: 60px;
-	caret-color: #fff;
 	resize: none;
-	color: #fff;
 	font-family: var(--default-fonts);
 }
 .text::-webkit-input-placeholder {
@@ -28,6 +26,5 @@
 	background-color: var(--grey);
 	border: 0;
 	border-radius: 4px;
-	color: #fff;
 	align-self: flex-end;
 }

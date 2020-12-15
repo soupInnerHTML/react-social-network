@@ -24,7 +24,8 @@ export const withFollowUser = (Component) => {
 
     const mapStateToProps = state => ({
         followed: state.profilePage.profileData.followed,
-        id: state.profilePage.profileData.userId
+        id: state.profilePage.profileData.userId,
+        // isNotAuth: state.auth.isNotAuth
     })
 
     let mapDispatchToProps = {

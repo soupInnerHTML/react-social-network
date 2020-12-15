@@ -1,0 +1,27 @@
+.round:disabled {
+	opacity: 0.2;
+}
+.round {
+	position: absolute;
+	right: 12px;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+}
+.unfollow {
+	background: var(--red);
+}
+.follow {
+	background: var(--blue);
+}
+.unfollow::before {
+	content: "-";
+}
+.follow::before {
+	content: "+";
+}

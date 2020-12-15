@@ -4,7 +4,7 @@ const SET_FEED = 'setFeed'
 
 export const setFeed = (feed) => ({
     type: SET_FEED,
-    feed
+    feed,
 })
 
 export const getVkFeedThunkCreator = () => {
@@ -19,13 +19,13 @@ export const getVkFeedThunkCreator = () => {
 }
 
 let initialState = {
-    feed: []
+    feed: [],
 }
 
 const feedReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_FEED:
-            return { ...state, feed: action.feed }
+            return { ...state, feed: action.feed, }
         default:
             return state
     }
