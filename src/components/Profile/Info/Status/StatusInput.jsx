@@ -1,10 +1,10 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Status.module.css'
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import _ from "./Status.module.css"
+import React from "react"
+import { Field, reduxForm } from "redux-form"
 
 const StatusInput = (props) => {
-    let { handleSubmit } = props
+    let { handleSubmit, } = props
     let onInputBlur = () => {
         handleSubmit()
     }
@@ -16,5 +16,5 @@ const StatusInput = (props) => {
 }
 
 export default reduxForm({
-    form: 'status'
+    form: "status",
 })(StatusInput)

@@ -1,4 +1,6 @@
-import { connect } from "react-redux"
+import React from 'react'
+import { connect } from 'react-redux'
+import { getUsersQuantity } from '../redux/usersSelectors'
 
 export const withUsersQuantity = (Component) => {
     let pureComponent = (props) => (
@@ -13,8 +15,8 @@ export const withUsersQuantity = (Component) => {
     )
 
     let mapStateToProps = state => ({
-        getUsersQuantity: state.users.usersQuantity,
-        isFriends: state.users.isFriends
+        getUsersQuantity: getUsersQuantity(state),
+        isFriends: state.users.isFriends,
     })
 
     return connect(mapStateToProps)(pureComponent)

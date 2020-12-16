@@ -1,17 +1,17 @@
-import { usersAPI } from '../api/api';
-import { setFollowState as setFollowStateForProfile } from './profileReducer';
+import { usersAPI } from "../api/api";
+import { setFollowState as setFollowStateForProfile } from "./profileReducer";
 
-const FOLLOW = 'follow'
-const UNFOLLOW = 'unfollow'
-const SET_USERS = 'setUsers'
-const UP_CURRENT_PAGE = 'setCurrentPage'
-const FETCHING = 'fetchingUsers'
-const FETCHED = 'fetchedUsers'
-const NULL_USERS = 'nullUsers'
-const SET_USERS_QUANTITY = 'setUsersQuantity'
-const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = 'followUnfollowRequestInProgress'
-const SET_MAX_CURRENT_PAGE = 'setMaxCurrentPage'
-const SET_IS_FRIENDS = 'setIsFriends'
+const FOLLOW = "follow"
+const UNFOLLOW = "unfollow"
+const SET_USERS = "setUsers"
+const UP_CURRENT_PAGE = "setCurrentPage"
+const FETCHING = "fetchingUsers"
+const FETCHED = "fetchedUsers"
+const NULL_USERS = "nullUsers"
+const SET_USERS_QUANTITY = "setUsersQuantity"
+const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = "followUnfollowRequestInProgress"
+// const SET_MAX_CURRENT_PAGE = 'setMaxCurrentPage'
+const SET_IS_FRIENDS = "setIsFriends"
 
 export const follow = id => ({
     type: FOLLOW,
@@ -49,9 +49,9 @@ export const setUsersQuantity = usersQuantity => ({
     usersQuantity,
 })
 
-export const setMaxCurrentPage = () => ({
-    type: SET_MAX_CURRENT_PAGE,
-})
+// export const setMaxCurrentPage = () => ({
+//     type: SET_MAX_CURRENT_PAGE,
+// })
 
 export const setIsFriends = (isFriends) => ({
     type: SET_IS_FRIENDS,
@@ -67,20 +67,22 @@ export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
 export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) => {
     return (dispatch) => {
         dispatch(fetching())
-        // TODO сделать проверку на result code
+        // TODO доделать if (data.resultCode === 0)
         usersAPI.getUsers(pageSize, currentPage, isGetFriends)
             .then(data => {
+                // if (data.resultCode === 0) {
                 dispatch(fetched())
                 dispatch(setUsers(data.items))
                 dispatch(setUsersQuantity(data.totalCount))
-                dispatch(setMaxCurrentPage())
+                // dispatch(setMaxCurrentPage())
 
                 if (data.totalCount < pageSize && !data.items.length) {
                     usersAPI.getUsers(pageSize, 1, isGetFriends).then(data => {
                         dispatch(setUsers(data.items))
                     })
+                    // }
                 }
-            })
+            }).catch(e => alert(e))
 
 
         // VK VK VK VK VK VK
@@ -100,7 +102,7 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
     return dispatch => {
         dispatch(followUnfollowRequestInProgress(true, id))
 
-        async(id)
+        return async(id)
             .then(data => {
                 if (data.resultCode) {
                     alert(data.messages)
@@ -181,8 +183,8 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS_QUANTITY:
             return { ...state, usersQuantity: action.usersQuantity, }
 
-        case SET_MAX_CURRENT_PAGE:
-            return { ...state, maxCurrentPage: Math.ceil(state.usersQuantity / state.pageSize), }
+        // case SET_MAX_CURRENT_PAGE:
+        //     return { ...state, maxCurrentPage: Math.ceil(state.usersQuantity / state.pageSize), }
 
         case SET_IS_FRIENDS:
             return { ...state, isFriends: action.isFriends, }

@@ -1,53 +1,35 @@
-import React from "react"
+import React, { useState } from "react"
 import _ from "./Follow.module.css";
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 import { withFollowUser } from "../../../../hoc/withFollowUser"
-import {withAuthRender} from "../../../../hoc/withAuthRender";
+import { withAuthRender } from "../../../../hoc/withAuthRender";
+import FollowBtn from "./FollowBtn";
 
-class Follow extends React.Component {
-    state = {
-        followBtnfetching: false
-    };
+const Follow = (props) => {
+
+    let [isFollowBtnfetching, followBtnWasFetched] = useState(false)
     
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.followed !== this.props.followed) {
-            this.setState({
-                followBtnfetching: false
+
+    let clickToChangeFollowState = () => {
+        props.changeFollowState(props.followed, props.match.params.userId)
+            .then(() => {
+                followBtnWasFetched(false)
             })
-        }
+        
+        followBtnWasFetched(true)
     }
 
-    fetchingTimeout = () => {
-        let buffer = this.props.followed
-        setTimeout(() => {
-            if (buffer === this.props.followed){
-                alert('Fetching timeout')
-                this.setState({
-                    followBtnfetching: false
-                })
-            }
-        }, 10000)
-    }
-
-    clickToChangeFollowState = () => {
-        this.props.changeFollowState(this.props.followed, this.props.match.params.userId)
-        this.setState({
-            followBtnfetching: true,
-        })
-        this.fetchingTimeout()
-    }
-
-    followBtnJsx = () => {
-        if (this.props.followed !== undefined) {
-            if (this.props.followed) {
+    let followBtnJsx = () => {
+        if (props.followed !== undefined) {
+            if (props.followed) {
                 return (
-                    <button className={`${_.unfollow} ${this.state.followBtnfetching ? 'fetching' : ''}`} onClick={this.clickToChangeFollowState}>Отписаться</button>
+                    <FollowBtn {...{ clickToChangeFollowState, isFollowBtnfetching, }} className={_.unfollow}>Отписаться</FollowBtn>
                 )
             }
             else {
                 return (
-                    <button className={`${_.follow} ${this.state.followBtnfetching ? 'fetching' : ''}`} onClick={this.clickToChangeFollowState}>Подписаться</button>
+                    <FollowBtn {...{ clickToChangeFollowState, isFollowBtnfetching, }} className={_.follow}>Подписаться</FollowBtn>
                 )
             }
         }
@@ -57,9 +39,9 @@ class Follow extends React.Component {
         }
     }
 
-    render() {
-        return this.followBtnJsx()
-    }
+    return followBtnJsx()
 }
+
+// TODO добавить sweet alert
 
 export default compose(withFollowUser, withRouter, withAuthRender)(Follow)
