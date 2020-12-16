@@ -1,7 +1,7 @@
 import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity, setIsFriends } from "../redux/usersReducer";
 import React from 'react';
 import { connect } from "react-redux";
-import { getPageSize, getUsersData } from '../redux/usersSelectors'
+import { getCurrentPage, getPageSize, getUsersData, maxCurrentPage } from '../redux/usersSelectors'
 
 
 export const withUserProcessing = isWithFriends => Component => {
@@ -47,9 +47,11 @@ export const withUserProcessing = isWithFriends => Component => {
     let mapStateToProps = state => {
         return {
             pageSize: getPageSize(state),
-            maxCurrentPage: state.users.maxCurrentPage,
-            currentPage: state.users.currentPage,
+            // maxCurrentPage: state.users.maxCurrentPage,
+            maxCurrentPage: maxCurrentPage(state),
+            currentPage: getCurrentPage(state),
             isFetching: state.users.isFetching,
+            // TODO сделать fetching в локальном state
             usersData: getUsersData(state)
         }
     }

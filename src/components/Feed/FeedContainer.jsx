@@ -2,11 +2,20 @@ import { connect } from 'react-redux'
 import React from 'react';
 import Feed from './Feed'
 import { getVkFeedThunkCreator } from '../../redux/feedReducer'
+import Preloader from '../common/Preloader/Preloader';
 
 class FeedClass extends React.Component {
+    state = {
+        isFeedFetching: true
+    }
+
     componentDidMount = () => {
         window.addEventListener('scroll', this.onScroll)
-        this.getFeed()
+        this.getFeed().then(() => {
+            this.setState({
+                isFeedFetching: false
+            })
+        })
     }
 
     componentWillUnmount() {
@@ -23,12 +32,14 @@ class FeedClass extends React.Component {
         }
     }
 
-    getFeed = () => {
-        this.props.getVkFeedThunkCreator()
-    }
+    getFeed = () => this.props.getVkFeedThunkCreator()
 
     render() {
-        return <Feed {...this.props}></Feed>
+        return (
+            <main className={`App-main`} style={{position: "relative"}}>
+                {this.state.isFeedFetching ? <section className="App-block"><Preloader></Preloader></section> : <Feed {...this.props}></Feed>}
+            </main>
+        )
     }
 }
 

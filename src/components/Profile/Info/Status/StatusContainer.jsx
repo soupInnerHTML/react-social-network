@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { getStatusThunkCreator, updateStatusThunkCreator } from '../../../../redux/profileReducer'
 import { compose } from 'redux'
@@ -6,82 +6,75 @@ import StatusInput from './StatusInput'
 import Status from './Status'
 import { Redirect } from 'react-router-dom'
 
-class StatusClass extends React.Component {
-    state = {
-        editMode: false,
-        status: this.props.status,
-        statusBuffer: ''
-    }
+let StatusClass = (props) => {
+    let isMyProfile = !props.idFromUri
+    
 
-    isMyProfile = !this.props.idFromUri
+    let [
+        [status, setStatus], 
+        [editMode, toggleEditMode], 
+        [statusBuffer, setStatusBuffer]
+    ] = [
+        useState(props.status), 
+        useState(false), 
+        useState('')
+    ]
 
-    componentDidUpdate(prevState, prevProps) {
-        if (prevProps.status !== this.props.status && !this.state.editMode) {
-            this.setState({
-                status: this.props.status
-            })
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
+
+    let onStatusClick = () => {
+
+        setStatusBuffer(status)
+
+        if (isMyProfile) {
+            toggleEditMode(true)
         }
     }
 
-    toggleEditMode = (flag) => {
-        this.setState({
-            editMode: flag
-        })
-    }
+    let setStatusOnSubmit = (values) => {
+        if (isMyProfile) {
+            toggleEditMode(false)
 
-    onStatusClick = () => {
-
-        this.setState({
-            statusBuffer: this.state.status
-        })
-
-        if (this.isMyProfile) {
-            this.toggleEditMode(true)
-        }
-    }
-
-    setStatus = (values) => {
-        if (this.isMyProfile) {
-            this.toggleEditMode(false)
-
-            if (this.state.statusBuffer !== values.status) {
-                this.props.updateStatusThunkCreator(values.status)
+            if (statusBuffer !== values.status) {
+                props.updateStatusThunkCreator(values.status)
             }
         }
     }
 
-    getStatusJSX() {
-        if (this.props.id === +this.props.idFromUri) {
+    let getStatusJSX = () => {
+        if (props.id === +props.idFromUri) {
             return <Redirect to='/profile'></Redirect>
         }
 
-        if (this.state.editMode && this.isMyProfile) {
+        if (editMode && isMyProfile) {
             return (
-                <StatusInput initialValues={{ 'status': this.state.status }} onSubmit={this.setStatus}></StatusInput>
+                <StatusInput initialValues={{ 'status': status, }} onSubmit={setStatusOnSubmit}></StatusInput>
             )
         }
         else {
             return (
-                <Status onStatusClick={this.onStatusClick} status={this.state.status} isMyProfile={this.isMyProfile}></Status>
+                <Status {...{ onStatusClick, status, isMyProfile, }}></Status>
             )
         }
 
     }
 
-    render() {
-        return (
-            this.getStatusJSX()
-        )
-    }
+   
+    return getStatusJSX()
 }
+
+
 let mapStateToProps = state => ({
     id: state.auth.id,
     isNotAuth: state.auth.isNotAuth,
-    status: state.profilePage.status
+    status: state.profilePage.status,
 })
 
 let mapDispatchToProps = {
-    getStatusThunkCreator, updateStatusThunkCreator
+    getStatusThunkCreator, updateStatusThunkCreator,
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(StatusClass)

@@ -1,9 +1,9 @@
-import User from './User';
-import React from 'react'
-import { connect } from 'react-redux';
-import { followUser, unfollowUser } from '../../../redux/usersReducer';
-import { compose } from 'redux';
-import { withFollowUser } from '../../../hoc/withFollowUser';
+import User from "./User";
+import React from "react"
+import { connect } from "react-redux";
+import { followUser, unfollowUser } from "../../../redux/usersReducer";
+import { compose } from "redux";
+import { withFollowUser } from "../../../hoc/withFollowUser";
 
 
 class UserClass extends React.Component {

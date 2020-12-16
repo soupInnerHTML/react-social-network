@@ -1,6 +1,6 @@
-import { VKAPI } from '../api/api';
+import { VKAPI } from "../api/api";
 
-const SET_FEED = 'setFeed'
+const SET_FEED = "setFeed"
 
 export const setFeed = (feed) => ({
     type: SET_FEED,
@@ -10,7 +10,7 @@ export const setFeed = (feed) => ({
 export const getVkFeedThunkCreator = () => {
     return dispatch => {
         // this.props.fetching()
-        VKAPI.getVkFeed()
+        return VKAPI.getVkFeed()
             .then(items => {
                 // this.props.fetched()
                 dispatch(setFeed(items))

@@ -6,10 +6,10 @@ export const withFollowUser = (Component) => {
     class withFollowUser extends React.Component {
         changeFollowState = (followed, id) => {
             if (followed) {
-                window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && this.props.unfollowUser(id)
+                return window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && this.props.unfollowUser(id)
             }
             else {
-                this.props.followUser(id)
+                return this.props.followUser(id)
             }
         }
 
