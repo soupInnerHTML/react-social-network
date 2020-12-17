@@ -1,7 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import Login from './Login'
-import { loginThunkCreator } from '../../redux/authReducer'
+import React from "react"
+import Login from "./Login"
+import { connect } from "react-redux"
+import { loginThunkCreator } from "../../redux/authReducer"
+import { init } from "../../redux/appReducer"
 
 class LoginContainer extends React.Component {
     render() {
@@ -17,6 +18,7 @@ let mapStateToProps = state => ({
 
 let mapDispatchToProps = {
     loginThunkCreator,
+    init,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)

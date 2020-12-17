@@ -1,7 +1,7 @@
 /* Ultrashort name _ for root styles*/
-import _ from './News.module.css'
-import { v4 as key } from 'uuid';
-import React from 'react';
+import _ from "./News.module.css"
+import { v4 as key } from "uuid";
+import React from "react";
 
 const News = (props) => {
     let news = () => {

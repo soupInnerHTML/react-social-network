@@ -5,7 +5,6 @@ import { v4 as key } from "uuid";
 import React from "react";
 
 const Feed = (props) => {
-
     return (
         props.feedPage.feed.filter(news => news.attachments).map((news) => {
             // if (news.attachments) {

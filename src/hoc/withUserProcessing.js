@@ -47,7 +47,6 @@ export const withUserProcessing = isWithFriends => Component => {
     let mapStateToProps = state => {
         return {
             pageSize: getPageSize(state),
-            // maxCurrentPage: state.users.maxCurrentPage,
             maxCurrentPage: maxCurrentPage(state),
             currentPage: getCurrentPage(state),
             isFetching: state.users.isFetching,

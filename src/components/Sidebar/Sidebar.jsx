@@ -1,11 +1,12 @@
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import _ from './Sidebar.module.css'
+import React from "react"
+import { connect } from "react-redux"
+import { NavLink } from "react-router-dom"
+import _ from "./Sidebar.module.css"
 /* Ultrashort name _ for root styles*/
 
 const Sidebar = (props) => {
     return (
-        <aside className={_.sidebar + ' App-block App-sidebar'}>
+        <aside className={_.sidebar + " App-block App-sidebar"}>
             <nav>
                 <NavLink exact to="/profile" activeClassName={_.active}>Profile</NavLink>
                 <NavLink to="/feed" activeClassName={_.active}>Feed</NavLink>
@@ -20,7 +21,7 @@ const Sidebar = (props) => {
 }
 
 let mapStateToProps = state => ({
-    currentUser: state.auth.id
+    currentUser: state.auth.id,
     // isAuth: state.auth.isAuth
 })
 

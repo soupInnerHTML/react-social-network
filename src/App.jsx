@@ -1,17 +1,20 @@
-import './App.css';
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import {initApp} from './redux/appReducer';
-import Dialogs from './components/Dialogs/Dialogs';
-import Sidebar from './components/Sidebar/Sidebar';
-import FriendsContainer from './components/Friends/FriendsContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import UsersContainer from './components/Users/UsersContainer';
-import FeedContainer from './components/Feed/FeedContainer';
-import LoginContainer from './components/Login/LoginContainer';
-import { connect } from 'react-redux';
-import Preloader from './components/common/Preloader/Preloader';
+import "./App.css";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { initApp } from "./redux/appReducer";
+import Sidebar from "./components/Sidebar/Sidebar";
+import FriendsContainer from "./components/Friends/FriendsContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import FeedContainer from "./components/Feed/FeedContainer";
+import { connect } from "react-redux";
+import Preloader from "./components/common/Preloader/Preloader";
+import { withLazyLoad } from "./hoc/withLazyLoad";
+
+// lazy load
+const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs") )
+const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer") )
 
 /* 
 render ждет функцию, component ждет компоненту
@@ -21,16 +24,13 @@ switch нужен для корректной работы редиректа
 */
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.initApp()
     }
 
     render() {
-        const {props,} = this;
+        const { props, } = this;
 
         return (
             props.isInited ? <div className="App">
@@ -46,12 +46,11 @@ class App extends React.Component {
                     <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
                     <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
                     <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
-
-                    <Route path="/dialogs" render={() => <Dialogs></Dialogs>}></Route>
+                    <Route path="/dialogs" render={withLazyLoad(Dialogs)}></Route>
                     <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
                     <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
                     <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
-                    <Route path="/login" render={() => <LoginContainer></LoginContainer>}></Route>
+                    <Route path="/login" render={withLazyLoad(LoginContainer)}></Route>
 
                 </div>
             </div> : <Preloader></Preloader>

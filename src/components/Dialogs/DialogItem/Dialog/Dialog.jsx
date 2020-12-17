@@ -1,17 +1,17 @@
 /* Ultrashort name _ for root styles*/
-import { NavLink } from 'react-router-dom';
-import _ from './Dialog.module.css'
+import _ from "./Dialog.module.css"
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Dialog = props => {
-    let path = "/dialogs/" + props.dialogState.id
+    let { id, avatar, name, } = props.dialogState
+    let path = "/dialogs/" + id
 
     return (
-        // <div className={_.dialogUser}>
-            <NavLink to={path} activeClassName={_.active} className={_.dialogUser}>
-                <img src={props.dialogState.avatar} alt="" className='avatar' />
-                {props.dialogState.name}
-            </NavLink>
-        // </div>
+        <NavLink to={path} activeClassName={_.active} className={_.dialogUser}>
+            <img src={avatar} alt="" className='avatar' />
+            {name}
+        </NavLink>
     );
 }
 

@@ -1,8 +1,8 @@
-import { stopSubmit } from 'redux-form';
-import { profileAPI, authAPI } from '../api/api';
+import { stopSubmit } from "redux-form";
+import { profileAPI, authAPI } from "../api/api";
 
 
-const SET_USER_DATA = 'setUderData'
+const SET_USER_DATA = "setUderData"
 
 export const setUserData = (login, email, id, avatar, isNotAuth) => ({
     type: SET_USER_DATA,
@@ -15,58 +15,54 @@ export const setUserData = (login, email, id, avatar, isNotAuth) => ({
     },
 })
 
-const getWhoAmI = (dispatch, data) => {
-    authAPI.getWhoAmI().then(my => {
-        let { login, email, id, } = my.data
-        profileAPI.getAvatarById(id).then(avatar => {
-            dispatch(setUserData(login, email, id, avatar, data.resultCode))
-        })
-    })
+const getWhoAmI = async (dispatch, data) => {
+    let my = await authAPI.getWhoAmI()
+    let { login, email, id, } = my.data
+    let avatar = await profileAPI.getAvatarById(id)
+    dispatch(setUserData(login, email, id, avatar, data.resultCode))
 }
 
 export const authThunkCreator = () => (
-    dispatch => {
-        return authAPI.getWhoAmI().then(data => {
-            if (data.resultCode === 0) {
-                getWhoAmI(dispatch, data)
-            }
-            else {
-                dispatch(setUserData(null, null, null, null, true))
-            }
-        })
+    async dispatch => {
+        let data = await authAPI.getWhoAmI()
+        if (data.resultCode === 0) {
+            getWhoAmI(dispatch, data)
+        }
+        else {
+            dispatch(setUserData(null, null, null, null, true))
+        }
     }
 )
 
 export const loginThunkCreator = (loginProps) => (
     dispatch => {
-        authAPI.login(loginProps).then(data => {
+        return authAPI.login(loginProps).then(data => {
             if (data.resultCode === 0) {
                 getWhoAmI(dispatch, data)
             }
             else {
-                let action = stopSubmit('login', { _error: data.messages[0], })
-                dispatch(action)
+                let error = stopSubmit("login", { _error: data.messages[0], })
+                dispatch(error)
             }
         })
     }
 )
 
 export const logoutThunkCreator = () => (
-    dispatch => {
-        authAPI.logout().then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserData(null, null, null, null, true))
-            }
-        })
+    async dispatch => {
+        let data = await authAPI.logout()
+        if (data.resultCode === 0) {
+            dispatch(setUserData(null, null, null, null, true))
+        }
+
     }
 )
 
 let initialState = {
-    login: '',
-    email: '',
-    id: '',
-    avatar: '',
-    // isNotAuth: undefined,
+    login: "",
+    email: "",
+    id: "",
+    avatar: "",
 }
 
 const authReducer = (state = initialState, action) => {

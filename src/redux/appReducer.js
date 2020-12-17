@@ -1,17 +1,16 @@
-import { authThunkCreator as auth } from './authReducer'
+import { authThunkCreator as auth } from "./authReducer"
 
-const INIT = 'init'
+const INIT = "init"
 
-
-export const init = () => ({
+export const init = (flag = true) => ({
     type: INIT,
+    flag,
 })
 
-export const initApp = () => dispatch => {
+export const initApp = () => async dispatch => {
     let whenAuth = dispatch(auth())
-    Promise.all([whenAuth]).then(() => {
-        dispatch(init())
-    })
+    await Promise.all([whenAuth])
+    dispatch(init())
 }
 
 let initialState = {
@@ -22,7 +21,7 @@ const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case INIT:
             return {
-                ...state, isInited: true,
+                ...state, isInited: action.flag,
             }
 
         default:

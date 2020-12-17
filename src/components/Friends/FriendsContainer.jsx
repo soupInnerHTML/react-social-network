@@ -7,7 +7,7 @@ import React from "react";
 
 const FriendsContainer = props => {
     return (
-        <main className={`App-main ${props.isFetching ? "fetching " : ""}fetched`}>
+        <main className={`App-main ${props.isFetching ? "fetching " : "fetched"}`}>
             <section className={_.friends + " App-block"}>
                 <Friends></Friends>
             </section>

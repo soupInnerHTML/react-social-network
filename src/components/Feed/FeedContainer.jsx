@@ -36,7 +36,7 @@ class FeedClass extends React.Component {
 
     render() {
         return (
-            <main className={`App-main`} style={{position: "relative"}}>
+            <main className={`App-main`}>
                 {this.state.isFeedFetching ? <section className="App-block"><Preloader></Preloader></section> : <Feed {...this.props}></Feed>}
             </main>
         )

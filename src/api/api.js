@@ -1,30 +1,30 @@
-import Axios from 'axios';
+import Axios from "axios";
 
 const samurai = Axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    baseURL: "https://social-network.samuraijs.com/api/1.0/",
     headers: {
-        'API-KEY': 'dbc83807-4be5-41c4-91a2-bef228d6cac3',
+        "API-KEY": "dbc83807-4be5-41c4-91a2-bef228d6cac3",
     },
 })
 
 const vk = Axios.create({
-    baseURL: 'https://thingproxy.freeboard.io/fetch/https://api.vk.com/method/',
+    baseURL: "https://thingproxy.freeboard.io/fetch/https://api.vk.com/method/",
 })
 vk.defaults.params = {
-    'access_token': '38399191eb22db9aaa580b66c286e38affbfa657cecdae3395bdb694be27aee1b24689f7124442c1f99c0',
-    'v': '5.52',
+    "access_token": "38399191eb22db9aaa580b66c286e38affbfa657cecdae3395bdb694be27aee1b24689f7124442c1f99c0",
+    "v": "5.52",
 };
 
 export const authAPI = {
     getWhoAmI() {
-        return samurai.get('auth/me').then(Response => Response.data)
+        return samurai.get("auth/me").then(Response => Response.data)
     },
     login(loginProps) {
-        return samurai.post('auth/login', { ...loginProps, }).then(Response => Response.data)
+        return samurai.post("auth/login", { ...loginProps, }).then(Response => Response.data)
     },
     logout() {
-        return samurai.delete('auth/login').then(Response => Response.data)
+        return samurai.delete("auth/login").then(Response => Response.data)
     },
 }
 export const usersAPI = {
@@ -33,14 +33,14 @@ export const usersAPI = {
             .then(Response => Response.data)
     },
     getProfile(getProfileIdFromUriParams) {
-        console.warn('Кажется, ты вызвал getProfile через usersAPI. Рекомендую делать это через profileAPI')
+        console.warn("Кажется, ты вызвал getProfile через usersAPI. Рекомендую делать это через profileAPI")
     },
     getWhoAmI() {
-        console.warn('Use authAPI instead of usersAPI')
+        console.warn("Use authAPI instead of usersAPI")
         return authAPI.getWhoAmI()
     },
     getUserByTerm(name) {
-        return samurai.get('users?term=' + name).then(Response => Response.data)
+        return samurai.get("users?term=" + name).then(Response => Response.data)
     },
     follow(id) {
         return samurai.post(`follow/${id}`).then(Response => Response.data)
@@ -63,29 +63,29 @@ export const profileAPI = {
             .then(Response => Response.data)
     },
     updateStatus(status) {
-        return samurai.put('profile/status', { status, })
+        return samurai.put("profile/status", { status, })
             .then(Response => Response.data)
     },
     setUserAvatar(small, large) {
-        return samurai.put('profile/photo', { small, large, })
+        return samurai.put("profile/photo", { small, large, })
             .then(Response => Response)
     },
 }
 
 export const VKAPI = {
     myVk() {
-        return vk.get('users.get?user_ids=255462995')
+        return vk.get("users.get?user_ids=255462995")
     },
     getVkFriends() {
-        return vk.get('friends.search?user_id=255462995&fields=photo_100')
+        return vk.get("friends.search?user_id=255462995&fields=photo_100")
     },
     getVkFollowers(count) {
-        return vk.get('users.getFollowers?user_id=255462995&count=' + count)
+        return vk.get("users.getFollowers?user_id=255462995&count=" + count)
     },
     banVkUser(id) {
-        return vk.get('account.ban?owner_id=' + id)
+        return vk.get("account.ban?owner_id=" + id)
     },
     getVkFeed() {
-        return vk.get('newsfeed.get?filters=post,photo,photo_tag,wall_photo').then(Response => Response.data.response.items)
+        return vk.get("newsfeed.get?filters=post,photo,photo_tag,wall_photo").then(Response => Response.data.response.items)
     },
 }

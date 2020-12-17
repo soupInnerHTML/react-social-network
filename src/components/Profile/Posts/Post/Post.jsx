@@ -27,7 +27,7 @@ class Post extends React.Component {
     // window.counter = counter
 
     render() {
-        let { photos, fullName } = this.props.profileData
+        let { photos, fullName } = this.props
 
         return (
             <section className="App-block">

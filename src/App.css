@@ -61,6 +61,7 @@ input[type="submit"] {
 }
 .App-main {
 	grid-area: m;
+	position: relative;
 }
 .App-block {
 	border-radius: 5px;
@@ -100,8 +101,8 @@ input[type="submit"] {
 .fetched::before {
 	position: absolute;
 	content: "⠋";
-	bottom: 120px;
-	left: 0;
+	top: 100px;
+	left: 50%;
 	font-size: 50px;
 }
 .qtyTab {

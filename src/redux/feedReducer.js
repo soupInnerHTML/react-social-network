@@ -7,16 +7,12 @@ export const setFeed = (feed) => ({
     feed,
 })
 
-export const getVkFeedThunkCreator = () => {
-    return dispatch => {
-        // this.props.fetching()
-        return VKAPI.getVkFeed()
-            .then(items => {
-                // this.props.fetched()
-                dispatch(setFeed(items))
-            })
+export const getVkFeedThunkCreator = () => (
+    async dispatch => {
+        let items = await VKAPI.getVkFeed()
+        dispatch(setFeed(items))
     }
-}
+)
 
 let initialState = {
     feed: [],
