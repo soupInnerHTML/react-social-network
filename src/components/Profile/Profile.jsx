@@ -7,7 +7,7 @@ import cs from "classnames"
 const Profile = ({ status, idFromUri, profileData, ...props }) => {
     return (
         <main className={ cs("App-main", props.isFetching ? "fetching" : "fetched") }>
-            <Info {...{ profileData, status, idFromUri, } }></Info>
+            <Info {...{ profileData, status, } }></Info>
             {/* TODO refactor props.match.params.userId */}
             {!props.match.params.userId && <AddPostContainer></AddPostContainer>}
             <PostsContainer ></PostsContainer>

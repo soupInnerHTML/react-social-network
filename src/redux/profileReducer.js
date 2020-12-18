@@ -1,5 +1,6 @@
 import { usersAPI, profileAPI, authAPI } from "../api/api"
 import { v4 as getV4Id } from "uuid";
+import swal from "sweetalert";
 
 // actions
 const ADD_POST = "profileReducer/addPost"
@@ -67,11 +68,13 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
             }
             catch (e) {
                 if (e.response && e.response.status === 400) {
-                    alert("Пользователь не найден")
+                    await swal("Пользователь не найден", "", "error");
                     dispatch(onProfileUndefined())
                 }
                 else {
-                    alert(e)
+                    await swal(e, "", "error");
+                    dispatch(onProfileUndefined())
+                    // TODO fix
                 }
             }
         }
@@ -83,6 +86,8 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
         }
     }
 }
+
+export const getProfileTC = getProfileThunkCreator
 
 export const getStatusThunkCreator = (id) => {
     return dispatch => {

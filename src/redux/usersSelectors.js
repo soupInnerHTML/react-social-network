@@ -7,6 +7,7 @@ export const getCurrentPage = (state) => state.users.currentPage
 export const getAuthId = state => state.auth.id
 export const getIsNotAuth = state => state.auth.isNotAuth
 export const getStatus = state => state.profilePage.status
+export const getProfileData = state => state.profilePage.profileData
 
 export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pageSize, usersQuantity) => {
     return Math.ceil(usersQuantity / pageSize)

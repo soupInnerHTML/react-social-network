@@ -1,0 +1,10 @@
+.form input {
+	background: var(--d-grey);
+	border: 1px solid var(--grey);
+	border-radius: 4px;
+	padding: 10px 5px;
+	margin: 10px;
+}
+.submit {
+	background: var(--grey) !important;
+}

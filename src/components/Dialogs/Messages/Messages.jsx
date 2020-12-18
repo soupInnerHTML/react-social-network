@@ -1,11 +1,11 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Messages.module.css'
-import React from 'react'
-import SendImgPath from '../../../img/send.svg'
-import { Field, reduxForm } from 'redux-form'
+import _ from "./Messages.module.css"
+import React from "react"
+import SendImgPath from "../../../img/send.svg"
+import { Field, reduxForm } from "redux-form"
 
 const MessageSendForm = (props) => {
-    const { handleSubmit, reset } = props
+    const { handleSubmit, reset, } = props
 
     let submitAndClear = e => {
         e.preventDefault()
@@ -25,7 +25,7 @@ const MessageSendForm = (props) => {
 }
 
 const MessageSendReduxForm = reduxForm({
-    form: 'messages'
+    form: "messages",
 })(MessageSendForm)
 
 

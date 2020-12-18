@@ -11,6 +11,7 @@ import FeedContainer from "./components/Feed/FeedContainer";
 import { connect } from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import { withLazyLoad } from "./hoc/withLazyLoad";
+import ProfileSettingsContainer from "./components/ProfileSettings/ProfileSettingsContainer";
 
 // lazy load
 const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs") )
@@ -49,6 +50,7 @@ class App extends React.Component {
                     <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
                     <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
                     <Route path="/login" render={withLazyLoad(LoginContainer)}></Route>
+                    <Route path="/settings" render={() => <ProfileSettingsContainer></ProfileSettingsContainer>}></Route>
 
                 </div>
             </div> : <Preloader></Preloader>
