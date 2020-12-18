@@ -6,7 +6,12 @@ export const withFollowUser = (Component) => {
     class withFollowUser extends React.Component {
         changeFollowState = (followed, id) => {
             if (followed) {
-                return window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?') && this.props.unfollowUser(id)
+                if (window.confirm('Вы уверены, что хотите удалить этого пользователя из друзей?')) {
+                    return this.props.unfollowUser(id)
+                }
+                else {
+                    return new Promise(resolve => resolve())
+                }
             }
             else {
                 return this.props.followUser(id)
@@ -25,7 +30,7 @@ export const withFollowUser = (Component) => {
     const mapStateToProps = state => ({
         followed: state.profilePage.profileData.followed,
         id: state.profilePage.profileData.userId,
-        // isNotAuth: state.auth.isNotAuth
+        authId: state.auth.id
     })
 
     let mapDispatchToProps = {

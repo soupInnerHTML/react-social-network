@@ -1,6 +1,7 @@
-import _ from './RoundFollow.module.css'
-import React from 'react'
-import { withAuthRender } from '../../../hoc/withAuthRender'
+import _ from "./RoundFollow.module.css"
+import React from "react"
+import { withAuthRender } from "../../../hoc/withAuthRender"
+import cs from "classnames"
 
 let RoundFollow = props => {
     let clickToChangeFollowState = () => (
@@ -8,7 +9,7 @@ let RoundFollow = props => {
     )
 
     return (
-        <button className={_.round + ' ' + (props.followed ? _.unfollow : _.follow)}
+        <button className={cs(_.round, (props.followed ? _.unfollow : _.follow) )}
             onClick={clickToChangeFollowState} disabled={props.usersToChangeFollowState.includes(props.id)}></button>
     )
 }

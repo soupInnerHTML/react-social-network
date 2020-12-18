@@ -42,9 +42,7 @@ class App extends React.Component {
                     <Switch>
                         <Redirect exact from='/' to='/profile' />
                     </Switch>
-
-                    <Route exact path="/" render={() => <ProfileContainer></ProfileContainer>}></Route>
-                    <Route exact path="/profile" render={() => <ProfileContainer></ProfileContainer>}></Route>
+                    
                     <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
                     <Route path="/dialogs" render={withLazyLoad(Dialogs)}></Route>
                     <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>

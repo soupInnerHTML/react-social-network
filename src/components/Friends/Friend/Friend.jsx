@@ -1,7 +1,7 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Friend.module.css'
-import React from 'react'
-import Consumer from '../../common/Consumer/Consumer'
+import _ from "./Friend.module.css"
+import React from "react"
+import Consumer from "../../common/Consumer/Consumer"
 
 
 const Friend = props => {

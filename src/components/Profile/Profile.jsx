@@ -2,11 +2,13 @@ import React from "react"
 import Info from "./Info/Info"
 import AddPostContainer from "./AddPost/AddPostContainer"
 import PostsContainer from "./Posts/PostsContainer"
+import cs from "classnames"
 
-const Profile = props => {
+const Profile = ({ status, idFromUri, profileData, ...props }) => {
     return (
-        <main className={`App-main ${props.isFetching ? "fetching" : "fetched"}`}>
-            <Info {...props}></Info>
+        <main className={ cs("App-main", props.isFetching ? "fetching" : "fetched") }>
+            <Info {...{ profileData, status, idFromUri, } }></Info>
+            {/* TODO refactor props.match.params.userId */}
             {!props.match.params.userId && <AddPostContainer></AddPostContainer>}
             <PostsContainer ></PostsContainer>
         </main>

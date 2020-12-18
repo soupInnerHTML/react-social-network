@@ -1,8 +1,10 @@
 import React from "react"
+import cs from "classnames"
 
 const FollowBtn = (props) => {
     return (
-        <button className={`${props.className} ${props.isFetching ? "" : "fetching"}`} onClick={props.clickToChangeFollowState}>
+        // TODO пофиксить ошибку при отмене отписки
+        <button className={cs(props.className, { fetching: !props.isFetching, })} onClick={props.clickToChangeFollowState}>
             {props.children}
         </button>
     )

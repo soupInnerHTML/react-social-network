@@ -1,12 +1,14 @@
 /* Ultrashort name _ for root styles*/
-import _ from './Info.module.css'
-import socket from '../../../img/socket.jpg'
-import React from 'react'
-import StatusContainer from './Status/StatusContainer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faFacebook, faInstagram, faTwitter, faVk, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { faLink } from '@fortawesome/free-solid-svg-icons'
-import Follow from './Follow/Follow'
+import _ from "./Info.module.css"
+import socket from "../../../img/socket.jpg"
+import React from "react"
+import StatusContainer from "./Status/StatusContainer"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGithub, faFacebook, faInstagram, faTwitter, faVk, faYoutube } from "@fortawesome/free-brands-svg-icons"
+import { faLink } from "@fortawesome/free-solid-svg-icons"
+import Follow from "./Follow/Follow"
+import cs from "classnames"
+import EditAvatar from "./EditAvatar/EditAvatarContainer"
 
 const Info = (props) => {
 
@@ -15,7 +17,7 @@ const Info = (props) => {
     let processSocials = (social, iconName) => {
         if (social) {
             return (
-                <a href={'https://' + social.replace(/http(s|):\/\//i, '')} target="_blank" rel="noreferrer">
+                <a href={"https://" + social.replace(/http(s|):\/\//i, "")} target="_blank" rel="noreferrer">
                     <FontAwesomeIcon icon={iconName} />
                 </a>
             )
@@ -24,8 +26,9 @@ const Info = (props) => {
 
     return (
         <section className={_.info}>
-            <div className={'avatar ' + _.avatar}>
+            <div className={cs("avatar", _.avatar)}>
                 {photos && <img src={photos.large || socket} alt="" />}
+                <EditAvatar></EditAvatar>
             </div>
 
             <div className={_.desc}>
@@ -33,13 +36,9 @@ const Info = (props) => {
                 {/* Ruby ⛓ Soho */}
                 <div className={_.aboutMe}>
                     {aboutMe && <p>🧐 {aboutMe}</p>}
-                    {/* Date of Birth: 4 november '02 */}
                     {lookingForAJobDescription && <p>📌 {lookingForAJobDescription}</p>}
-
-                    {props.status && <StatusContainer idFromUri={props.match.params.userId}></StatusContainer>}
-                    {/* Education: PTPIT '22 */}
-
-
+                    {props.status && <StatusContainer idFromUri={props.idFromUri}></StatusContainer>}
+                    
                     {contacts && processSocials(contacts.facebook, faFacebook)}
                     {contacts && processSocials(contacts.github, faGithub)}
                     {contacts && processSocials(contacts.instagram, faInstagram)}
@@ -53,7 +52,6 @@ const Info = (props) => {
             </div>
 
             <div className={_.folllowTo}>
-                {/* <button className={_.folllowBtn}>Подписаться</button> */}
                 <Follow></Follow>
             </div>
 

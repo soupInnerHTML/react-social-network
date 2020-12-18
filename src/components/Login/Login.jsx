@@ -8,22 +8,24 @@ import { emailAndPhoneNumberCheck as loginValidator, maxLengthCreator, minLength
 import { ValInput } from "../common/FormsControls/FormsControl"
 import plus from "../../img/plus.svg"
 import { Redirect } from "react-router-dom";
+import cs from "classnames"
 
-const maxLength30 = maxLengthCreator(30)
-const minLength6 = minLengthCreator(6)
+const maxLength50 = maxLengthCreator(50)
+const minLength3 = minLengthCreator(3)
 
 const LoginForm = (props) => {
 
     const { handleSubmit, } = props
-    const defaultValidators = [required, minLength6, maxLength30]
+    const defaultValidators = [required, maxLength50, minLength3]
 
     return (
-        <section className={"App-block " + _.loginWrap}>
+        <section className={cs("App-block", _.loginWrap)}>
             <form onSubmit={handleSubmit} className={_.login}>
                 {props.error &&
                 <div className={_.error} style={{ animation: "fade 1s", }}>
                     {props.error}
                 </div>}
+                
                 <Field component={ValInput} type="text" name="email" placeholder="Телефонъ или емейлъ:" validate={[...defaultValidators, loginValidator]}></Field>
                 <Field component={ValInput} type="password" name="password" placeholder="Шифръ:" validate={[...defaultValidators]}></Field>
                 <input type="submit" value="Войти" />
@@ -50,10 +52,8 @@ const Acc = () => {
 
 const Login = ({ loginThunkCreator, isNotAuth, init, ...props }) => {
     
-    const onLoginSubmit = async values => {
-        init(false)
-        await loginThunkCreator(values)
-        init()
+    const onLoginSubmit = values => {
+        loginThunkCreator(values)
     }
 
     if (!isNotAuth) {
@@ -61,8 +61,8 @@ const Login = ({ loginThunkCreator, isNotAuth, init, ...props }) => {
     }
 
     return (
-        <main className={"App-main " + _.main}>
-            <section className={"App-block " + _.content}>
+        <main className={cs("App-main", _.main)}>
+            <section className={cs("App-block", _.content)}>
                 <div className={_.info}>
                     <h4 className={_.hContent}>Недавно входили на сайт с этого компьютера</h4>
                     <p className={_.infoContent}>Чтобы войти снова, нажмите на фотографию или имя.</p>

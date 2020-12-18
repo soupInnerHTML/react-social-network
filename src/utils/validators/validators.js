@@ -1,4 +1,4 @@
-export const required = value => value ? undefined : 'The field is required'
+export const required = value => value ? undefined : "The field is required"
 
 export const maxLengthCreator = (maxLength) => value => {
     return value && value.length > maxLength ? `Max length is ${maxLength}` : undefined
@@ -9,7 +9,7 @@ export const minLengthCreator = (minLength) => value => {
 }
 
 const PhoneNumberCheck = value => {
-    return /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/.test(value) ? undefined : 'Невернй номер или email'
+    return /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/.test(value) ? undefined : "Неверный номер или email"
 }
 
 export const emailAndPhoneNumberCheck = value => {

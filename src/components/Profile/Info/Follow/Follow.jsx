@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import _ from "./Follow.module.css";
-import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 import { withFollowUser } from "../../../../hoc/withFollowUser"
 import { withAuthRender } from "../../../../hoc/withAuthRender";
 import FollowBtn from "./FollowBtn";
 import { withFetching } from "../../../../hoc/withFetching";
+import { withOwner } from "../../../../hoc/withOwner";
 
 const Follow = (props) => {
     let { isFetching, } = props
@@ -18,28 +18,18 @@ const Follow = (props) => {
             })
     }
 
-    let followBtnJsx = () => {
-        if (props.followed !== undefined) {
-            if (props.followed) {
-                return (
-                    <FollowBtn {...{ clickToChangeFollowState, isFetching, }} className={_.unfollow}>Отписаться</FollowBtn>
-                )
-            }
-            else {
-                return (
-                    <FollowBtn {...{ clickToChangeFollowState, isFetching, }} className={_.follow}>Подписаться</FollowBtn>
-                )
-            }
-        }
-
-        else {
-            return <></>
-        }
+    if (props.followed) {
+        return (
+            <FollowBtn {...{ clickToChangeFollowState, isFetching, }} className={_.unfollow}>Отписаться</FollowBtn>
+        )
     }
-
-    return followBtnJsx()
+    else {
+        return (
+            <FollowBtn {...{ clickToChangeFollowState, isFetching, }} className={_.follow}>Подписаться</FollowBtn>
+        )
+    }
 }
 
 // TODO добавить sweet alert
 
-export default compose(withFetching(), withFollowUser, withRouter, withAuthRender)(Follow)
+export default compose(withFetching(), withFollowUser, withAuthRender, withOwner())(Follow)

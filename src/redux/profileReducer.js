@@ -10,6 +10,7 @@ const NULL_PROFILE_DATA = "profileReducer/nullProfileData"
 const ON_PROFILE_UNDEFINED = "profileReducer/onProfileundefined"
 const SET_STATUS = "profileReducer/setStatus"
 const SET_FOLLOW_STATE = "profileReducer/setFollowState"
+const SAVE_AVATAR = "profileReducer/saveAvatar"
 
 // action creators
 export const addPost = input => ({
@@ -49,6 +50,11 @@ export const setFollowState = (followed) => ({
     followed,
 })
 
+export const saveAvatar = (photos) => ({
+    type: SAVE_AVATAR,
+    photos,
+})
+
 export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return async dispatch => {
 
@@ -66,25 +72,15 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
                 }
                 else {
                     alert(e)
-                    console.error(e)
                 }
             }
         }
 
         else {
-            // return authAPI.getWhoAmI().then(Me => {
-            //     profileAPI.getProfile(Me.data.id).then(data => {
-            //         dispatch(setUserProfile(data))
-            //     })
-            // })
-
             let me = await authAPI.getWhoAmI()
             let data = await profileAPI.getProfile(me.data.id)
             dispatch(setUserProfile(data))
-
         }
-
-
     }
 }
 
@@ -101,48 +97,57 @@ export const updateStatusThunkCreator = (status) => {
     }
 }
 
+export const saveAvatarTC = (avatar) => {
+    return async dispatch => {
+        let response = await profileAPI.setAvatar(avatar)
+        if (response.resultCode === 0) {
+            dispatch(saveAvatar(response.data.photos))
+        }
+    }
+}
+
 let initialState = {
     postsData: [
         {
             id: 1,
             likes: 12,
             liked: false,
-            postDate: [2000, 9, 31],
+            postDate: [0, 11, 16],
             text: "Professionally transform ethical initiatives before synergistic synergy. Seamlessly build ethical paradigms through enterprise technologies. Completely coordinate economically sound synergy after open-source content. Enthusiastically underwhelm compelling services through low-risk high-yield e-commerce. Holisticly restore interactive processes rather than low-risk high-yield results.",
         },
         {
             id: 2,
             likes: 1,
             liked: false,
-            postDate: [2000, 9, 31],
+            postDate: [2020, 11, 12],
             text: "Professionally impact diverse growth strategies vis-a-vis low-risk high-yield convergence. Efficiently engineer proactive communities through maintainable infomediaries. Compellingly myocardinate business relationships and real-time ROI. Phosfluorescently engage backend content with premier expertise. Interactively evisculate ethical technologies without front-end ROI.            ",
         },
         {
             id: 3,
             likes: 3,
             liked: false,
-            postDate: [2000, 9, 31],
+            postDate: [2020, 11, 13],
             text: "Appropriately provide access to scalable \"outside the box\" thinking without resource maximizing users. Dynamically reinvent interactive innovation before progressive expertise. Energistically re-engineer competitive partnerships with prospective supply chains. Enthusiastically evisculate alternative functionalities without cost effective resources. Distinctively initiate quality networks via market-driven methodologies.            ",
         },
         {
             id: 4,
             liked: false,
             likes: 228,
-            postDate: [2009, 9, 31],
+            postDate: [2020, 11, 14],
             text: "Holisticly mesh excellent convergence after customized systems. Competently target multifunctional catalysts for change via multifunctional ROI. Seamlessly matrix unique.",
         },
         {
             id: 5,
             liked: false,
             likes: 1337,
-            postDate: [2011, 9, 31],
+            postDate: [2020, 11, 15],
             text: "Globally network optimal human capital with goal-oriented methods of empowerment. Professionally strategize economically sound leadership skills before leading-edge materials. Credibly enable turnkey meta-services after principle-centered communities. Objectively iterate vertical ideas via client-centered data. Quickly formulate world-class paradigms through resource maximizing supply chains.            ",
         },
         {
             id: 6,
             liked: false,
             likes: 1488,
-            postDate: [2011, 9, 31],
+            postDate: [2020, 11, 16],
             text: "Hello world",
         }
     ],
@@ -211,6 +216,13 @@ const profileReducer = (state = initialState, action) => {
         case SET_FOLLOW_STATE:
             return {
                 ...state, profileData: { ...state.profileData, followed: action.followed, },
+            }
+
+        case SAVE_AVATAR:
+            return {
+                ...state, profileData: {
+                    ...state.profileData, photos: action.photos,
+                },
             }
 
 

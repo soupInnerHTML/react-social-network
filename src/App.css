@@ -90,6 +90,7 @@ input[type="submit"] {
 }
 .fetched::before {
 	opacity: 0;
+	display: none;
 }
 .fetching::before {
 	opacity: 1;
@@ -99,10 +100,11 @@ input[type="submit"] {
 }
 .fetching::before,
 .fetched::before {
-	position: absolute;
+	position: fixed;
 	content: "⠋";
 	top: 100px;
 	left: 50%;
+	z-index: 10000;
 	font-size: 50px;
 }
 .qtyTab {
@@ -117,6 +119,9 @@ input[type="submit"] {
 .qtyTab__qty {
 	padding: 0 0 0 5px;
 	color: #cfcfcf;
+}
+.active {
+	opacity: 1 !important;
 }
 @-webkit-keyframes changeContent {
 	10% {

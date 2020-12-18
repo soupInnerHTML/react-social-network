@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { getStatusThunkCreator, updateStatusThunkCreator } from '../../../../redux/profileReducer'
-import { compose } from 'redux'
-import StatusInput from './StatusInput'
-import Status from './Status'
-import { Redirect } from 'react-router-dom'
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import { getStatusThunkCreator, updateStatusThunkCreator } from "../../../../redux/profileReducer"
+import { compose } from "redux"
+import StatusInput from "./StatusInput"
+import Status from "./Status"
+import { withRouter } from "react-router-dom"
+import { getAuthId, getIsNotAuth, getStatus } from "../../../../redux/usersSelectors"
 
 let StatusClass = (props) => {
-    let isMyProfile = !props.idFromUri
+    let isMyProfile = !props.match.params.userId
     
 
     let [
@@ -17,7 +18,7 @@ let StatusClass = (props) => {
     ] = [
         useState(props.status), 
         useState(false), 
-        useState('')
+        useState("")
     ]
 
     useEffect(() => {
@@ -44,37 +45,30 @@ let StatusClass = (props) => {
         }
     }
 
-    let getStatusJSX = () => {
-        if (props.id === +props.idFromUri) {
-            return <Redirect to='/profile'></Redirect>
-        }
 
-        if (editMode && isMyProfile) {
-            return (
-                <StatusInput initialValues={{ 'status': status, }} onSubmit={setStatusOnSubmit}></StatusInput>
-            )
-        }
-        else {
-            return (
-                <Status {...{ onStatusClick, status, isMyProfile, }}></Status>
-            )
-        }
-
+    if (editMode && isMyProfile) {
+        return (
+            <StatusInput initialValues={{ "status": status, }} onSubmit={setStatusOnSubmit}></StatusInput>
+        )
     }
-
+    else {
+        return (
+            <Status {...{ onStatusClick, status, isMyProfile, }}></Status>
+        )
+    }
    
-    return getStatusJSX()
+
 }
 
 
 let mapStateToProps = state => ({
-    id: state.auth.id,
-    isNotAuth: state.auth.isNotAuth,
-    status: state.profilePage.status,
+    id: getAuthId(state),
+    isNotAuth: getIsNotAuth(state),
+    status: getStatus(state),
 })
 
 let mapDispatchToProps = {
     getStatusThunkCreator, updateStatusThunkCreator,
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(StatusClass)
+export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter)(StatusClass)

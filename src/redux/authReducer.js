@@ -1,5 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { profileAPI, authAPI } from "../api/api";
+import { init } from "./appReducer";
 
 
 const SET_USER_DATA = "setUderData"
@@ -38,7 +39,8 @@ export const loginThunkCreator = (loginProps) => (
     dispatch => {
         return authAPI.login(loginProps).then(data => {
             if (data.resultCode === 0) {
-                getWhoAmI(dispatch, data)
+                dispatch(init(false))
+                getWhoAmI(dispatch, data).then(() => dispatch(init()))
             }
             else {
                 let error = stopSubmit("login", { _error: data.messages[0], })

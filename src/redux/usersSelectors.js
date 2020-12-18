@@ -1,14 +1,16 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect"
 
 export const getPageSize = (state) => state.users.pageSize
 export const getUsersData = (state) => state.users.usersData
 export const getUsersQuantity = (state) => state.users.usersQuantity
 export const getCurrentPage = (state) => state.users.currentPage
+export const getAuthId = state => state.auth.id
+export const getIsNotAuth = state => state.auth.isNotAuth
+export const getStatus = state => state.profilePage.status
 
 export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pageSize, usersQuantity) => {
     return Math.ceil(usersQuantity / pageSize)
 })
-// TODO добавить super selectors currentPage (?)
 
 // селекторы нужны, чтобы:
 // 1. Инкапсулировать логику. Например, как в maxCurrentPage()

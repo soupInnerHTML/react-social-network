@@ -4,7 +4,6 @@ import Post from "./Post/Post"
 import _ from "./Posts.module.css"
 
 const Posts = ({ postsData, profileData, ...props }) => {
-    console.log("render")
     let { fullName, photos, } = profileData
     let postProps = {
         fullName, photos, ...props,
@@ -22,6 +21,4 @@ const Posts = ({ postsData, profileData, ...props }) => {
     )
 }
 
-export default React.memo(Posts, (prevProps, nextProps) => {
-    return JSON.stringify(prevProps) === JSON.stringify(nextProps)
-});
+export default Posts

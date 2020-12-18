@@ -3,6 +3,8 @@ import React from 'react';
 import Feed from './Feed'
 import { getVkFeedThunkCreator } from '../../redux/feedReducer'
 import Preloader from '../common/Preloader/Preloader';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class FeedClass extends React.Component {
     state = {
@@ -53,7 +55,7 @@ let mapDispatchToProps = {
     getVkFeedThunkCreator
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedClass)
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(FeedClass)
 
 
 

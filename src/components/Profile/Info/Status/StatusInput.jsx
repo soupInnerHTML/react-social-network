@@ -2,6 +2,8 @@
 import _ from "./Status.module.css"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
+import { withOwner } from "../../../../hoc/withOwner"
+import { compose } from "redux"
 
 const StatusInput = (props) => {
     let { handleSubmit, } = props
@@ -15,6 +17,4 @@ const StatusInput = (props) => {
     )
 }
 
-export default reduxForm({
-    form: "status",
-})(StatusInput)
+export default compose(reduxForm({ form: "status", }), withOwner(true))(StatusInput)

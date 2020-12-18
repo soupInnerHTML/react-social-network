@@ -10,14 +10,14 @@ import { withFetching } from '../../hoc/withFetching'
 
 class profileClass extends React.Component {
 
-    async componentDidMount() {
+    refreshProfile = async () => {
         await this.props.getProfile(this.props.match.params.userId)
         await this.getStatus()
         this.props.setFetching(false)
     }
 
-    componentWillUnmount() {
-
+    componentDidMount() {
+        this.refreshProfile()
     }
 
     componentDidUpdate(prevState, prevProps) {
@@ -26,6 +26,7 @@ class profileClass extends React.Component {
         }
         if(prevState.match.url !== this.props.match.url && !this.props.isFetching) {
             this.props.setFetching(true)
+            this.refreshProfile()
         }
     }
 
@@ -40,14 +41,14 @@ class profileClass extends React.Component {
 
     infoProps = {
         profileData: this.props.profileData,
-        match: this.props.match
+        idFromUri: this.props.match.params.userId
     }
 
     render() {
         return (
             <>
                 <Profile {...this.props} infoProps={this.infoProps}></Profile>
-                {this.props.isProfileUndefined && <Redirect to='/profile' />}
+                {(this.props.isProfileUndefined || +this.infoProps.idFromUri === +this.props.id) && <Redirect to='/profile' />}
             </>
         )
     }

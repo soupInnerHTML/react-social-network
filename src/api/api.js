@@ -66,9 +66,14 @@ export const profileAPI = {
         return samurai.put("profile/status", { status, })
             .then(Response => Response.data)
     },
-    setUserAvatar(small, large) {
-        return samurai.put("profile/photo", { small, large, })
-            .then(Response => Response)
+    setAvatar(avatar) {
+        let data = new FormData();
+        data.append("image", avatar);
+        return samurai.put("profile/photo", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }).then(Response => Response.data)
     },
 }
 
