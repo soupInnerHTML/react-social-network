@@ -3,6 +3,7 @@ import Login from "./Login"
 import { connect } from "react-redux"
 import { loginThunkCreator } from "../../redux/authReducer"
 import { init } from "../../redux/appReducer"
+import { getCaptcha, getIsNotAuth } from "../../redux/usersSelectors"
 
 class LoginContainer extends React.Component {
     render() {
@@ -13,7 +14,8 @@ class LoginContainer extends React.Component {
 }
 
 let mapStateToProps = state => ({
-    isNotAuth: state.auth.isNotAuth,
+    isNotAuth: getIsNotAuth(state),
+    captcha: getCaptcha(state),
 })
 
 let mapDispatchToProps = {

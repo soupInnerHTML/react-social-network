@@ -8,3 +8,6 @@
 .submit {
 	background: var(--grey) !important;
 }
+.flex {
+	display: flex;
+}

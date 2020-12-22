@@ -75,6 +75,15 @@ export const profileAPI = {
             },
         }).then(Response => Response.data)
     },
+    setProfileMeta(meta) {
+        return samurai.put("profile", meta)
+    },
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return samurai.get("security/get-captcha-url")
+    },
 }
 
 export const VKAPI = {

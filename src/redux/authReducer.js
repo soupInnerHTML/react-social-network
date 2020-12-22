@@ -1,11 +1,12 @@
 import { stopSubmit } from "redux-form";
-import { profileAPI, authAPI } from "../api/api";
+import { profileAPI, authAPI, securityAPI } from "../api/api";
 import { init } from "./appReducer";
 
 
-const SET_USER_DATA = "setUderData"
+const SET_USER_DATA = "authReducer/setUserData"
+const GET_CAPTCHA = "authReducer/getCaptcha"
 
-export const setUserData = (login, email, id, avatar, isNotAuth) => ({
+export const setUserData = (login, email, id, avatar, isNotAuth, captcha) => ({
     type: SET_USER_DATA,
     userData: {
         login,
@@ -13,7 +14,13 @@ export const setUserData = (login, email, id, avatar, isNotAuth) => ({
         id,
         avatar,
         isNotAuth,
+        captcha,
     },
+})
+
+export const getCaptcha = (captcha) => ({
+    type: GET_CAPTCHA,
+    captcha,
 })
 
 const getWhoAmI = async (dispatch, data) => {
@@ -21,6 +28,12 @@ const getWhoAmI = async (dispatch, data) => {
     let { login, email, id, } = my.data
     let avatar = await profileAPI.getAvatarById(id)
     dispatch(setUserData(login, email, id, avatar, data.resultCode))
+}
+
+export const getMyProfile = () => {
+    async dispatch => {
+        // let myProfile = await 
+    }
 }
 
 export const authThunkCreator = () => (
@@ -45,6 +58,12 @@ export const loginThunkCreator = (loginProps) => (
             else {
                 let error = stopSubmit("login", { _error: data.messages[0], })
                 dispatch(error)
+
+                if (data.resultCode === 10) {
+                    securityAPI.getCaptchaUrl().then(response => {
+                        dispatch(getCaptcha(response.data.url))
+                    })
+                }
             }
         })
     }
@@ -65,12 +84,16 @@ let initialState = {
     email: "",
     id: "",
     avatar: "",
+    profile: "",
+    captcha: "",
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return { ...state, ...action.userData, }
+        case GET_CAPTCHA:
+            return { ...state, captcha: action.captcha, }
         default:
             return state
     }

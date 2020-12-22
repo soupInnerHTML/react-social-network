@@ -111,6 +111,12 @@ export const saveAvatarTC = (avatar) => {
     }
 }
 
+export const setProfileMetaTC = meta => {
+    return async dispatch => {
+        profileAPI.setProfileMeta(meta)
+    }
+}
+
 let initialState = {
     postsData: [
         {
