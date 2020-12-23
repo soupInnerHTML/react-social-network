@@ -5,14 +5,11 @@ import { sendMessage } from "../../../redux/dialogsReducer"
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import _ from "./Messages.module.css"
+import { getMessagesObject } from "../../../redux/usersSelectors";
 
 let mapStateToProps = state => {
     return {
-        messagesObject: state.dialogsPage.messagesData.map(messageData => {
-            let { id, from, message, } = messageData
-            return <div key={id} className={from ? _.left : _.right}>{message}</div>
-        }),
-        newMessageText: state.dialogsPage.newMessageText,
+        messagesObject: getMessagesObject(state),
     }
 }
 

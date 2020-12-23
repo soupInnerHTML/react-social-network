@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons"
 import cs from "classnames"
 
-export const EditAvatarPure = (props) => {
+export const EditAvatar = (props) => {
     let [display, setDisplay] = React.useState(false)
 
     let selectAvatar = e => {

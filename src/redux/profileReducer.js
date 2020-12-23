@@ -1,6 +1,7 @@
 import { usersAPI, profileAPI, authAPI } from "../api/api"
 import { v4 as getV4Id } from "uuid";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
+import { stopSubmit } from "redux-form";
 
 // actions
 const ADD_POST = "profileReducer/addPost"
@@ -37,13 +38,20 @@ export const setUserProfile = userProfile => ({
 export const nullProfileData = () => ({
     type: NULL_PROFILE_DATA,
 })
-export const onProfileUndefined = () => ({
+
+export const onProfileUndefined = (flag = true) => ({
     type: ON_PROFILE_UNDEFINED,
+    flag,
 })
 
 export const setStatus = (status) => ({
     type: SET_STATUS,
     status,
+})
+
+export const setMyProfile = (profile) => ({
+    type: SET_STATUS,
+    profile,
 })
 
 export const setFollowState = (followed) => ({
@@ -60,23 +68,20 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
     return async dispatch => {
 
         if (getProfileIdFromUriParams) {
-            try {
+            (async () => {
                 let data = await profileAPI.getProfile(getProfileIdFromUriParams)
                 let user = await usersAPI.getUserByTerm(data.fullName)
                 dispatch(setUserProfile(data))
                 dispatch(setFollowState(user.items[0].followed))
-            }
-            catch (e) {
-                if (e.response && e.response.status === 400) {
-                    await swal("Пользователь не найден", "", "error");
-                    dispatch(onProfileUndefined())
-                }
-                else {
-                    await swal(e, "", "error");
-                    dispatch(onProfileUndefined())
-                    // TODO fix
-                }
-            }
+            })()
+                .catch(e => {
+                    if (e.response && e.response.status === 400) {
+                        Swal.fire("Пользователь не найден", "", "error")
+                        dispatch(onProfileUndefined())
+                    }
+                })
+
+            // TODO fix
         }
 
         else {
@@ -98,7 +103,7 @@ export const getStatusThunkCreator = (id) => {
 export const updateStatusThunkCreator = (status) => {
     return dispatch => {
         dispatch(setStatus(status))
-        profileAPI.updateStatus(status).catch(e => alert(e))
+        profileAPI.updateStatus(status)
     }
 }
 
@@ -112,8 +117,14 @@ export const saveAvatarTC = (avatar) => {
 }
 
 export const setProfileMetaTC = meta => {
-    return async dispatch => {
-        profileAPI.setProfileMeta(meta)
+    return dispatch => {
+        return profileAPI.setProfileMeta(meta).then(response => {
+            if (response.data.resultCode === 1) {
+                let error = stopSubmit("profileSettings", { _error: response.data.messages[0], })
+                dispatch(error)
+            }
+            return response.data
+        })
     }
 }
 
@@ -238,7 +249,7 @@ const profileReducer = (state = initialState, action) => {
 
 
         case ON_PROFILE_UNDEFINED:
-            return { ...state, isProfileUndefined: true, }
+            return { ...state, isProfileUndefined: action.flag, }
 
 
         default:

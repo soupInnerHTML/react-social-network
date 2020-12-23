@@ -1,7 +1,8 @@
-import { compose } from 'redux';
-import { withUserProcessing } from '../../hoc/withUserProcessing';
+import React from "react";
+import { compose } from "redux";
+import { withUserProcessing } from "../../hoc/withUserProcessing";
 import Users from "./Users";
-import _ from './Users.module.css'
+import _ from "./Users.module.css"
 
 const UserContainer = (props) => {
     return (
@@ -14,21 +15,6 @@ const UserContainer = (props) => {
 }
 
 export default compose(withUserProcessing())(UserContainer)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // let mapDispatchToProps = dispatch => {
@@ -53,15 +39,3 @@ export default compose(withUserProcessing())(UserContainer)
 //         }
 //     }
 // }
-
-// getUsersOnScroll = () => {
-    // let seqOfpages = [...Array(this.props.currentPage)].map((_, i) => ++i)
-    // let count = this.props.pageSize
-    // seqOfpages.forEach(page => {
-    //     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`).then(Response => {
-    //         this.props.fetched()
-    //         this.props.setUsers(Response.data.items)
-    //         // console.log('response sent')
-    //     })
-    // })
-    // }

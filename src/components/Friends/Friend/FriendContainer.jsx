@@ -5,6 +5,7 @@ import { followUser, unfollowUser } from "../../../redux/usersReducer";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { withFollowUser } from "../../../hoc/withFollowUser";
+import { getUsersData, getUsersToChangeFollowState } from "../../../redux/usersSelectors";
 
 
 class FriendClass extends React.Component {
@@ -17,8 +18,8 @@ class FriendClass extends React.Component {
     }
 }
 let mapStateToProps = (state) => ({
-    friendsData: state.users.usersData,
-    usersToChangeFollowState: state.users.usersToChangeFollowState,
+    friendsData: getUsersData(state),
+    usersToChangeFollowState: getUsersToChangeFollowState(state),
 })
 
 let mapDispatchToProps = {

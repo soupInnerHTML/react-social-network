@@ -10,9 +10,9 @@ import thunkMiddleware from "redux-thunk"
 
 
 let reducers = combineReducers({
-    profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
-    feedPage: feedReducer,
+    profile: profileReducer,
+    dialogs: dialogsReducer,
+    feed: feedReducer,
     users: usersReducer,
     auth: authReducer,
     app: appReducer,

@@ -1,19 +1,12 @@
 import DialogItem from "./DialogItem"
-import Dialog from "./Dialog/Dialog"
 import { connect } from "react-redux"
-import React from "react"
+import { getDialogsObject } from "../../../redux/usersSelectors"
 
 let mapStateToProps = (state) => ({
-    dialogsObject: state.dialogsPage.dialogsData.map(dialogsData => {
-        return (
-            <Dialog dialogState={dialogsData} key={dialogsData.id}></Dialog>
-        )
-    }),
+    dialogsObject: getDialogsObject(state),
 })
 
-let mapDispatchToProps = {
-    // 
-}
+let mapDispatchToProps = {}
 
 const DialogItemContainer = connect(mapStateToProps, mapDispatchToProps)(DialogItem)
 export default DialogItemContainer

@@ -1,6 +1,6 @@
 import { VKAPI } from "../api/api";
 
-const SET_FEED = "setFeed"
+const SET_FEED = "feedReducer/setFeed"
 
 export const setFeed = (feed) => ({
     type: SET_FEED,

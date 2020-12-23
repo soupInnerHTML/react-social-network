@@ -1,16 +1,18 @@
 import React from 'react'
 import Profile from './Profile'
 import { connect } from 'react-redux'
-import { getProfileThunkCreator, getStatusThunkCreator, nullProfileData } from '../../redux/profileReducer'
+import { getProfileThunkCreator, getStatusThunkCreator, nullProfileData, onProfileUndefined } from '../../redux/profileReducer'
 import { Redirect, withRouter } from 'react-router-dom'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { withFetching } from '../../hoc/withFetching'
+import { getAuthId, getIsProfileUndefined, getProfileData, getStatus } from '../../redux/usersSelectors'
 
 
 class profileClass extends React.Component {
 
     refreshProfile = async () => {
+        this.props.onProfileUndefined(false)
         await this.props.getProfile(this.props.match.params.userId)
         await this.getStatus()
         this.props.setFetching(false)
@@ -24,7 +26,8 @@ class profileClass extends React.Component {
         if (prevState.status !== this.props.status || prevState.isNotAuth !== this.props.isNotAuth) {
             this.getStatus()
         }
-        if(prevState.match.url !== this.props.match.url && !this.props.isFetching) {
+        if((prevState.match.url !== this.props.match.url && !this.props.isFetching) || (this.props.isProfileUndefined && prevState.isProfileUndefined === this.props.isProfileUndefined)) {
+            console.log([prevState.match.url, this.props.match.url])
             this.props.setFetching(true)
             this.refreshProfile()
         }
@@ -41,7 +44,7 @@ class profileClass extends React.Component {
 
     infoProps = {
         profileData: this.props.profileData,
-        idFromUri: this.props.match.params.userId
+        idFromUri: this.props.match.params.userId,
     }
 
     render() {
@@ -55,16 +58,17 @@ class profileClass extends React.Component {
 }
 
 let mapStateToProps = state => ({
-    id: state.auth.id,
-    profileData: state.profilePage.profileData,
-    status: state.profilePage.status,
-    isProfileUndefined: state.profilePage.isProfileUndefined
+    id: getAuthId(state),
+    profileData: getProfileData(state),
+    status: getStatus(state),
+    isProfileUndefined: getIsProfileUndefined(state),
 })
 
 let mapDispatchToProps = {
     getProfile: getProfileThunkCreator,
     nullProfileData,
-    getStatusThunkCreator
+    getStatusThunkCreator,
+    onProfileUndefined
 }
 
 export default compose(withFetching(), connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(profileClass)

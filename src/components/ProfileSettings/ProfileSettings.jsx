@@ -1,11 +1,10 @@
-import React from "react"
+import React, { memo, useEffect, useState } from "react"
 import _ from "./ProfileSettings.module.css"
 import cs from "classnames"
 import { Field, reduxForm } from "redux-form"
-import Preloader from "../common/Preloader/Preloader"
 
 
-const ProfileSettingsForm = ({ handleSubmit, profileData, }) => {
+const ProfileSettingsForm = ({ handleSubmit, profileData, error, }) => {
     let { contacts, aboutMe, lookingForAJobDescription, fullName, } = profileData
     let otherFields = { aboutMe, lookingForAJobDescription, fullName, }
 
@@ -21,6 +20,10 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, }) => {
 
     return (
         <form onSubmit={handleSubmit} className={_.form}>
+            {error &&
+                <div className={_.error} style={{ animation: "fade 1s", }}>
+                    {error}
+                </div>}
             <div className={_.flex}>
                 <div>{getSettingsFields(contacts)}</div>
             
@@ -40,25 +43,48 @@ const ProfileSettingsReduxForm = reduxForm({
 
 
 const ProfileSettings = (props) => {
-    let { profileData, } = props
+    let { profileData, isFetching, setFetching, } = props
     let { contacts, } = profileData
-    let toggler = false
+    let [toggler, setToggle] = useState(false)
+
+    // console.log(profileData)
 
     let onSubmit = values => {
-        console.log(values)
-        toggler = true
-        props.setProfileMeta(values).then(() => toggler = false)
+        setFetching(false)
+        let fields = {
+            ...values, 
+            contacts: Object.fromEntries(Object.keys(contacts).map(key => [ [key], values[key] ] )),
+        }
+
+        console.log(fields)
+        props.setProfileMetaTC(fields).then(data => {
+            if (data.resultCode === 0) {
+                setToggle(true)
+                setFetching(true)
+            }
+            else {
+                setToggle(false)
+                setFetching(true)
+            }
+        })
+        props.setMyProfile(fields)
     }
 
-    return (
-        <main className={ cs("App-main", { "fetching": toggler, }) }>
-            <section className={"App-block"}>
-                {props.isFetching ? 
-                    <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts) || {}} {...props}></ProfileSettingsReduxForm> :
-                    <Preloader innerStyle={{ background: "none", }}></Preloader>}
-            </section>
-        </main>
-    )
+    if (profileData.userId) {
+        return (
+            <main className={ cs("App-main", { fetching: !isFetching, }) } style={{ animation: ".5s fade", }}>
+                <section className={"App-block"}>
+                    {toggler && <p>успешно</p>}
+                    <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts)} {...props}></ProfileSettingsReduxForm>
+                </section>
+            </main>
+        )
+    }
+
+    else {
+        return <></>
+    }
 }
 
 export default ProfileSettings
+// memo(ProfileSettings, (prevProps, nextProps) => prevProps.profileData.userId === nextProps.profileData.userId) 

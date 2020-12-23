@@ -41,15 +41,3 @@ export default compose(withUserProcessing(true))(FriendsContainer) //withFriends
 //         }
 //     }
 // }
-
-// getUsersOnScroll = () => {
-// let seqOfpages = [...Array(this.props.currentPage)].map((_, i) => ++i)
-// let count = this.props.pageSize
-// seqOfpages.forEach(page => {
-//     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`).then(Response => {
-//         this.props.fetched()
-//         this.props.setUsers(Response.data.items)
-//         // console.log('response sent')
-//     })
-// })
-// }

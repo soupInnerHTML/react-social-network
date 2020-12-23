@@ -5,6 +5,7 @@ import { getVkFeedThunkCreator } from '../../redux/feedReducer'
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getFeedPage } from '../../redux/usersSelectors';
 
 class FeedClass extends React.Component {
     state = {
@@ -47,7 +48,7 @@ class FeedClass extends React.Component {
 
 let mapStateToProps = state => {
     return {
-        feedPage: state.feedPage
+        feedPage: getFeedPage(state)
     }
 }
 

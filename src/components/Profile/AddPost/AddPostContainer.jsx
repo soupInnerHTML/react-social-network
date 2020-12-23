@@ -1,18 +1,20 @@
 import AddPost from "./AddPost"
-import { connect } from 'react-redux'
-import { addPost } from '../../../redux/profileReducer'
+import { connect } from "react-redux"
+import { addPost } from "../../../redux/profileReducer"
+import { withOwner } from "../../../hoc/withOwner"
+import { compose } from "redux"
+import { getAuthId, getProfileId } from "../../../redux/usersSelectors"
 
 
 let mapStateToProps = state => ({
-  newPostText: state.profilePage.newPostText,
-  profileId: state.profilePage.profileData.userId,
-  currentUserId: state.auth.id
+    profileId: getProfileId(state),
+    currentUserId: getAuthId(state),
 })
 
 let mapDispatchToProps = {
-  addPost
+    addPost,
 }
 
-const AddPostContainer = connect(mapStateToProps, mapDispatchToProps)(AddPost)
+const AddPostContainer = compose(connect(mapStateToProps, mapDispatchToProps), withOwner(true))(AddPost)
 
 export default AddPostContainer

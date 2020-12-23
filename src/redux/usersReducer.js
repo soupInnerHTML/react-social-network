@@ -1,16 +1,16 @@
 import { usersAPI } from "../api/api";
 import { setFollowState as setFollowStateForProfile } from "./profileReducer";
 
-const FOLLOW = "follow"
-const UNFOLLOW = "unfollow"
-const SET_USERS = "setUsers"
-const UP_CURRENT_PAGE = "setCurrentPage"
-const FETCHING = "fetchingUsers"
-const FETCHED = "fetchedUsers"
-const NULL_USERS = "nullUsers"
-const SET_USERS_QUANTITY = "setUsersQuantity"
-const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = "followUnfollowRequestInProgress"
-const SET_IS_FRIENDS = "setIsFriends"
+const FOLLOW = "usersReducer/follow"
+const UNFOLLOW = "usersReducer/unfollow"
+const SET_USERS = "usersReducer/setUsers"
+const UP_CURRENT_PAGE = "usersReducer/setCurrentPage"
+const FETCHING = "usersReducer/fetchingUsers"
+const FETCHED = "usersReducer/fetchedUsers"
+const NULL_USERS = "usersReducer/nullUsers"
+const SET_USERS_QUANTITY = "usersReducer/setUsersQuantity"
+const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = "usersReducer/followUnfollowRequestInProgress"
+const SET_IS_FRIENDS = "usersReducer/setIsFriends"
 
 export const follow = id => ({
     type: FOLLOW,
@@ -79,20 +79,15 @@ export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) =>
         //     }).catch(e => alert(e))
 
 
-        try {
-            let data = await usersAPI.getUsers(pageSize, currentPage, isGetFriends)
+        let data = await usersAPI.getUsers(pageSize, currentPage, isGetFriends)
 
-            dispatch(fetched())
-            dispatch(setUsers(data.items))
-            dispatch(setUsersQuantity(data.totalCount))
+        dispatch(fetched())
+        dispatch(setUsers(data.items))
+        dispatch(setUsersQuantity(data.totalCount))
 
-            if (data.totalCount < pageSize && !data.items.length) {
-                let friends = await usersAPI.getUsers(pageSize, 1, isGetFriends)
-                dispatch(setUsers(friends.items))
-            }
-        }
-        catch (e) {
-            alert(e)
+        if (data.totalCount < pageSize && !data.items.length) {
+            let friends = await usersAPI.getUsers(pageSize, 1, isGetFriends)
+            dispatch(setUsers(friends.items))
         }
 
 
@@ -130,10 +125,6 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
                 }
 
                 dispatch(followUnfollowRequestInProgress(false, id))
-            })
-            .catch(e => {
-                dispatch(followUnfollowRequestInProgress(false, id))
-                alert(e)
             })
     }
 }

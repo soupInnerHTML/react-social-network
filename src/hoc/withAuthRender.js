@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+import { getIsNotAuth } from "../redux/usersSelectors"
 
 export const withAuthRender = (Component) => {
     class withAuthRenderClass extends React.Component {
@@ -11,7 +12,7 @@ export const withAuthRender = (Component) => {
     }
 
     const mapStateToProps = state => ({
-        isNotAuth: state.auth.isNotAuth,
+        isNotAuth: getIsNotAuth(state),
     })
 
     return connect(mapStateToProps)(withAuthRenderClass)

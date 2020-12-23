@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { followUser, unfollowUser } from "../../../redux/usersReducer";
 import { compose } from "redux";
 import { withFollowUser } from "../../../hoc/withFollowUser";
+import { getIsNotAuth, getUsersData, getUsersToChangeFollowState } from "../../../redux/usersSelectors";
 
 
 class UserClass extends React.Component {
@@ -16,9 +17,9 @@ class UserClass extends React.Component {
 
 
 let mapStateToProps = (state) => ({
-    usersData: state.users.usersData,
-    usersToChangeFollowState: state.users.usersToChangeFollowState,
-    isNotAuth: state.auth.isNotAuth,
+    usersData: getUsersData(state),
+    usersToChangeFollowState: getUsersToChangeFollowState(state),
+    isNotAuth: getIsNotAuth(state),
 })
 
 let mapDispatchToProps = {

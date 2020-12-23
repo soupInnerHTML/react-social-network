@@ -1,6 +1,6 @@
 import { authThunkCreator as auth } from "./authReducer"
 
-const INIT = "init"
+const INIT = "appReducer/init"
 
 export const init = (flag = true) => ({
     type: INIT,

@@ -1,10 +1,11 @@
 import { connect } from "react-redux"
 import Posts from "./Posts"
 import { likeThePost, unlikeThePost } from "../../../redux/profileReducer"
+import { getPostsData, getProfileData } from "../../../redux/usersSelectors"
 
 let mapStateToProps = state => ({
-    postsData: state.profilePage.postsData,
-    profileData: state.profilePage.profileData,
+    postsData: getPostsData(state),
+    profileData: getProfileData(state),
 })
 
 let mapDispatchToProps = {

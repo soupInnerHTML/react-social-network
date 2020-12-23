@@ -1,10 +1,11 @@
 import { stopSubmit } from "redux-form";
-import { profileAPI, authAPI, securityAPI } from "../api/api";
+import { profileAPI, authAPI, securityAPI, usersAPI } from "../api/api";
 import { init } from "./appReducer";
 
 
 const SET_USER_DATA = "authReducer/setUserData"
 const GET_CAPTCHA = "authReducer/getCaptcha"
+const SET_MY_PROFILE = "authReducer/setMyProfile"
 
 export const setUserData = (login, email, id, avatar, isNotAuth, captcha) => ({
     type: SET_USER_DATA,
@@ -23,15 +24,24 @@ export const getCaptcha = (captcha) => ({
     captcha,
 })
 
+export const setMyProfile = (profile) => ({
+    type: SET_MY_PROFILE,
+    profile,
+})
+
 const getWhoAmI = async (dispatch, data) => {
     let my = await authAPI.getWhoAmI()
     let { login, email, id, } = my.data
-    let avatar = await profileAPI.getAvatarById(id)
-    dispatch(setUserData(login, email, id, avatar, data.resultCode))
+    // let avatar = await profileAPI.getAvatarById(id)
+    let profile = await profileAPI.getProfile(id)
+
+    dispatch(setMyProfile(profile))
+    dispatch(setUserData(login, email, id, profile.photos.small, data.resultCode))
 }
 
 export const getMyProfile = () => {
     async dispatch => {
+        usersAPI.getUserByTerm()
         // let myProfile = await 
     }
 }
@@ -80,20 +90,25 @@ export const logoutThunkCreator = () => (
 )
 
 let initialState = {
-    login: "",
-    email: "",
-    id: "",
-    avatar: "",
-    profile: "",
-    captcha: "",
+    // login: "",
+    // email: "",
+    // id: "",
+    // avatar: "",
+    profile: {},
+    // captcha: "",
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return { ...state, ...action.userData, }
+
         case GET_CAPTCHA:
             return { ...state, captcha: action.captcha, }
+
+        case SET_MY_PROFILE:
+            return { ...state, profile: action.profile, }
+
         default:
             return state
     }

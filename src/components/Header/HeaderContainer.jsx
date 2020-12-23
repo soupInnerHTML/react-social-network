@@ -1,7 +1,8 @@
-import Header from './Header';
-import React from 'react'
-import { connect } from 'react-redux';
-import { authThunkCreator, logoutThunkCreator } from '../../redux/authReducer'
+import Header from "./Header";
+import React from "react"
+import { connect } from "react-redux";
+import { authThunkCreator, logoutThunkCreator } from "../../redux/authReducer"
+import { getAvatar, getIsNotAuth, getLogin } from "../../redux/usersSelectors";
 
 
 class HeaderClass extends React.Component {
@@ -14,9 +15,9 @@ class HeaderClass extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    isNotAuth: state.auth.isNotAuth,
-    name: state.auth.login,
-    headerAvatar: state.auth.avatar,
+    isNotAuth: getIsNotAuth(state),
+    name: getLogin(state),
+    headerAvatar: getAvatar(state),
 })
 
 let mapDispatchToProps = {
