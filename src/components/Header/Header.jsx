@@ -9,7 +9,7 @@ import cs from "classnames"
 const Header = (props) => {
     return (
 
-        <header className={cs(_.header, "App-block")}>
+        <header className={_.header}>
             <div className={cs(_.headerContainer, "App-container")}>
                 <img src={logoSrc} alt="" />
                 <div className={_.left}>

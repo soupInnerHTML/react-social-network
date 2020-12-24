@@ -31,7 +31,7 @@ class Post extends React.Component {
 
         return (
             <section className="App-block">
-                <div className={_.post}>
+                <div className={_.post} style={{animation: '1s fade'}}>
                     <div >
                         <img className='avatar' src={(photos && photos.small) || socket} alt="" />
                     </div>
@@ -39,8 +39,6 @@ class Post extends React.Component {
                     <div>
                         <p className={_.name}>{fullName}</p>
                         <Moment fromNow>{this.props.postDate}</Moment>
-                        {/* 23 мая въ 17:24 */}
-
                     </div>
 
                     <div className={_.content}>

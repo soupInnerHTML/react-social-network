@@ -2,6 +2,7 @@
 import _ from "./News.module.css"
 import { v4 as key } from "uuid";
 import React from "react";
+import cs from "classnames"
 
 const News = (props) => {
     let news = () => {
@@ -31,7 +32,7 @@ const News = (props) => {
         return output
     }
     return (
-        <section className="App-block">
+        <section className={cs("App-block", _.feedItem )}>
             {
                 news()
             }

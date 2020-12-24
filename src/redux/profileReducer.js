@@ -76,12 +76,15 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
             })()
                 .catch(e => {
                     if (e.response && e.response.status === 400) {
-                        Swal.fire("Пользователь не найден", "", "error")
+                        // Swal.fire("Пользователь не найден", "", "error")
+                        dispatch(onProfileUndefined())
+                    }
+                    else {
                         dispatch(onProfileUndefined())
                     }
                 })
 
-            // TODO fix
+            // TODO (probably weird behavior) view
         }
 
         else {

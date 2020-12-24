@@ -1,6 +1,6 @@
 /* Ultrashort name _ for root styles*/
 import _ from "./Messages.module.css"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import SendImgPath from "../../../img/send.svg"
 import { Field, reduxForm } from "redux-form"
 
@@ -34,11 +34,18 @@ const Messages = props => {
         props.sendMessage(values.message)
     }
 
+    const divRef = useRef(null);
+
+    useEffect(() => {
+        divRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", });
+    });
+
     return (
         <div className={_.messagesItems}>
-            <div className={_.layer}>
-                <div className={_.messages}>
+            <div className={_.messages}>
+                <div className={_.inner}>
                     {props.messagesObject}
+                    <div className={_.scroll} ref={divRef}></div>
                 </div>
             </div>
 

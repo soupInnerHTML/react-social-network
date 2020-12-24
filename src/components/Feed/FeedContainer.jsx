@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
 import React from 'react';
 import Feed from './Feed'
-import { getVkFeedThunkCreator } from '../../redux/feedReducer'
 import Preloader from '../common/Preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { connect } from 'react-redux'
 import { compose } from 'redux';
+import { getVkFeedThunkCreator } from '../../redux/feedReducer'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { getFeedPage } from '../../redux/usersSelectors';
 
 class FeedClass extends React.Component {
@@ -40,7 +40,7 @@ class FeedClass extends React.Component {
     render() {
         return (
             <main className={`App-main`}>
-                {this.state.isFeedFetching ? <section className="App-block"><Preloader></Preloader></section> : <Feed {...this.props}></Feed>}
+                {this.state.isFeedFetching ? <Preloader inBlock={true}></Preloader> : <Feed {...this.props}></Feed>}
             </main>
         )
     }
@@ -96,15 +96,3 @@ export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRed
 //         }
 //     }
 // }
-
-// getUsersOnScroll = () => {
-    // let seqOfpages = [...Array(this.props.currentPage)].map((_, i) => ++i)
-    // let count = this.props.pageSize
-    // seqOfpages.forEach(page => {
-    //     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`).then(Response => {
-    //         this.props.fetched()
-    //         this.props.setUsers(Response.data.items)
-    //         // console.log('response sent')
-    //     })
-    // })
-    // }

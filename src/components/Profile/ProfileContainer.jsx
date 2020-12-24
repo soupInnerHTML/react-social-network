@@ -34,12 +34,12 @@ class profileClass extends React.Component {
     }
 
     getStatus() {
-        if (this.props.isNotAuth === 0) {
+        // if (this.props.isNotAuth === 0) {
             return this.props.getStatusThunkCreator(this.props.match.params.userId || this.props.id)
-        }
-        else {
-            return {then: function(){}}
-        }
+        // }
+        // else {
+        //     return new Promise(reject => reject())
+        // }
     }
 
     infoProps = {

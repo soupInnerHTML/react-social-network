@@ -4,10 +4,9 @@ import React from "react";
 import icon from "../../../img/logoSpinner.png"
 
 const Preloader = (props) => {
-    let { styles, } = props
     return (
-        <div className={_.wrapper}>
-            <img src={icon} className={_.loader} {...styles} alt=""/>
+        <div className={_.wrapper} style={props.inBlock && { background: "transparent", }}>
+            <img src={icon} className={_.loader} alt=""/>
         </div>
     )
 }

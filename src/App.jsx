@@ -29,7 +29,7 @@ switch нужен для корректной работы редиректа
 class App extends React.Component {
 
     catchUnhanledError = (e) => {
-        e.promise.catch( () => Swal.fire("Oops...", e.reason + '',  "error") );
+        e.promise.catch( () => Swal.fire("Oops...", e.reason + "",  "error") );
     }
 
     componentDidMount() {
@@ -71,7 +71,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => ({
     isInited: getIsInitied(state),
-    isNeedToHandle: getIsNeedToHandle(state)
+    isNeedToHandle: getIsNeedToHandle(state),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

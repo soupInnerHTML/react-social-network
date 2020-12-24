@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { usersAPI } from "../api/api";
 import { setFollowState as setFollowStateForProfile } from "./profileReducer";
 
@@ -63,21 +64,6 @@ export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) =>
     return async (dispatch) => {
         dispatch(fetching())
         // TODO доделать if (data.resultCode === 0)
-        // usersAPI.getUsers(pageSize, currentPage, isGetFriends)
-        //     .then(data => {
-        //         // if (data.resultCode === 0) {
-        //         dispatch(fetched())
-        //         dispatch(setUsers(data.items))
-        //         dispatch(setUsersQuantity(data.totalCount))
-
-        //         if (data.totalCount < pageSize && !data.items.length) {
-        //             usersAPI.getUsers(pageSize, 1, isGetFriends).then(data => {
-        //                 dispatch(setUsers(data.items))
-        //             })
-        //             // }
-        //         }
-        //     }).catch(e => alert(e))
-
 
         let data = await usersAPI.getUsers(pageSize, currentPage, isGetFriends)
 
@@ -90,13 +76,8 @@ export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) =>
             dispatch(setUsers(friends.items))
         }
 
-
-        // VK VK VK VK VK VK
         // usersAPI.getVkFriends()
-        //     .then(obj => {
-        //         dispatch(fetched())
-        //         dispatch(setUsers(obj.data.response.items))
-        //     })
+        // dispatch(setUsers(obj.data.response.items))
     }
 }
 
@@ -111,7 +92,7 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
         return async(id)
             .then(data => {
                 if (data.resultCode) {
-                    alert(data.messages)
+                    Swal.fire("Oops...", data.messages, "error")
                 }
                 else {
                     if (isFollow) {

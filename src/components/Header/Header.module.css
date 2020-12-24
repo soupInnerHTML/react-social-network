@@ -1,5 +1,6 @@
 .header {
 	height: 42px;
+	background: var(--d-grey);
 }
 .headerContainer {
 	display: flex;

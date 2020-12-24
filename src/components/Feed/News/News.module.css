@@ -1,3 +1,10 @@
 .newsText:not(:first-of-type) {
 	display: none;
 }
+.feedItem {
+	padding: 20px;
+	margin-bottom: 15px;
+}
+.feedItem img {
+	width: 100%;
+}

@@ -2,6 +2,8 @@ import React, { memo, useEffect, useState } from "react"
 import _ from "./ProfileSettings.module.css"
 import cs from "classnames"
 import { Field, reduxForm } from "redux-form"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheck, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"
 
 
 const ProfileSettingsForm = ({ handleSubmit, profileData, error, }) => {
@@ -21,11 +23,12 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, error, }) => {
     return (
         <form onSubmit={handleSubmit} className={_.form}>
             {error &&
-                <div className={_.error} style={{ animation: "fade 1s", }}>
+                <div className={cs(_.error, _.noticeBlock)} style={{ animation: "fade 1s", }}>
+                    <FontAwesomeIcon className={_.noticeIcon} icon={faExclamationTriangle} />
                     {error}
                 </div>}
             <div className={_.flex}>
-                <div>{getSettingsFields(contacts)}</div>
+                <div style={{ marginLeft: "6px", }}>{getSettingsFields(contacts)}</div>
             
                 <div>
                     {getSettingsFields(otherFields)}
@@ -74,7 +77,12 @@ const ProfileSettings = (props) => {
         return (
             <main className={ cs("App-main", { fetching: !isFetching, }) } style={{ animation: ".5s fade", }}>
                 <section className={"App-block"}>
-                    {toggler && <p>успешно</p>}
+                    {toggler &&
+                        <div className={cs(_.success, _.noticeBlock)}>
+                            <FontAwesomeIcon icon={faCheck} className={_.noticeIcon}/>
+                            <span>Настройки профиля успешно сохранены!</span>
+                        </div>
+                    }
                     <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts)} {...props}></ProfileSettingsReduxForm>
                 </section>
             </main>

@@ -11,3 +11,20 @@
 .flex {
 	display: flex;
 }
+.noticeBlock {
+	padding: 20px 16px;
+	margin-bottom: 15px;
+}
+.success {
+	background: rgba(86, 211, 99, 0.05);
+	color: var(--green);
+	border-bottom: 1px solid var(--green);
+}
+.error {
+	color: var(--red);
+	border-bottom: 1px solid var(--red);
+	background: rgba(230, 76, 45, 0.1);
+}
+.noticeIcon {
+	margin: 0 12px 0 0;
+}

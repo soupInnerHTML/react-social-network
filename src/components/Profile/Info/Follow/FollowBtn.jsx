@@ -1,10 +1,10 @@
 import React from "react"
 import cs from "classnames"
+import _ from "./Follow.module.css";
 
 const FollowBtn = (props) => {
     return (
-        // TODO пофиксить ошибку при отмене отписки
-        <button className={cs(props.className, { fetching: !props.isFetching, })} onClick={props.clickToChangeFollowState}>
+        <button className={cs(props.className, { [_.fetching]: !props.isFetching, })} onClick={props.clickToChangeFollowState}>
             {props.children}
         </button>
     )

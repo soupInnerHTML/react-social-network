@@ -10,12 +10,12 @@ import { withOwner } from "../../../../hoc/withOwner";
 const Follow = (props) => {
     let { isFetching, } = props
     
-    let clickToChangeFollowState = () => {
+    let clickToChangeFollowState = async () => {
+        // (async() => {
         props.setFetching(false)
-        props.changeFollowState(props.followed, props.match.params.userId)
-            .then(() => {
-                props.setFetching(true)
-            })
+        await props.changeFollowState(props.followed, props.match.params.userId)
+        props.setFetching(true)
+        // })()
     }
 
     if (props.followed) {
