@@ -6,8 +6,6 @@ const FOLLOW = "usersReducer/follow"
 const UNFOLLOW = "usersReducer/unfollow"
 const SET_USERS = "usersReducer/setUsers"
 const UP_CURRENT_PAGE = "usersReducer/setCurrentPage"
-const FETCHING = "usersReducer/fetchingUsers"
-const FETCHED = "usersReducer/fetchedUsers"
 const NULL_USERS = "usersReducer/nullUsers"
 const SET_USERS_QUANTITY = "usersReducer/setUsersQuantity"
 const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = "usersReducer/followUnfollowRequestInProgress"
@@ -32,14 +30,6 @@ export const upCurrentPage = () => ({
     type: UP_CURRENT_PAGE,
 })
 
-export const fetching = () => ({
-    type: FETCHING,
-})
-
-export const fetched = () => ({
-    type: FETCHED,
-})
-
 export const nullUsers = () => ({
     type: NULL_USERS,
 })
@@ -62,12 +52,9 @@ export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
 
 export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) => {
     return async (dispatch) => {
-        dispatch(fetching())
-        // TODO доделать if (data.resultCode === 0)
 
         let data = await usersAPI.getUsers(pageSize, currentPage, isGetFriends)
 
-        dispatch(fetched())
         dispatch(setUsers(data.items))
         dispatch(setUsersQuantity(data.totalCount))
 
@@ -129,7 +116,6 @@ let initialState = {
     usersData: [],
     pageSize: 100,
     currentPage: 1,
-    isFetching: true,
     usersQuantity: 0,
     maxCurrentPage: 0,
     usersToChangeFollowState: [],
@@ -149,12 +135,6 @@ const usersReducer = (state = initialState, action) => {
 
         case UP_CURRENT_PAGE:
             return { ...state, currentPage: state.currentPage + 1, }
-
-        case FETCHING:
-            return { ...state, isFetching: true, }
-
-        case FETCHED:
-            return { ...state, isFetching: false, }
 
         case NULL_USERS:
             return { ...state, usersData: [], currentPage: 1, }

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react"
+import React, { memo, useState } from "react"
 import _ from "./ProfileSettings.module.css"
 import cs from "classnames"
 import { Field, reduxForm } from "redux-form"
@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"
 
 
-const ProfileSettingsForm = ({ handleSubmit, profileData, error, }) => {
+const ProfileSettingsForm = ({ handleSubmit, profileData, error, toggler, observe, }) => {
+    console.log("form render")
     let { contacts, aboutMe, lookingForAJobDescription, fullName, } = profileData
     let otherFields = { aboutMe, lookingForAJobDescription, fullName, }
 
@@ -22,7 +23,7 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, error, }) => {
 
     return (
         <form onSubmit={handleSubmit} className={_.form}>
-            {error &&
+            {error && !toggler && observe &&
                 <div className={cs(_.error, _.noticeBlock)} style={{ animation: "fade 1s", }}>
                     <FontAwesomeIcon className={_.noticeIcon} icon={faExclamationTriangle} />
                     {error}
@@ -46,13 +47,15 @@ const ProfileSettingsReduxForm = reduxForm({
 
 
 const ProfileSettings = (props) => {
+    console.log("component render")
     let { profileData, isFetching, setFetching, } = props
     let { contacts, } = profileData
     let [toggler, setToggle] = useState(false)
+    let [observe, setObserve] = useState(false)
 
-    // console.log(profileData)
 
     let onSubmit = values => {
+        setObserve(true)
         setFetching(false)
         let fields = {
             ...values, 
@@ -83,7 +86,7 @@ const ProfileSettings = (props) => {
                             <span>Настройки профиля успешно сохранены!</span>
                         </div>
                     }
-                    <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts)} {...props}></ProfileSettingsReduxForm>
+                    <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts)} {...{ ...props, toggler, isFetching, observe, } }></ProfileSettingsReduxForm>
                 </section>
             </main>
         )
@@ -94,5 +97,5 @@ const ProfileSettings = (props) => {
     }
 }
 
-export default ProfileSettings
-// memo(ProfileSettings, (prevProps, nextProps) => prevProps.profileData.userId === nextProps.profileData.userId) 
+export default memo(ProfileSettings, (prev, next) => JSON.stringify(prev) === JSON.stringify(next))
+// ProfileSettings

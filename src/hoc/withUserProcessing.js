@@ -1,29 +1,33 @@
-import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity, setIsFriends } from "../redux/usersReducer";
 import React from 'react';
+import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity, setIsFriends } from "../redux/usersReducer";
 import { connect } from "react-redux";
 import { getCurrentPage, getPageSize, getUsersData, maxCurrentPage } from '../redux/usersSelectors'
+import { withFetching } from "./withFetching";
+import { compose } from "redux";
+// import _ from "./../components/Users/Users.module.css"
+import cs from "classnames"
 
 
 export const withUserProcessing = isWithFriends => Component => {
     class FriendsClass extends React.Component {
-        componentDidMount() {
+        async componentDidMount() {
             this.props.setUsersQuantity('')
             window.addEventListener('scroll', this.onScroll)
-            this.getUsersData()
+            await this.getUsersData()
+            this.props.setFetching(false)
             isWithFriends ? this.props.setIsFriends(true) : this.props.setIsFriends(false)
         }
 
         componentWillUnmount() {
             window.removeEventListener('scroll', this.onScroll)
             this.props.nullUsers()
-            // TODO Заменить nullUsers на проверу изменений users (Optimize)
         }
 
         componentDidUpdate() {
 
         }
 
-        onScroll = () => {
+        onScroll = async () => {
             const windowHeight = window.innerHeight
             const documentHeight = document.body.clientHeight
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -31,16 +35,25 @@ export const withUserProcessing = isWithFriends => Component => {
             if (windowHeight + scrollTop >= documentHeight && this.props.currentPage < this.props.maxCurrentPage) {
                 console.log(this.props.maxCurrentPage)
                 this.props.upCurrentPage()
-                this.getUsersData()
+                this.props.setFetching(true)
+                await this.getUsersData()
+                this.props.setFetching(false)
             }
         }
 
         getUsersData = () => {
-            this.props.getUsersDataThunkCreator(this.props.pageSize, this.props.currentPage, isWithFriends)
+            return this.props.getUsersDataThunkCreator(this.props.pageSize, this.props.currentPage, isWithFriends)
         }
 
         render() {
-            return <Component isFetching={this.props.isFetching} />
+            let { isFetching } = this.props
+            return (
+                <main className={cs("App-main", isFetching ? "fetching" : "fetched", "fetcher")}>
+                    <section className="usersLoop App-block">
+                        <Component isFetching={isFetching} />
+                    </section>
+                </main >
+            )
         }
     }
 
@@ -49,8 +62,6 @@ export const withUserProcessing = isWithFriends => Component => {
             pageSize: getPageSize(state),
             maxCurrentPage: maxCurrentPage(state),
             currentPage: getCurrentPage(state),
-            isFetching: state.users.isFetching,
-            // TODO сделать fetching в локальном state
             usersData: getUsersData(state)
         }
     }
@@ -64,5 +75,5 @@ export const withUserProcessing = isWithFriends => Component => {
         setIsFriends,
     }
 
-    return connect(mapStateToProps, mapDispatchToProps)(FriendsClass)
+    return compose(connect(mapStateToProps, mapDispatchToProps), withFetching())(FriendsClass)
 }

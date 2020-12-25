@@ -28,3 +28,12 @@
 	border-radius: 4px;
 	align-self: flex-end;
 }
+.hideGroup {
+	text-align: right;
+}
+.blur .hideGroup {
+	opacity: 0;
+}
+.blur {
+	height: 62px !important;
+}

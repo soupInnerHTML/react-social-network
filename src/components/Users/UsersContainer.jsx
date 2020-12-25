@@ -1,20 +1,15 @@
-import React from "react";
 import { compose } from "redux";
 import { withUserProcessing } from "../../hoc/withUserProcessing";
 import Users from "./Users";
 import _ from "./Users.module.css"
 
-const UserContainer = (props) => {
-    return (
-        <main className={`App-main ${props.isFetching && "fetching"} fetched`}>
-            <section className={_.friends + " App-block"}>
-                <Users></Users>
-            </section>
-        </main>
-    )
-}
+// const UserContainer = (props) => {
+//     return (
+//         <Users></Users>
+//     )
+// }
 
-export default compose(withUserProcessing())(UserContainer)
+export default compose(withUserProcessing())(Users)
 
 
 // let mapDispatchToProps = dispatch => {

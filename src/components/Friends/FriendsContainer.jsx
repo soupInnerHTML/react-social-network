@@ -1,22 +1,18 @@
 /* Ultrashort name _ for root styles*/
-import _ from "./Friends.module.css"
+// import _ from "./Friends.module.css"
 import Friends from "./Friends";
 import { withUserProcessing } from "../../hoc/withUserProcessing";
 import { compose } from "redux";
-import React from "react";
-
-const FriendsContainer = props => {
-    return (
-        <main className={`App-main ${props.isFetching ? "fetching " : "fetched"}`}>
-            <section className={_.friends + " App-block"}>
-                <Friends></Friends>
-            </section>
-        </main>
-    )
-}
 
 
-export default compose(withUserProcessing(true))(FriendsContainer) //withFriends
+// const FriendsContainer = props => {
+//     return (
+//         <Friends></Friends>
+//     )
+// }
+
+
+export default compose(withUserProcessing(true))(Friends) //withFriends
 
 
 // let mapDispatchToProps = dispatch => {

@@ -4,7 +4,7 @@ const samurai = Axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
     headers: {
-        "API-KEY": "dbc83807-4be5-41c4-91a2-bef228d6cac3",
+        "API-KEY": "de874c86-8953-4ff7-bee4-8f3b9ead6003",
     },
 })
 
@@ -21,7 +21,7 @@ export const authAPI = {
         return samurai.get("auth/me").then(Response => Response.data)
     },
     login(loginProps) {
-        return samurai.post("auth/login", { ...loginProps, }).then(Response => Response.data)
+        return samurai.post("auth/login", loginProps).then(Response => Response.data)
     },
     logout() {
         return samurai.delete("auth/login").then(Response => Response.data)
@@ -55,9 +55,9 @@ export const profileAPI = {
         return samurai.get(`profile/${getProfileIdFromUriParams}`)
             .then(Response => Response.data)
     },
-    getAvatarById(id) {
-        return samurai.get(`profile/${id}`).then(Response => Response.data.photos.small)
-    },
+    // getAvatarById(id) {
+    //     return samurai.get(`profile/${id}`).then(Response => Response.data.photos.small)
+    // },
     getStatus(id) {
         return samurai.get(`profile/status/${id}`)
             .then(Response => Response.data)

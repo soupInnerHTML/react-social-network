@@ -103,10 +103,17 @@ input[type="submit"] {
 .fetched::before {
 	position: fixed;
 	content: "⠋";
-	top: 100px;
-	left: 50%;
+	margin: 100px;
+	text-align: center;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	z-index: 10000;
 	font-size: 50px;
+}
+.fetcher {
+	transition: opacity 1s;
 }
 .qtyTab {
 	height: 55px;
@@ -123,6 +130,12 @@ input[type="submit"] {
 }
 .active {
 	opacity: 1 !important;
+}
+.usersLoop {
+	display: flex;
+	align-content: flex-start;
+	flex-wrap: wrap;
+	min-height: 80vh;
 }
 @-webkit-keyframes changeContent {
 	10% {
