@@ -1,5 +1,6 @@
 /* Ultrashort name _ for root styles*/
-import _ from './DialogItem.module.css'
+import React from "react";
+import _ from "./DialogItem.module.css"
 
 const DialogItem = props => {
 

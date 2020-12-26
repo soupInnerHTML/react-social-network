@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import Swal from "sweetalert2";
 import { usersAPI } from "../api/api";
 import { setFollowState as setFollowStateForProfile } from "./profileReducer";

@@ -49,14 +49,14 @@ class App extends React.Component {
 
                     <Switch>
                         <Redirect exact from='/' to='/profile' />
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer></ProfileContainer>}></Route>
-                        <Route path="/dialogs" render={withLazyLoad(Dialogs)}></Route>
-                        <Route path="/friends" render={() => <FriendsContainer></FriendsContainer>}></Route>
-                        <Route path="/users" render={() => <UsersContainer></UsersContainer>}></Route>
-                        <Route path="/feed" render={() => <FeedContainer></FeedContainer>}></Route>
-                        <Route path="/login" render={withLazyLoad(LoginContainer)}></Route>
-                        <Route path="/settings" render={() => <ProfileSettingsContainer></ProfileSettingsContainer>}></Route>
-                        <Route render={() => <p>404</p>}></Route>
+                        <Route path="/profile/:userId?" render={ () => <ProfileContainer></ProfileContainer> }></Route>
+                        <Route path="/dialogs" render={ withLazyLoad(Dialogs) }></Route>
+                        <Route path="/friends" render={ () => <FriendsContainer></FriendsContainer> }></Route>
+                        <Route path="/users" render={ () => <UsersContainer></UsersContainer> }></Route>
+                        <Route path="/feed" render={ () => <FeedContainer></FeedContainer> }></Route>
+                        <Route path="/login" render={ withLazyLoad(LoginContainer) }></Route>
+                        <Route path="/settings" render={ () => <ProfileSettingsContainer></ProfileSettingsContainer> }></Route>
+                        <Route render={ () => <p>404</p> }></Route>
                     </Switch>
 
                 </div>

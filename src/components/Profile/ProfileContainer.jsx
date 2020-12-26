@@ -1,12 +1,12 @@
-import React from 'react'
-import Profile from './Profile'
-import { connect } from 'react-redux'
-import { getProfileThunkCreator, getStatusThunkCreator, nullProfileData, onProfileUndefined } from '../../redux/profileReducer'
-import { Redirect, withRouter } from 'react-router-dom'
-import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
-import { withFetching } from '../../hoc/withFetching'
-import { getAuthId, getIsProfileUndefined, getProfileData, getStatus } from '../../redux/usersSelectors'
+import React from "react"
+import Profile from "./Profile"
+import { connect } from "react-redux"
+import { getProfileThunkCreator, getStatusThunkCreator, nullProfileData, onProfileUndefined } from "../../redux/profileReducer"
+import { Redirect, withRouter } from "react-router-dom"
+import { withAuthRedirect } from "../../hoc/withAuthRedirect"
+import { compose } from "redux"
+import { withFetching } from "../../hoc/withFetching"
+import { getAuthId, getIsProfileUndefined, getProfileData, getStatus } from "../../redux/usersSelectors"
 
 
 class profileClass extends React.Component {
@@ -26,7 +26,7 @@ class profileClass extends React.Component {
         if (prevState.status !== this.props.status || prevState.isNotAuth !== this.props.isNotAuth) {
             this.getStatus()
         }
-        if((prevState.match.url !== this.props.match.url && !this.props.isFetching) || (this.props.isProfileUndefined && prevState.isProfileUndefined === this.props.isProfileUndefined)) {
+        if ((prevState.match.url !== this.props.match.url && !this.props.isFetching) || (this.props.isProfileUndefined && prevState.isProfileUndefined === this.props.isProfileUndefined)) {
             console.log([prevState.match.url, this.props.match.url])
             this.props.setFetching(true)
             this.refreshProfile()
@@ -35,7 +35,7 @@ class profileClass extends React.Component {
 
     getStatus() {
         // if (this.props.isNotAuth === 0) {
-            return this.props.getStatusThunkCreator(this.props.match.params.userId || this.props.id)
+        return this.props.getStatusThunkCreator(this.props.match.params.userId || this.props.id)
         // }
         // else {
         //     return new Promise(reject => reject())
@@ -68,7 +68,7 @@ let mapDispatchToProps = {
     getProfile: getProfileThunkCreator,
     nullProfileData,
     getStatusThunkCreator,
-    onProfileUndefined
+    onProfileUndefined,
 }
 
 export default compose(withFetching(), connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(profileClass)

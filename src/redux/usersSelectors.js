@@ -1,7 +1,7 @@
 import React from "react"
-import { createSelector } from "reselect"
 import Dialog from "../components/Dialogs/DialogItem/Dialog/Dialog"
 import _ from "../components/Dialogs/Messages/Messages.module.css"
+import { createSelector } from "reselect"
 
 export const getPageSize = state => state.users.pageSize
 export const getUsersData = state => state.users.usersData
@@ -30,7 +30,6 @@ export const getMyPhotos = state => state.auth.profile.photos
 export const getMyName = state => state.auth.profile.fullName
 export const getMyId = state => state.auth.profile.userId
 export const getFormMessages = state => state.form.messages
-// export const getSettingsIsSubmitted = state => state.form.profileSettings.submitSucceeded
 
 export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pageSize, usersQuantity) => {
     return Math.ceil(usersQuantity / pageSize)

@@ -1,28 +1,28 @@
-import React from 'react';
-import Feed from './Feed'
-import Preloader from '../common/Preloader/Preloader';
-import { connect } from 'react-redux'
-import { compose } from 'redux';
-import { getVkFeedThunkCreator } from '../../redux/feedReducer'
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { getFeedPage } from '../../redux/usersSelectors';
+import React from "react";
+import Feed from "./Feed"
+import Preloader from "../common/Preloader/Preloader";
+import { connect } from "react-redux"
+import { compose } from "redux";
+import { getVkFeedThunkCreator } from "../../redux/feedReducer"
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { getFeedPage } from "../../redux/usersSelectors";
 
 class FeedClass extends React.Component {
     state = {
-        isFeedFetching: true
+        isFeedFetching: true,
     }
 
-    componentDidMount = () => {
-        window.addEventListener('scroll', this.onScroll)
+    componentDidMount() {
+        window.addEventListener("scroll", this.onScroll)
         this.getFeed().then(() => {
             this.setState({
-                isFeedFetching: false
+                isFeedFetching: false,
             })
         })
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll)
+        window.removeEventListener("scroll", this.onScroll)
     }
 
     onScroll = () => {
@@ -39,7 +39,7 @@ class FeedClass extends React.Component {
 
     render() {
         return (
-            <main className={`App-main`}>
+            <main className="App-main">
                 {this.state.isFeedFetching ? <Preloader inBlock={true}></Preloader> : <Feed {...this.props}></Feed>}
             </main>
         )
@@ -48,30 +48,15 @@ class FeedClass extends React.Component {
 
 let mapStateToProps = state => {
     return {
-        feedPage: getFeedPage(state)
+        feedPage: getFeedPage(state),
     }
 }
 
 let mapDispatchToProps = {
-    getVkFeedThunkCreator
+    getVkFeedThunkCreator,
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(FeedClass)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // let mapDispatchToProps = dispatch => {

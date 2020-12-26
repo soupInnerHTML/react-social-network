@@ -4,8 +4,9 @@ module.exports = {
         es2021: true,
     },
     extends: [
-
+        "react-app"
     ],
+    parser: "babel-eslint",
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -18,6 +19,10 @@ module.exports = {
     ],
     rules: {
         "react/prop-types": "warn",
+        "react/jsx-curly-spacing": [2, {
+            "when": "always",
+            "children": true,
+        }],
         "no-var": "error",
         "no-extra-semi": "error",
         "camelcase": "error",

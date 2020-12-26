@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { v4 as getV4Id } from "uuid";
 
 const SEND_MESSAGE = "dialogsReducer/sendMessage"

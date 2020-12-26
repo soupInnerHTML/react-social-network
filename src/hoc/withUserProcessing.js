@@ -1,30 +1,25 @@
-import React from 'react';
+import React from "react";
+import cs from "classnames"
 import { upCurrentPage, nullUsers, getUsersDataThunkCreator, setUsersQuantity, setIsFriends } from "../redux/usersReducer";
 import { connect } from "react-redux";
-import { getCurrentPage, getPageSize, getUsersData, maxCurrentPage } from '../redux/usersSelectors'
+import { getCurrentPage, getPageSize, getUsersData, maxCurrentPage } from "../redux/usersSelectors"
 import { withFetching } from "./withFetching";
 import { compose } from "redux";
-// import _ from "./../components/Users/Users.module.css"
-import cs from "classnames"
 
 
 export const withUserProcessing = isWithFriends => Component => {
     class FriendsClass extends React.Component {
         async componentDidMount() {
-            this.props.setUsersQuantity('')
-            window.addEventListener('scroll', this.onScroll)
+            this.props.setUsersQuantity("")
+            window.addEventListener("scroll", this.onScroll)
             await this.getUsersData()
             this.props.setFetching(false)
             isWithFriends ? this.props.setIsFriends(true) : this.props.setIsFriends(false)
         }
 
         componentWillUnmount() {
-            window.removeEventListener('scroll', this.onScroll)
+            window.removeEventListener("scroll", this.onScroll)
             this.props.nullUsers()
-        }
-
-        componentDidUpdate() {
-
         }
 
         onScroll = async () => {
@@ -33,9 +28,9 @@ export const withUserProcessing = isWithFriends => Component => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             if (windowHeight + scrollTop >= documentHeight && this.props.currentPage < this.props.maxCurrentPage) {
-                console.log(this.props.maxCurrentPage)
                 this.props.upCurrentPage()
                 this.props.setFetching(true)
+
                 await this.getUsersData()
                 this.props.setFetching(false)
             }
@@ -46,7 +41,7 @@ export const withUserProcessing = isWithFriends => Component => {
         }
 
         render() {
-            let { isFetching } = this.props
+            let { isFetching, } = this.props
             return (
                 <main className={cs("App-main", isFetching ? "fetching" : "fetched", "fetcher")}>
                     <section className="usersLoop App-block">
@@ -62,7 +57,7 @@ export const withUserProcessing = isWithFriends => Component => {
             pageSize: getPageSize(state),
             maxCurrentPage: maxCurrentPage(state),
             currentPage: getCurrentPage(state),
-            usersData: getUsersData(state)
+            usersData: getUsersData(state),
         }
     }
 
