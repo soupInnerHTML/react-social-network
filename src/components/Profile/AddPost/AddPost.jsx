@@ -15,7 +15,7 @@ const AddPostForm = (props) => {
         setFocus(false)
     }
 
-    let s = {
+    let toggle = {
         onFocus: () => {
             console.log("focus")
             setFocus(true)
@@ -27,7 +27,7 @@ const AddPostForm = (props) => {
     }
 
     return (
-        <form {...s} className={ cs(_.addPost, { [_.blur]: !isFocused, }) } onSubmit={submitAndClear}>
+        <form {...toggle} className={ cs(_.addPost, { [_.blur]: !isFocused, }) } onSubmit={submitAndClear}>
             <Field component="textarea" name="addPost" className={_.text} placeholder="Что у вас нового?"></Field>
 
             <div className={_.hideGroup}>

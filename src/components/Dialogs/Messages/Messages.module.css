@@ -50,16 +50,6 @@
 .messagesItems {
 	position: relative;
 }
-.send {
-	position: absolute;
-	background: transparent;
-	bottom: 0;
-	right: 0;
-	border: 0;
-	height: 50px;
-	width: 68px;
-	cursor: pointer;
-}
 .scroll {
 	position: absolute;
 	bottom: -20px;

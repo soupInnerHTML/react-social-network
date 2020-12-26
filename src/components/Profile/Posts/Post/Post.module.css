@@ -6,7 +6,8 @@
 	grid-template-areas:
 		"avatar name"
 		"content content"
-		"meta meta";
+		"meta meta"
+		"comments comments";
 }
 .name {
 	grid-area: name;
@@ -22,6 +23,8 @@
 }
 .meta {
 	grid-area: meta;
+	display: flex;
+	gap: 20px;
 }
 .likeIcon {
 	padding: 0 6px 0 0;

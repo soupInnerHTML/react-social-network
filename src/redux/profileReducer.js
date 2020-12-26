@@ -5,6 +5,7 @@ import { stopSubmit } from "redux-form";
 
 // actions
 const ADD_POST = "profileReducer/addPost"
+const ADD_COMMENT = "profileReducer/addComment"
 const LIKE_THE_POST = "profileReducer/likeThePost"
 const UNLIKE_THE_POST = "profileReducer/unlikeThePost"
 const SET_USER_PROFILE = "profileReducer/setUserProfile"
@@ -18,6 +19,12 @@ const SAVE_AVATAR = "profileReducer/saveAvatar"
 export const addPost = input => ({
     type: ADD_POST,
     input,
+})
+
+export const addComment = (text, id) => ({
+    type: ADD_COMMENT,
+    text,
+    id,
 })
 
 export const likeThePost = postID => ({
@@ -138,6 +145,19 @@ let initialState = {
             likes: 12,
             liked: false,
             postDate: [0, 11, 16],
+            comments: [
+                {
+                    id: 1,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                },
+                {
+                    id: 2,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                }
+
+            ],
             text: "Professionally transform ethical initiatives before synergistic synergy. Seamlessly build ethical paradigms through enterprise technologies. Completely coordinate economically sound synergy after open-source content. Enthusiastically underwhelm compelling services through low-risk high-yield e-commerce. Holisticly restore interactive processes rather than low-risk high-yield results.",
         },
         {
@@ -145,6 +165,19 @@ let initialState = {
             likes: 1,
             liked: false,
             postDate: [2020, 11, 12],
+            comments: [
+                {
+                    id: 3,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                },
+                {
+                    id: 4,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                }
+
+            ],
             text: "Professionally impact diverse growth strategies vis-a-vis low-risk high-yield convergence. Efficiently engineer proactive communities through maintainable infomediaries. Compellingly myocardinate business relationships and real-time ROI. Phosfluorescently engage backend content with premier expertise. Interactively evisculate ethical technologies without front-end ROI.            ",
         },
         {
@@ -152,6 +185,19 @@ let initialState = {
             likes: 3,
             liked: false,
             postDate: [2020, 11, 13],
+            comments: [
+                {
+                    id: 5,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                },
+                {
+                    id: 6,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                }
+
+            ],
             text: "Appropriately provide access to scalable \"outside the box\" thinking without resource maximizing users. Dynamically reinvent interactive innovation before progressive expertise. Energistically re-engineer competitive partnerships with prospective supply chains. Enthusiastically evisculate alternative functionalities without cost effective resources. Distinctively initiate quality networks via market-driven methodologies.            ",
         },
         {
@@ -159,6 +205,19 @@ let initialState = {
             liked: false,
             likes: 228,
             postDate: [2020, 11, 14],
+            comments: [
+                {
+                    id: 7,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                },
+                {
+                    id: 8,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                }
+
+            ],
             text: "Holisticly mesh excellent convergence after customized systems. Competently target multifunctional catalysts for change via multifunctional ROI. Seamlessly matrix unique.",
         },
         {
@@ -166,6 +225,10 @@ let initialState = {
             liked: false,
             likes: 1337,
             postDate: [2020, 11, 15],
+            comments: [
+
+
+            ],
             text: "Globally network optimal human capital with goal-oriented methods of empowerment. Professionally strategize economically sound leadership skills before leading-edge materials. Credibly enable turnkey meta-services after principle-centered communities. Objectively iterate vertical ideas via client-centered data. Quickly formulate world-class paradigms through resource maximizing supply chains.            ",
         },
         {
@@ -173,6 +236,19 @@ let initialState = {
             liked: false,
             likes: 1488,
             postDate: [2020, 11, 16],
+            comments: [
+                {
+                    id: 11,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                },
+                {
+                    id: 12,
+                    text: "Hello world",
+                    date: [2020, 11, 16],
+                }
+
+            ],
             text: "Hello world",
         }
     ],
@@ -196,6 +272,37 @@ const profileReducer = (state = initialState, action) => {
                     }],
                 }
             }
+            else return state
+
+        case ADD_COMMENT:
+            let { text, id, } = action
+
+            if (text) {
+                return {
+                    ...state,
+                    postsData: state.postsData.map(postData => {
+                        if (postData.id === id) {
+                            return {
+                                ...postData,
+                                comments: [
+                                    ...postData.comments,
+                                    {
+                                        id: getV4Id(),
+                                        text,
+                                        date: new Date(),
+                                    }
+                                ],
+                            }
+                        }
+
+                        else {
+                            return postData
+                        }
+
+                    }),
+                }
+            }
+
             else return state
 
 

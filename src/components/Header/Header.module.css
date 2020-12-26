@@ -15,3 +15,6 @@
 	align-items: center;
 	position: relative;
 }
+.users {
+	color: var(--accent);
+}

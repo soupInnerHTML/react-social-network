@@ -1,0 +1,29 @@
+.comments {
+	grid-area: comments;
+}
+.commentInput {
+	margin: 12px 0;
+	width: calc(100% - 44px);
+}
+.form {
+	display: flex;
+	position: relative;
+}
+.meta {
+	display: flex;
+	font-size: 15px;
+	padding: 8px 0;
+}
+.meta p {
+	margin: 0;
+}
+.name {
+	color: var(--accent);
+}
+.sendComment {
+	height: 100% !important;
+	width: 26px !important;
+}
+.meta__text {
+	padding: 0 0 0 8px;
+}

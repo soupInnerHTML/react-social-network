@@ -1,11 +1,12 @@
 /* Ultrashort name _ for root styles*/
 import _ from "./Messages.module.css"
 import React, { useEffect, useRef } from "react"
-import SendImgPath from "../../../img/send.svg"
 import { Field, reduxForm } from "redux-form"
+import cs from "classnames"
+import { Send } from "../../common/Send/Send"
 
 const MessageSendForm = (props) => {
-    const { handleSubmit, reset, } = props
+    const { handleSubmit, reset, messages, } = props
 
     let submitAndClear = e => {
         e.preventDefault()
@@ -16,10 +17,7 @@ const MessageSendForm = (props) => {
     return (
         <form onSubmit={submitAndClear}>
             <Field className={_.messageText} name="message" placeholder="Write a message..." component="input"></Field>
-
-            <button className={_.send} type="submit">
-                <img src={SendImgPath} alt="" />
-            </button>
+            <Send input={messages}></Send>
         </form>
     )
 }
@@ -29,15 +27,15 @@ const MessageSendReduxForm = reduxForm({
 })(MessageSendForm)
 
 
-const Messages = props => {
+const Messages = ({ messages, ...props }) => {
     let sendMessage = values => {
         props.sendMessage(values.message)
     }
 
-    const divRef = useRef(null);
+    const scrollRef = useRef(null);
 
     useEffect(() => {
-        divRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", });
+        scrollRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", });
     });
 
     return (
@@ -45,11 +43,11 @@ const Messages = props => {
             <div className={_.messages}>
                 <div className={_.inner}>
                     {props.messagesObject}
-                    <div className={_.scroll} ref={divRef}></div>
+                    <div className={_.scroll} ref={scrollRef}></div>
                 </div>
             </div>
 
-            <MessageSendReduxForm onSubmit={sendMessage}></MessageSendReduxForm>
+            <MessageSendReduxForm onSubmit={sendMessage} {...{ messages, }}></MessageSendReduxForm>
         </div>
     );
 }

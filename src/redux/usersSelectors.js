@@ -26,6 +26,10 @@ export const getFollowed = state => state.profile.profileData.followed
 export const getMessagesData = state => state.dialogs.messagesData
 export const getDialogsData = state => state.dialogs.dialogsData
 export const getMyProfileData = state => state.auth.profile
+export const getMyPhotos = state => state.auth.profile.photos
+export const getMyName = state => state.auth.profile.fullName
+export const getMyId = state => state.auth.profile.userId
+export const getFormMessages = state => state.form.messages
 // export const getSettingsIsSubmitted = state => state.form.profileSettings.submitSucceeded
 
 export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pageSize, usersQuantity) => {

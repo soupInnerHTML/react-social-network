@@ -1,0 +1,15 @@
+.send {
+	position: absolute;
+	background: transparent;
+	bottom: 0;
+	right: 0;
+	border: 0;
+	height: 50px;
+	width: 68px;
+	cursor: pointer;
+	transition: opacity 0.3s;
+}
+.null {
+	opacity: 0.1;
+	cursor: default;
+}
