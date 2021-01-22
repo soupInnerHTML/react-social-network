@@ -50,8 +50,8 @@ class profileClass extends React.Component {
     render() {
         return (
             <>
-                <Profile {...this.props} infoProps={this.infoProps}></Profile>
-                {(this.props.isProfileUndefined || +this.infoProps.idFromUri === +this.props.id) && <Redirect to='/profile' />}
+                <Profile { ...this.props } infoProps={ this.infoProps }></Profile>
+                { (this.props.isProfileUndefined || +this.infoProps.idFromUri === +this.props.id) && <Redirect to='/profile' /> }
             </>
         )
     }

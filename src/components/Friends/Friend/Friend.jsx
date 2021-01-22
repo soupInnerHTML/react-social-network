@@ -6,7 +6,7 @@ import Consumer from "../../common/Consumer/Consumer"
 
 const Friend = props => {
     return (
-        <Consumer {...props}></Consumer>
+        <Consumer { ...props }></Consumer>
     );
 }
 export default Friend

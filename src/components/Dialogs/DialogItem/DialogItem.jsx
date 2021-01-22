@@ -6,8 +6,8 @@ const DialogItem = props => {
 
     return (
         <div className="">
-            <div className={_.dialogs}>
-                {props.dialogsObject}
+            <div className={ _.dialogs }>
+                { props.dialogsObject }
             </div>
         </div>
 

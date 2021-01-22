@@ -23,8 +23,8 @@ export const EditAvatar = (props) => {
 
     return (
         <>
-            <input onChange={selectAvatar} onMouseEnter={fadeIn} onMouseLeave={fadeOut} type="file" className={_.edit}/>
-            <FontAwesomeIcon className={ cs(_.body, { active: display, }) } icon={faPencilAlt}></FontAwesomeIcon>
+            <input onChange={ selectAvatar } onMouseEnter={ fadeIn } onMouseLeave={ fadeOut } type="file" className={ _.edit }/>
+            <FontAwesomeIcon className={ cs(_.body, { active: display, }) } icon={ faPencilAlt }></FontAwesomeIcon>
         </>
     )
 }

@@ -8,44 +8,50 @@ import Moment from "react-moment";
 
 let CommentsForm = ({ id, handleSubmit, reset, click, isSingle, ...props }) => {
     let [value, setValue] = useState("")
-    let ref = useRef(null)
+    let focusRef = useRef(null)
+    // console.log(props)
     useEffect(() => {
-        ref.current.focus()
+        if (click) {
+            focusRef.current.focus()
+        }
     }, [click])
 
     useEffect(() => {
         if (isSingle) {
-            ref.current.focus()
+            focusRef.current.focus()
         }
-    })
+    }, [isSingle])
 
     let onCommentsFromSubmit = (e) => {
         setValue("")
-        !value && ref.current.focus();
+        !value && focusRef.current.focus();
         submitAndClear(e, handleSubmit, reset)
     }
 
     let InputWithRef = ({ meta, input, ...props }) => {
-        return <input { ...props } { ...input } ref={ ref } type="text"/>
+        return <input { ...props } { ...input } ref={ focusRef } type="text"/>
     }
 
     return (
         <form onSubmit={ onCommentsFromSubmit } className={ _.form }>
-            <Field className={ cs("inp", _.commentInput) } onChange={ e => setValue(e.target.value) } component={ InputWithRef } placeholder="Добавить замечание" name={ "comment" + id }></Field>
-            <Send className={ _.sendComment } input={ !value }></Send>
+            <Field className={ cs("inp", _.commentInput) } component={ InputWithRef } placeholder="Добавить замечание"
+                name={ "comment" + id }/>
+            <Send className={ _.sendComment } input={ !value }/>
         </form>
     )
 }
+
 
 let CommentsReduxForm = reduxForm({
     form: "comments",
 })(CommentsForm)
 
-export const Comments = ({ comments, id, photos, socket, fullName, click, ...props }) => {
+export const Comments = ({ comments, id, photos, socket, fullName, click, formComments, ...props }) => {
 
     let formProps = {
         id,
         click,
+        // value: formComments?.values,
         onSubmit: e => props.addComment(e["comment" + id], id),
     }
 

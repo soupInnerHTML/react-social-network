@@ -44,7 +44,7 @@ export const withFollowUser = (Component) => {
         render() {
             return (
                 <>
-                    <Component {...this.props} changeFollowState={this.changeFollowState}></Component>
+                    <Component { ...this.props } changeFollowState={ this.changeFollowState }></Component>
                 </>
             )
         }

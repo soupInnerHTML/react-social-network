@@ -9,14 +9,14 @@ import socket from "../../../img/socket.jpg"
 const Consumer = ({ authId, photos, name, ...props }) => {
     
     return (
-        <div className={_.friend}>
-            {authId !== props.id && <RoundFollow {...props}></RoundFollow>}
+        <div className={ _.friend }>
+            { authId !== props.id && <RoundFollow { ...props }></RoundFollow> }
 
-            <NavLink to={"/profile/" + props.id}>
-                <img src={photos.small || socket} className={"avatar " + _.avatar} alt="" />
-                <p className={_.name}>{name}</p>
-                {/* <img src={props.photo_100 || '/static/media/socket.bdcbc318.jpg'} className={"avatar " + _.avatar} alt="" />
-                <p className={_.name}>{props.first_name + ' ' + props.last_name}</p> */}
+            <NavLink to={ "/profile/" + props.id }>
+                <img src={ photos.small || socket } className={ "avatar " + _.avatar } alt="" />
+                <p className={ _.name }>{ name }</p>
+                { /* <img src={props.photo_100 || '/static/media/socket.bdcbc318.jpg'} className={"avatar " + _.avatar} alt="" />
+                <p className={_.name}>{props.first_name + ' ' + props.last_name}</p> */ }
             </NavLink>
         </div>
     );

@@ -10,7 +10,7 @@ class HeaderClass extends React.Component {
         this.props.authThunkCreator();
     }
     render() {
-        return <Header {...this.props}></Header>
+        return <Header { ...this.props }></Header>
     }
 }
 

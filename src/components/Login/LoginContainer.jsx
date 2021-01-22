@@ -8,7 +8,7 @@ import { getCaptcha, getIsNotAuth } from "../../redux/usersSelectors"
 class LoginContainer extends React.Component {
     render() {
         return (
-            <Login {...this.props}></Login>
+            <Login { ...this.props }></Login>
         )
     }
 }

@@ -48,12 +48,12 @@ let StatusClass = (props) => {
 
     if (editMode && isMyProfile) {
         return (
-            <StatusInput initialValues={{ "status": status, }} onSubmit={setStatusOnSubmit}></StatusInput>
+            <StatusInput initialValues={ { "status": status, } } onSubmit={ setStatusOnSubmit }></StatusInput>
         )
     }
     else {
         return (
-            <Status {...{ onStatusClick, status, isMyProfile, }}></Status>
+            <Status { ...{ onStatusClick, status, isMyProfile, } }></Status>
         )
     }
    

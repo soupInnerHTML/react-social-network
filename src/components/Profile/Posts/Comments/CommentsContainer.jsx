@@ -1,14 +1,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux";
 import { addComment } from "../../../../redux/profileReducer";
-import { getMyId, getMyName, getMyPhotos } from "../../../../redux/usersSelectors";
+import { getMyId, getMyName, getMyPhotos, getFormComments } from "../../../../redux/usersSelectors";
 import { Comments } from "../Comments/Comments";
 
 class CommentsContainer extends Component {
     render() {
         let { props, } = this
         return (
-            <Comments {...props}></Comments>
+            <Comments { ...props }></Comments>
         )
     }
 }

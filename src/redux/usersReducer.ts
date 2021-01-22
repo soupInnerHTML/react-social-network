@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import { usersAPI } from "../api/api";
 import { setFollowState as setFollowStateForProfile } from "./profileReducer";
 
+type initialStateType = typeof initialState
+
 const FOLLOW = "usersReducer/follow"
 const UNFOLLOW = "usersReducer/unfollow"
 const SET_USERS = "usersReducer/setUsers"
@@ -12,17 +14,17 @@ const SET_USERS_QUANTITY = "usersReducer/setUsersQuantity"
 const FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS = "usersReducer/followUnfollowRequestInProgress"
 const SET_IS_FRIENDS = "usersReducer/setIsFriends"
 
-export const follow = id => ({
+export const follow = (id: number) => ({
     type: FOLLOW,
     id,
 })
 
-export const unfollow = id => ({
+export const unfollow = (id: number) => ({
     type: UNFOLLOW,
     id,
 })
 
-export const setUsers = users => ({
+export const setUsers = (users: object) => ({
     type: SET_USERS,
     users,
 })
@@ -35,24 +37,24 @@ export const nullUsers = () => ({
     type: NULL_USERS,
 })
 
-export const setUsersQuantity = usersQuantity => ({
+export const setUsersQuantity = (usersQuantity: number) => ({
     type: SET_USERS_QUANTITY,
     usersQuantity,
 })
 
-export const setIsFriends = (isFriends) => ({
+export const setIsFriends = (isFriends: boolean) => ({
     type: SET_IS_FRIENDS,
     isFriends,
 })
 
-export const followUnfollowRequestInProgress = (isFollowInProgress, id) => ({
+export const followUnfollowRequestInProgress = (isFollowInProgress: boolean, id: number) => ({
     type: FOLLOW_UNFOLLOW_REQUEST_IN_PROGRESS,
     isFollowInProgress,
     id,
 })
 
-export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) => {
-    return async (dispatch) => {
+export const getUsersDataThunkCreator = (pageSize: number, currentPage: number, isGetFriends: boolean) => {
+    return async (dispatch: any) => {
 
         let data = await usersAPI.getUsers(pageSize, currentPage, isGetFriends)
 
@@ -69,16 +71,16 @@ export const getUsersDataThunkCreator = (pageSize, currentPage, isGetFriends) =>
     }
 }
 
-export const followUser = id => changeFollowStateThunkCreator(id, usersAPI.follow, true)
-export const unfollowUser = id => changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
+export const followUser = (id: number) => changeFollowStateThunkCreator(id, usersAPI.follow, true)
+export const unfollowUser = (id: number) => changeFollowStateThunkCreator(id, usersAPI.unfollow, false)
 
 // вспомогательные функции
-const changeFollowStateThunkCreator = (id, async, isFollow) => {
-    return dispatch => {
+const changeFollowStateThunkCreator = (id: number, async: any, isFollow: boolean) => {
+    return (dispatch: any) => {
         dispatch(followUnfollowRequestInProgress(true, id))
 
         return async(id)
-            .then(data => {
+            .then((data: any) => {
                 if (data.resultCode) {
                     Swal.fire("Oops...", data.messages, "error")
                 }
@@ -98,7 +100,7 @@ const changeFollowStateThunkCreator = (id, async, isFollow) => {
     }
 }
 
-const getChangedFollowState = (state, action, flag) => {
+const getChangedFollowState = (state: initialStateType, action: any, flag: boolean) => {
     return {
         ...state, usersData: [...state.usersData].map(user => {
             if (user.id === action.id) {
@@ -114,15 +116,16 @@ const getChangedFollowState = (state, action, flag) => {
 
 
 let initialState = {
-    usersData: [],
-    pageSize: 100,
-    currentPage: 1,
-    usersQuantity: 0,
-    maxCurrentPage: 0,
-    usersToChangeFollowState: [],
+    usersData: [] as any,
+    pageSize: 100 as number,
+    currentPage: 1 as number,
+    usersQuantity: 0 as number,
+    maxCurrentPage: 0 as number,
+    usersToChangeFollowState: [] as Array<object>,
+    isFriends: undefined as undefined | boolean
 }
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any): initialStateType => {
 
     switch (action.type) {
         case FOLLOW:

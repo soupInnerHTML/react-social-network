@@ -1,10 +1,27 @@
-/* eslint-disable indent */
-import { v4 as getV4Id } from "uuid";
+import getId from "lodash/uniqueId";
+
+export type initialStateType = typeof initialState
+
+type dialogType = {
+    id: number,
+    name: string,
+    avatar: string | null
+}
+
+type messagesType = {
+    id: string,
+    message: string,
+    from: number
+}
+
+type sendMessageActionType = {
+    type: typeof SEND_MESSAGE
+    input: string
+}
 
 const SEND_MESSAGE = "dialogsReducer/sendMessage"
 
-
-export const sendMessage = input => ({
+export const sendMessage = (input: string): sendMessageActionType => ({
     type: SEND_MESSAGE,
     input,
 })
@@ -12,36 +29,36 @@ export const sendMessage = input => ({
 let initialState = {
     messagesData: [
         {
-            id: 1,
+            id: "1",
             message: "Hello world",
             from: 0,
         },
         {
-            id: 2,
+            id: "2",
             message: "Hello world",
             from: 2,
         },
         {
-            id: 3,
+            id: "3",
             message: "Hello world",
             from: 0,
         },
         {
-            id: 4,
+            id: "4",
             message: "Hello world",
             from: 2,
         },
         {
-            id: 5,
+            id: "5",
             message: "Hello world",
             from: 0,
         },
         {
-            id: 6,
+            id: "6",
             message: "Hello world",
             from: 2,
         }
-    ],
+    ] as Array<messagesType>,
 
     dialogsData: [
         {
@@ -59,10 +76,10 @@ let initialState = {
             name: "Senya",
             avatar: "https://sun9-45.userapi.com/impf/DCafG8McWw8qMr4ef4e6Fz114fSYoOquW_yfYQ/EYcl8y1IVxI.jpg?size=810x1080&quality=96&sign=959b56862b895207b84fae6b0d065131",
         }
-    ],
+    ] as Array<dialogType>,
 }
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             let { input, } = action
@@ -72,7 +89,7 @@ const dialogsReducer = (state = initialState, action) => {
                     ...state,
                     messagesData: [...state.messagesData,
                     {
-                        id: getV4Id(),
+                        id: getId(),
                         message: input,
                         from: 0,
                     }],

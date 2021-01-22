@@ -6,8 +6,8 @@ export const withUsersQuantity = (Component) => {
     let pureComponent = (props) => (
         <>
             <div className="qtyTab">
-                <p className="qtyTab__text">{props.isFriends ? "Всѣ знакомцы" : "Персоны"} </p>
-                <p className="qtyTab__qty">{props.getUsersQuantity}</p>
+                <p className="qtyTab__text">{ props.isFriends ? "Всѣ знакомцы" : "Персоны" } </p>
+                <p className="qtyTab__qty">{ props.getUsersQuantity }</p>
             </div>
 
             <Component></Component>

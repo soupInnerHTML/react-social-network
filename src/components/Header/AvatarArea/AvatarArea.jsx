@@ -17,15 +17,15 @@ let AvatarArea = props => {
     
     let toggled = 1
     return (
-        <div className={_.avaAndName}>
-            <a href="#" onClick={toggleDropdown} onBlur={disableDisplay} className={_.login}>
-                <p>{props.name || "Алеша"}</p>
-                <img className={cs("avatar", _.avatar)} src={props.headerAvatar || socket} alt="" />
+        <div className={ _.avaAndName }>
+            <a href="#" onClick={ toggleDropdown } onBlur={ disableDisplay } className={ _.login }>
+                <p>{ props.name || "Алеша" }</p>
+                <img className={ cs("avatar", _.avatar) } src={ props.headerAvatar || socket } alt="" />
             </a>
-            <div className={cs(_.dropdown, { [_.toggled]: display, } ) } style={display ? { animation: ".2s fade", } : { animation: ".2s fadeOut", }}>
-                <NavLink className={_.dropdownItem} to="/settings">Настройки</NavLink>
+            <div className={ cs(_.dropdown, { [_.toggled]: display, } ) } style={ display ? { animation: ".2s fade", } : { animation: ".2s fadeOut", } }>
+                <NavLink className={ _.dropdownItem } to="/settings">Настройки</NavLink>
                 <hr className="separator"/>
-                <a className={_.dropdownItem} href="#" onClick={props.logoutThunkCreator}>Выйти</a>
+                <a className={ _.dropdownItem } href="#" onClick={ props.logoutThunkCreator }>Выйти</a>
             </div>
         </div>
     )

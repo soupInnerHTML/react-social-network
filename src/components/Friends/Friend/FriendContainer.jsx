@@ -13,7 +13,7 @@ class FriendClass extends React.Component {
         return [...this.props.friendsData]
             .sort((a, b) => a.name.charCodeAt(0) - b.name.charCodeAt(0))
             .map(friendData => (
-                <Friend {...this.props} {...friendData} key={friendData.id}></Friend>
+                <Friend { ...this.props } { ...friendData } key={ friendData.id }></Friend>
             ))
     }
 }

@@ -11,7 +11,7 @@ export const withAuthRedirect = (Component) => {
         }
 
         else {
-            return <Component {...props}></Component>
+            return <Component { ...props }></Component>
         }
     }
 

@@ -30,6 +30,7 @@ export const getMyPhotos = state => state.auth.profile.photos
 export const getMyName = state => state.auth.profile.fullName
 export const getMyId = state => state.auth.profile.userId
 export const getFormMessages = state => state.form.messages
+export const getFormComments = state => state.form.comments
 
 export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pageSize, usersQuantity) => {
     return Math.ceil(usersQuantity / pageSize)
@@ -38,14 +39,14 @@ export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pag
 export const getMessagesObject = createSelector(getMessagesData, (messages) => {
     return messages.map(messageData => {
         let { id, from, message, } = messageData
-        return <div key={id} className={from ? _.left : _.right}>{message}</div>
+        return <div key={ id } className={ from ? _.left : _.right }>{ message }</div>
     })
 })
 
 export const getDialogsObject = createSelector(getDialogsData, (dialogs) => {
     return dialogs.map(dialogsData => {
         return (
-            <Dialog dialogState={dialogsData} key={dialogsData.id}></Dialog>
+            <Dialog dialogState={ dialogsData } key={ dialogsData.id }></Dialog>
         )
     })
 })

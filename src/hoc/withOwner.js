@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom"
 
 export const withOwner = (isInverse = false) => (Component) => {
     let withOwnerPure = ({ history, location, ...props }) => {
-        let components = [<></>, <Component {...props}></Component>]
+        let components = [<></>, <Component { ...props }></Component>]
 
         if (isInverse) {
             return props.match.params.userId ? components[0] : components[1]

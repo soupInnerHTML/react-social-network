@@ -12,17 +12,17 @@ const News = (props) => {
 
             let objectFeed = props[item]
 
-            props.text && output.push(<p key={key()} className={_.newsText}>{props.text}</p>)
+            props.text && output.push(<p key={ key() } className={ _.newsText }>{ props.text }</p>)
 
             switch (objectFeed.type) {
                 case "photo":
-                    output.push(<img key={key()} src={objectFeed.photo.photo_604} alt="" />)
+                    output.push(<img key={ key() } src={ objectFeed.photo.photo_604 } alt="" />)
                     break
                 case "link":
-                    output.push(<a key={key()} href={objectFeed.link.url}>{objectFeed.link.description}</a>)
+                    output.push(<a key={ key() } href={ objectFeed.link.url }>{ objectFeed.link.description }</a>)
                     break
                 case "audio":
-                    output.push(<audio key={key()} controls src={objectFeed.audio.url}></audio>)
+                    output.push(<audio key={ key() } controls src={ objectFeed.audio.url }></audio>)
                     break
                 default:
                     break
@@ -32,7 +32,7 @@ const News = (props) => {
         return output
     }
     return (
-        <section className={cs("App-block", _.feedItem )}>
+        <section className={ cs("App-block", _.feedItem ) }>
             {
                 news()
             }

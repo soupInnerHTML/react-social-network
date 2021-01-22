@@ -5,8 +5,8 @@ import cs from "classnames"
 
 export const Send = ({ input, className, }) => {
     return (
-        <button className={cs(className, _.send, { [_.null]: input && !input.values, } )} type="submit">
-            <img src={sendImg} alt="" />
+        <button className={ cs(className, _.send, { [_.null]: input && !input.values, } ) } type="submit">
+            <img src={ sendImg } alt="" />
         </button>
     )
 }

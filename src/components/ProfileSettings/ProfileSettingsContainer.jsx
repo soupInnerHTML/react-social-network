@@ -27,7 +27,7 @@ class ProfileSettingsContainer extends Component {
     render() {
         let { isFetching, setFetching, profileData, setProfileMetaTC, setMyProfile, } = this.props
         return (
-            <ProfileSettings {...{ isFetching, setFetching, setProfileMetaTC, profileData, setMyProfile, }}></ProfileSettings>
+            <ProfileSettings { ...{ isFetching, setFetching, setProfileMetaTC, profileData, setMyProfile, } }></ProfileSettings>
         )
     }
 }

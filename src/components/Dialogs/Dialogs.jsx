@@ -7,7 +7,7 @@ import MessagesContainer from "./Messages/MessagesContainer";
 const Dialogs = (props) => {
     return (
         <main className="App-main">
-            <section className={_.dialogs_items + " App-block"}>
+            <section className={ _.dialogs_items + " App-block" }>
                 <DialogItemContainer></DialogItemContainer>
                 <MessagesContainer></MessagesContainer>
             </section>

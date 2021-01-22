@@ -8,11 +8,9 @@ export const Root = () => {
     return (
     // basename={process.env.PUBLIC_URL}
         <BrowserRouter>
-            <Provider store={store} >
+            <Provider store={ store } >
                 <App />
             </Provider>
         </BrowserRouter>
     )
 }
-
-// TODO прочитать статью про UseEffect

@@ -10,7 +10,7 @@ import { getIsNotAuth, getUsersData, getUsersToChangeFollowState } from "../../.
 class UserClass extends React.Component {
     render() {
         return this.props.usersData.map(userData => (
-            <User {...this.props} {...userData} key={userData.id}></User>
+            <User { ...this.props } { ...userData } key={ userData.id }></User>
         ))
     }
 }

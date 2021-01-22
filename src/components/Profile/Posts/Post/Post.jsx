@@ -26,35 +26,35 @@ let Post = ({ photos, fullName, id, liked, likes, postDate, text, comments, ...p
 
     return (
         <section className="App-block">
-            <div className={_.post} style={{ animation: "1s fade", }}>
+            <div className={ _.post } style={ { animation: "1s fade", } }>
                 <div>
-                    <img className='avatar' src={(photos && photos.small) || socket} alt="" />
+                    <img className='avatar' src={ (photos && photos.small) || socket } alt="" />
                 </div>
 
                 <div>
-                    <p className={_.name}>{fullName}</p>
-                    <Moment fromNow>{postDate}</Moment>
+                    <p className={ _.name }>{ fullName }</p>
+                    <Moment fromNow>{ postDate }</Moment>
                 </div>
 
-                <div className={_.content}>
-                    <div className={_.text}>
-                        {text}
+                <div className={ _.content }>
+                    <div className={ _.text }>
+                        { text }
                     </div>
                 </div>
 
-                <div className={_.meta}>
-                    <div className={cs( { [_.active]: liked, }, _.likes) } onClick={clickOnLike}>
-                        <FontAwesomeIcon icon={liked ? faLike : faLiked}></FontAwesomeIcon>
-                        <span className={_.likesQty}>{likes || ""}</span>
+                <div className={ _.meta }>
+                    <div className={ cs( { [_.active]: liked, }, _.likes) } onClick={ clickOnLike }>
+                        <FontAwesomeIcon icon={ liked ? faLike : faLiked }></FontAwesomeIcon>
+                        <span className={ _.likesQty }>{ likes || "" }</span>
                     </div>
 
-                    <div className={_.likes} onClick={() => setClick(click + 1)}>
-                        <FontAwesomeIcon icon={faCommentAlt}></FontAwesomeIcon>
-                        <span className={_.likesQty}>{comments.length || ""}</span>
+                    <div className={ _.likes } onClick={ () => setClick(click + 1) }>
+                        <FontAwesomeIcon icon={ faCommentAlt }></FontAwesomeIcon>
+                        <span className={ _.likesQty }>{ comments.length || "" }</span>
                     </div>
                 </div>
 
-                <CommentsContainer {...{ comments, id, socket, fullName, click, }}></CommentsContainer>
+                <CommentsContainer { ...{ comments, id, socket, fullName, click, } }></CommentsContainer>
             </div>
         </section>
     )

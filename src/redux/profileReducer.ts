@@ -1,7 +1,62 @@
 import { usersAPI, profileAPI, authAPI } from "../api/api"
-import { v4 as getV4Id } from "uuid";
-import Swal from "sweetalert2";
 import { stopSubmit } from "redux-form";
+import getId from "lodash/uniqueId";
+
+//types
+//TODO identify id type from global state | api
+type postType = {
+    id: string | number
+    likes: number
+    liked: boolean
+    postDate: Array<number> //array of year, mounth & day
+    comments: Array<commentType>
+    text: string
+}
+type commentType = {
+    id: string | number
+    text: string
+    date: Array<number>
+}
+type addPostActionType = {
+    type: typeof ADD_POST
+    input: string
+}
+type addCommentActionType = {
+    type: typeof ADD_COMMENT
+    text: string
+    id: string | number
+}
+type likeThePostActionType = {
+    type: typeof LIKE_THE_POST
+    postID: string | number
+}
+type unlikeThePostActionType = {
+    type: typeof UNLIKE_THE_POST
+    postID: string | number
+}
+type setUserProfileActionType =  {
+    type: typeof SET_USER_PROFILE,
+    userProfile: object,
+}
+type nullProfileDataActionType =  {
+    type: typeof NULL_PROFILE_DATA,
+}
+type onProfileUndefinedActionType = {
+    type: typeof ON_PROFILE_UNDEFINED
+    flag: boolean
+}
+type setStatusActionType = {
+    type: typeof SET_STATUS
+    status: string
+}
+type setFollowStateActionType = {
+    type: typeof SET_FOLLOW_STATE
+    followed: boolean
+}
+type saveAvatarActionType = {
+    type: typeof SAVE_AVATAR
+    photos: object
+}
 
 // actions
 const ADD_POST = "profileReducer/addPost"
@@ -16,63 +71,58 @@ const SET_FOLLOW_STATE = "profileReducer/setFollowState"
 const SAVE_AVATAR = "profileReducer/saveAvatar"
 
 // action creators
-export const addPost = input => ({
+export const addPost = (input: string): addPostActionType => ({
     type: ADD_POST,
     input,
 })
 
-export const addComment = (text, id) => ({
+export const addComment = (text: string, id: string | number): addCommentActionType => ({
     type: ADD_COMMENT,
     text,
     id,
 })
 
-export const likeThePost = postID => ({
+export const likeThePost = (postID: string | number): likeThePostActionType => ({
     type: LIKE_THE_POST,
     postID,
 })
 
-export const unlikeThePost = postID => ({
+export const unlikeThePost = (postID: string | number): unlikeThePostActionType => ({
     type: UNLIKE_THE_POST,
     postID,
 })
 
-export const setUserProfile = userProfile => ({
+export const setUserProfile = (userProfile: object): setUserProfileActionType => ({
     type: SET_USER_PROFILE,
     userProfile,
 })
 
-export const nullProfileData = () => ({
+export const nullProfileData = (): nullProfileDataActionType => ({
     type: NULL_PROFILE_DATA,
 })
 
-export const onProfileUndefined = (flag = true) => ({
+export const onProfileUndefined = (flag = true): onProfileUndefinedActionType => ({
     type: ON_PROFILE_UNDEFINED,
     flag,
 })
 
-export const setStatus = (status) => ({
+export const setStatus = (status: string): setStatusActionType => ({
     type: SET_STATUS,
     status,
 })
 
-export const setMyProfile = (profile) => ({
-    type: SET_STATUS,
-    profile,
-})
-
-export const setFollowState = (followed) => ({
+export const setFollowState = (followed: boolean): setFollowStateActionType => ({
     type: SET_FOLLOW_STATE,
     followed,
 })
 
-export const saveAvatar = (photos) => ({
+export const saveAvatar = (photos: object): saveAvatarActionType => ({
     type: SAVE_AVATAR,
     photos,
 })
 
-export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
-    return async dispatch => {
+export const getProfileThunkCreator = (getProfileIdFromUriParams: string | number) => {
+    return async (dispatch: any) => {
 
         if (getProfileIdFromUriParams) {
             (async () => {
@@ -83,15 +133,12 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
             })()
                 .catch(e => {
                     if (e.response && e.response.status === 400) {
-                        // Swal.fire("Пользователь не найден", "", "error")
                         dispatch(onProfileUndefined())
                     }
                     else {
                         dispatch(onProfileUndefined())
                     }
                 })
-
-            // TODO (probably weird behavior) view
         }
 
         else {
@@ -104,21 +151,21 @@ export const getProfileThunkCreator = (getProfileIdFromUriParams) => {
 
 export const getProfileTC = getProfileThunkCreator
 
-export const getStatusThunkCreator = (id) => {
-    return dispatch => {
+export const getStatusThunkCreator = (id: string | number) => {
+    return (dispatch: any) => {
         return profileAPI.getStatus(id).then(response => dispatch(setStatus(response)))
     }
 }
 
-export const updateStatusThunkCreator = (status) => {
-    return dispatch => {
+export const updateStatusThunkCreator = (status: string) => {
+    return (dispatch: any) => {
         dispatch(setStatus(status))
         profileAPI.updateStatus(status)
     }
 }
 
-export const saveAvatarTC = (avatar) => {
-    return async dispatch => {
+export const saveAvatarTC = (avatar: string) => {
+    return async (dispatch: any) => {
         let response = await profileAPI.setAvatar(avatar)
         if (response.resultCode === 0) {
             dispatch(saveAvatar(response.data.photos))
@@ -126,8 +173,8 @@ export const saveAvatarTC = (avatar) => {
     }
 }
 
-export const setProfileMetaTC = meta => {
-    return dispatch => {
+export const setProfileMetaTC = (meta: object) => {
+    return (dispatch: any) => {
         return profileAPI.setProfileMeta(meta).then(response => {
             if (response.data.resultCode === 1) {
                 let error = stopSubmit("profileSettings", { _error: response.data.messages[0], })
@@ -251,12 +298,12 @@ let initialState = {
             ],
             text: "Hello world",
         }
-    ],
-    profileData: [],
-    isProfileUndefined: undefined,
+    ] as Array<postType>,
+    profileData: [] as Array<object>,
+    isProfileUndefined: undefined as undefined | boolean,
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_POST:
             let { input, } = action
@@ -264,7 +311,7 @@ const profileReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     postsData: [...state.postsData, {
-                        id: getV4Id(),
+                        id: getId(),
                         likes: 0,
                         postDate: new Date(),
                         liked: false,
@@ -287,7 +334,7 @@ const profileReducer = (state = initialState, action) => {
                                 comments: [
                                     ...postData.comments,
                                     {
-                                        id: getV4Id(),
+                                        id: getId(),
                                         text,
                                         date: new Date(),
                                     }

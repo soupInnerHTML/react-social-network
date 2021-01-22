@@ -7,7 +7,7 @@ import cs from "classnames"
 const Profile = ({ status, idFromUri, profileData, ...props }) => {
     return (
         <main className={ cs("App-main", props.isFetching ? "fetching" : "fetched") }>
-            <Info {...{ profileData, status, } }></Info>
+            <Info { ...{ profileData, status, } }></Info>
             <AddPostContainer></AddPostContainer>
             <PostsContainer></PostsContainer>
         </main>

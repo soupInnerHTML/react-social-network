@@ -11,8 +11,8 @@ const StatusInput = (props) => {
         handleSubmit()
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <Field component={"input"} className={_.input} type="text" name="status" onBlur={onInputBlur} autoFocus={true}></Field>
+        <form onSubmit={ handleSubmit }>
+            <Field component={ "input" } className={ _.input } type="text" name="status" onBlur={ onInputBlur } autoFocus={ true }></Field>
         </form>
     )
 }

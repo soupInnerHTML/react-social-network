@@ -14,26 +14,26 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, error, toggler, observ
     let getSettingsFields = (object) => (
         Object.keys(object || {}).map(e => {
             return (
-                <div key={e} className={_.field}>
-                    <Field name={e} component={"input"} key={e} placeholder={e}></Field>
+                <div key={ e } className={ _.field }>
+                    <Field name={ e } component={ "input" } key={ e } placeholder={ e }></Field>
                 </div>
             )
         })
     )
 
     return (
-        <form onSubmit={handleSubmit} className={_.form}>
-            {error && !toggler && observe &&
-                <div className={cs(_.error, _.noticeBlock)} style={{ animation: "fade 1s", }}>
-                    <FontAwesomeIcon className={_.noticeIcon} icon={faExclamationTriangle} />
-                    {error}
-                </div>}
-            <div className={_.flex}>
-                <div style={{ marginLeft: "6px", }}>{getSettingsFields(contacts)}</div>
+        <form onSubmit={ handleSubmit } className={ _.form }>
+            { error && !toggler && observe &&
+                <div className={ cs(_.error, _.noticeBlock) } style={ { animation: "fade 1s", } }>
+                    <FontAwesomeIcon className={ _.noticeIcon } icon={ faExclamationTriangle } />
+                    { error }
+                </div> }
+            <div className={ _.flex }>
+                <div style={ { marginLeft: "6px", } }>{ getSettingsFields(contacts) }</div>
             
                 <div>
-                    {getSettingsFields(otherFields)}
-                    <input type="submit" className={_.submit} value={"Изменить"}></input>
+                    { getSettingsFields(otherFields) }
+                    <input type="submit" className={ _.submit } value={ "Изменить" }></input>
                 </div>
 
             </div>
@@ -78,15 +78,15 @@ const ProfileSettings = (props) => {
 
     if (profileData.userId) {
         return (
-            <main className={ cs("App-main", { fetching: !isFetching, }) } style={{ animation: ".5s fade", }}>
-                <section className={"App-block"}>
-                    {toggler &&
-                        <div className={cs(_.success, _.noticeBlock)}>
-                            <FontAwesomeIcon icon={faCheck} className={_.noticeIcon}/>
+            <main className={ cs("App-main", { fetching: !isFetching, }) } style={ { animation: ".5s fade", } }>
+                <section className={ "App-block" }>
+                    { toggler &&
+                        <div className={ cs(_.success, _.noticeBlock) }>
+                            <FontAwesomeIcon icon={ faCheck } className={ _.noticeIcon }/>
                             <span>Настройки профиля успешно сохранены!</span>
                         </div>
                     }
-                    <ProfileSettingsReduxForm onSubmit={onSubmit} initialValues={Object.assign(profileData, contacts)} {...{ ...props, toggler, isFetching, observe, } }></ProfileSettingsReduxForm>
+                    <ProfileSettingsReduxForm onSubmit={ onSubmit } initialValues={ Object.assign(profileData, contacts) } { ...{ ...props, toggler, isFetching, observe, } }></ProfileSettingsReduxForm>
                 </section>
             </main>
         )

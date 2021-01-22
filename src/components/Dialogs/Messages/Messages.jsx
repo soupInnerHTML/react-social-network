@@ -15,9 +15,9 @@ const MessageSendForm = (props) => {
     }
 
     return (
-        <form onSubmit={submitAndClear}>
-            <Field className={_.messageText} name="message" placeholder="Write a message..." component="input"></Field>
-            <Send input={messages}></Send>
+        <form onSubmit={ submitAndClear }>
+            <Field className={ _.messageText } name="message" placeholder="Write a message..." component="input"></Field>
+            <Send input={ messages }></Send>
         </form>
     )
 }
@@ -39,15 +39,15 @@ const Messages = ({ messages, ...props }) => {
     });
 
     return (
-        <div className={_.messagesItems}>
-            <div className={_.messages}>
-                <div className={_.inner}>
-                    {props.messagesObject}
-                    <div className={_.scroll} ref={scrollRef}></div>
+        <div className={ _.messagesItems }>
+            <div className={ _.messages }>
+                <div className={ _.inner }>
+                    { props.messagesObject }
+                    <div className={ _.scroll } ref={ scrollRef }></div>
                 </div>
             </div>
 
-            <MessageSendReduxForm onSubmit={sendMessage} {...{ messages, }}></MessageSendReduxForm>
+            <MessageSendReduxForm onSubmit={ sendMessage } { ...{ messages, } }></MessageSendReduxForm>
         </div>
     );
 }

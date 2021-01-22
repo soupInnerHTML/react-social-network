@@ -40,7 +40,7 @@ class FeedClass extends React.Component {
     render() {
         return (
             <main className="App-main">
-                {this.state.isFeedFetching ? <Preloader inBlock={true}></Preloader> : <Feed {...this.props}></Feed>}
+                { this.state.isFeedFetching ? <Preloader inBlock={ true }></Preloader> : <Feed { ...this.props }></Feed> }
             </main>
         )
     }

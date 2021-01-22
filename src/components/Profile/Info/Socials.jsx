@@ -18,8 +18,8 @@ export const Socials = ({ contacts, }) => {
     let ProcessSocials = ({ social, iconName, }) => {
         if (social) {
             return (
-                <a href={"http://" + social.replace(/http(s|):\/\//i, "")} target="_blank" rel="noreferrer">
-                    <FontAwesomeIcon icon={iconName} />
+                <a href={ "http://" + social.replace(/http(s|):\/\//i, "") } target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon icon={ iconName } />
                 </a>
             )
         }
@@ -28,7 +28,7 @@ export const Socials = ({ contacts, }) => {
     return (
         Object.keys(contacts || {}).map(social => {
             if (contacts[social]) {
-                return <ProcessSocials key={social} social={contacts[social]} iconName={socialIcons[social]}/>
+                return <ProcessSocials key={ social } social={ contacts[social] } iconName={ socialIcons[social] }/>
             }
         })
     )

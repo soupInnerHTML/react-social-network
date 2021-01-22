@@ -12,16 +12,16 @@ const Info = (props) => {
     let { photos, } = props.profileData
 
     return (
-        <section className={_.info}>
-            <div className={cs("avatar", _.avatar)}>
-                {photos && <img src={photos.large || socket} alt="" />}
+        <section className={ _.info }>
+            <div className={ cs("avatar", _.avatar) }>
+                { photos && <img src={ photos.large || socket } alt="" /> }
                 <EditAvatar></EditAvatar>
             </div>
 
-            <Description {...props} ></Description>
+            <Description { ...props } ></Description>
 
 
-            <div className={_.folllowTo}>
+            <div className={ _.folllowTo }>
                 <Follow></Follow>
             </div>
 

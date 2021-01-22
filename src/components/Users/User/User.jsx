@@ -7,7 +7,7 @@ import Consumer from "../../common/Consumer/Consumer"
 const User = props => {
 
     return (
-        <Consumer {...props}></Consumer>
+        <Consumer { ...props }></Consumer>
     );
 }
 export default User

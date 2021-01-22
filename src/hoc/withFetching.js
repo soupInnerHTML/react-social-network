@@ -5,7 +5,7 @@ export const withFetching = (initialState = true) => (Component) => {
     return (props) => {
         let [isFetching, setFetching] = useState(initialState)
         return (
-            <Component {...{ isFetching, setFetching, ...props, }}></Component>
+            <Component { ...{ isFetching, setFetching, ...props, } }></Component>
         )
     }
 }

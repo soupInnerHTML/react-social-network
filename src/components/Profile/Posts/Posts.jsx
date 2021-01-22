@@ -2,6 +2,7 @@ import React from "react"
 import Post from "./Post/Post"
 /* Ultrashort name _ for root styles*/
 import _ from "./Posts.module.css"
+import cs from "classnames"
 
 const Posts = ({ postsData, profileData, ...props }) => {
     let { fullName, photos, } = profileData
@@ -10,13 +11,13 @@ const Posts = ({ postsData, profileData, ...props }) => {
     }
     return (
         <div className="postLoop">
-            {postsData.map(postData => {
+            { postsData.map(postData => {
                 return (
-                    <section className={_.posts + " App-block"} key={postData.id}>
-                        <Post {...postProps} {...postData}></Post>
+                    <section className={ cs(_.posts, "App-block") } key={ postData.id }>
+                        <Post { ...postProps } { ...postData }></Post>
                     </section>
                 )
-            }).reverse()}
+            }).reverse() }
         </div>
     )
 }

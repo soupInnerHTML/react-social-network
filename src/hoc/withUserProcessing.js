@@ -43,9 +43,9 @@ export const withUserProcessing = isWithFriends => Component => {
         render() {
             let { isFetching, } = this.props
             return (
-                <main className={cs("App-main", isFetching ? "fetching" : "fetched", "fetcher")}>
+                <main className={ cs("App-main", isFetching ? "fetching" : "fetched", "fetcher") }>
                     <section className="usersLoop App-block">
-                        <Component isFetching={isFetching} />
+                        <Component isFetching={ isFetching } />
                     </section>
                 </main >
             )
