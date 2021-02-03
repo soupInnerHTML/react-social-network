@@ -64,6 +64,10 @@ const getWhoAmI = async (dispatch: any, data: any) => {
 
     dispatch(setMyProfile(profile))
     dispatch(setUserData(login, email, id, profile.photos.small, data.resultCode))
+    let _cache = new Set()
+    let profiles = localStorage.getItem('profiles_rcn')
+    _cache.add(profiles).add(profile)
+    localStorage.setItem('profiles_rcn', JSON.stringify(_cache))
 }
 
 // export const getMyProfile = () => {

@@ -15,7 +15,9 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, error, toggler, observ
         Object.keys(object || {}).map(e => {
             return (
                 <div key={ e } className={ _.field }>
-                    <Field name={ e } component={ "input" } key={ e } placeholder={ e }></Field>
+                    <label htmlFor={ e }>{ e }</label>
+                    <Field name={ e } component={ "input" } key={ e }/>
+                    { /*     placeholder={ e }*/ }
                 </div>
             )
         })
@@ -29,11 +31,11 @@ const ProfileSettingsForm = ({ handleSubmit, profileData, error, toggler, observ
                     { error }
                 </div> }
             <div className={ _.flex }>
-                <div style={ { marginLeft: "6px", } }>{ getSettingsFields(contacts) }</div>
+                <div className={ _.fieldsPlaceholder }>{ getSettingsFields(contacts) }</div>
             
-                <div>
+                <div className={ _.fieldsPlaceholder }>
                     { getSettingsFields(otherFields) }
-                    <input type="submit" className={ _.submit } value={ "Изменить" }></input>
+                    <input type="submit" className={ _.submit } value={ "Изменить" }/>
                 </div>
 
             </div>

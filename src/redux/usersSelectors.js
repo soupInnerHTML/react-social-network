@@ -1,6 +1,9 @@
 import React from "react"
 import Dialog from "../components/Dialogs/DialogItem/Dialog/Dialog"
 import _ from "../components/Dialogs/Messages/Messages.module.css"
+import getKey from "lodash/uniqueId"
+import cs from "classnames"
+import socket from "../img/socket.jpg"
 import { createSelector } from "reselect"
 
 export const getPageSize = state => state.users.pageSize
@@ -36,10 +39,20 @@ export const maxCurrentPage = createSelector(getPageSize, getUsersQuantity, (pag
     return Math.ceil(usersQuantity / pageSize)
 })
 
-export const getMessagesObject = createSelector(getMessagesData, (messages) => {
+export const getMessagesObject = createSelector(getMessagesData, getAuthId, (messages, myId) => {
     return messages.map(messageData => {
-        let { id, from, message, } = messageData
-        return <div key={ id } className={ from ? _.left : _.right }>{ message }</div>
+        let { userId, message, photo, userName, } = messageData
+        return (
+            <div key={ getKey() }  className={ cs(_.message, userId === myId ? _.right : _.left) }>
+                <a href={ "/profile/" + userId }>
+                    <img className={ cs("avatar", _.small) } src={ photo || socket } />
+                </a>
+                <div className={ _.messageBody }>
+                    <a href={ "/profile/" + userId } className={ cs(_.name, "accent") }>{ userName }</a>
+                    <p className={ _.messageContent }>{ message }</p>
+                </div>
+            </div>
+        )
     })
 })
 

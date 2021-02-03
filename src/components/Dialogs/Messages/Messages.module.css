@@ -13,15 +13,26 @@
 	justify-content: flex-end;
 	flex-direction: column;
 }
-.inner div {
+.messageBody {
 	background: var(--grey);
 	align-self: flex-start;
-	padding: 15px 20px;
-	border-radius: 20px 20px 20px 0;
+	padding: 10px 15px;
+	border-radius: 10px 10px 10px 0;
 }
-.messages .right {
+.message {
+	display: flex;
+	align-items: flex-end;
+	gap: 15px;
+}
+.right {
 	align-self: flex-end;
-	border-radius: 20px 20px 0 20px;
+	flex-direction: row-reverse;
+}
+.right .messageBody {
+	border-radius: 10px 10px 0 10px;
+}
+.left {
+	align-self: flex-start;
 }
 .messageText {
 	box-shadow: inset 1px 0px 3px 0px rgb(0 0 0 / 15%);
@@ -54,4 +65,15 @@
 	position: absolute;
 	bottom: -20px;
 	opacity: 0;
+}
+.small {
+	height: 35px;
+	width: 35px;
+}
+.name {
+	font-size: 14px;
+	margin: 0;
+}
+.messageContent {
+	margin: 0;
 }
